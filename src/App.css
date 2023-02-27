@@ -1,38 +1,108 @@
-.App {
-  text-align: center;
+.ant-layout {
+  background: #fafafa;
+  overflow-x: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ant-layout .right{
+  padding-left: 20px;
+  background: #fafafa;
+  overflow-x: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.ant-layout .ant-layout-content {
+  padding:0 16px;
+  margin:0 4px;
+}
+
+/*Sidebar css*/
+
+.ant-layout .ant-layout-sider .sider-primary {
+  overflow: auto;
+  background: transparent;
+  position: fixed;
+}
+
+.ant-layout .ant-layout-sider {
+  background: #fafafa;
+}
+
+.ant-menu-light.ant-menu-root.ant-menu-inline {
+  border: none;
+}
+
+@media (min-width: 992px) {
+  .sider-primary .ant-layout-sider-children {
+    height: 100%;
+    width: auto;
+    padding: 13px 24px 0px 20px;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.sider-primary .logo img {
+  height: 48px;
+  margin: 20px 0 0 20px;
+}
+
+.sider-primary hr {
+  margin: 18px 0;
+  border: none;
+  height: 1px;
+  background-color: #cdcdcd;
+}
+
+.sider-primary .ant-menu-inline .ant-menu-item {
+  margin: 0;
+  overflow: visible;
+  padding: 0 !important;
+  height: auto;
+  width: auto;
+  line-height: normal;
+  display: block;
+}
+
+.sider-primary .ant-menu-item .icon {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgb(0 0 0/12%);
+  border-radius: 6px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  margin-right: 11px;
+  vertical-align: middle;
 }
 
-.App-link {
-  color: #61dafb;
+.sider-primary .ant-menu-item {
+  background: transparent;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ant-layout-sider.sider-primary .ant-menu-item.ant-menu-item-selected .active,
+.ant-layout-sider.sider-primary .ant-menu-item .active {
+  background-color: #fff;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  font-weight: 600;
+}
+.ant-layout-sider.sider-primary .ant-menu-item a {
+  padding: 10px 16px;
+  color: #141414;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.ant-layout .ant-layout-header {
+  background: 0 0;
+  height: auto;
+  padding: 16px;
+  margin:10px 4px;
+  line-height: inherit;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+
+.ant-page-header-heading-title {
+  font-weight:700;
+  font-size:16px;
 }
