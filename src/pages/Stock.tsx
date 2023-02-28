@@ -57,7 +57,7 @@ function Stock() {
           <title>Stock</title>
         </div>
         <div>
-          <Table></Table>
+          <Table ></Table>
         </div>
       </Card>
     </>

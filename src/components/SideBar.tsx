@@ -1,14 +1,19 @@
 import { Menu } from "antd";
 import { NavLink } from "react-router-dom";
-import CitiLogo from "../images/citi_logo.svg";
+import CitiLogo from "../assets/images/citi_logo.svg";
+import CitiLogo_d from "../assets/images/citi_d.svg";
 
-function SideBar({ pathname }: { pathname: string }) {
+
+type IProps = React.PropsWithChildren<{pathname: string,theme:boolean }>;
+
+
+function SideBar({ pathname,theme }: IProps) {
   const color = "#1890ff";
 
   return (
     <>
       <div className="logo">
-        <img src={CitiLogo} alt="" />
+        <img src={theme?CitiLogo:CitiLogo_d} alt="" />
       </div>
       <hr></hr>
       <Menu mode="inline" theme="light" style={{ background: "0 0" }}>

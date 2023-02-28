@@ -1,11 +1,11 @@
 .ant-layout {
-  background: #fafafa;
+  /* background: #fafafa; */
   overflow-x: hidden;
 }
 
 .ant-layout .right{
   padding-left: 20px;
-  background: #fafafa;
+  /* background: #fafafa; */
   overflow-x: hidden;
 }
 
@@ -16,14 +16,27 @@
 
 /*Sidebar css*/
 
-.ant-layout .ant-layout-sider .sider-primary {
+/* .ant-layout .ant-layout-sider {
+  position: relative;
+  min-width: 0;
+  background: #1a202c;
+  transition: all 0.2s;
+  color: white;
+} */
+
+.ant-layout .ant-layout-sider-dark span{
+  color: white;
+}
+
+.ant-layout .ant-layout-sider-light {
+  background: #fafafa;
+}
+
+.sider-primary {
   overflow: auto;
   background: transparent;
   position: fixed;
-}
-
-.ant-layout .ant-layout-sider {
-  background: #fafafa;
+  color:inherit;
 }
 
 .ant-menu-light.ant-menu-root.ant-menu-inline {
@@ -75,17 +88,23 @@
 
 .sider-primary .ant-menu-item {
   background: transparent;
+  color:inherit;
 }
 
-.ant-layout-sider.sider-primary .ant-menu-item.ant-menu-item-selected .active,
-.ant-layout-sider.sider-primary .ant-menu-item .active {
+.sider-primary .ant-menu-item .active {
   background-color: #fff;
   box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
   font-weight: 600;
 }
-.ant-layout-sider.sider-primary .ant-menu-item a {
+
+.ant-layout-sider-dark .ant-menu-item .active {
+  background-color: #30363e;
+  box-shadow: 0 20px 27px rgba(255, 255, 255, 0.068);
+  font-weight: 600;
+}
+
+.sider-primary .ant-menu-item a {
   padding: 10px 16px;
-  color: #141414;
   border-radius: 8px;
   display: flex;
   align-items: center;

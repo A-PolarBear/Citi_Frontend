@@ -1,7 +1,9 @@
-import { Row, Col, Breadcrumb } from "antd";
+import { Row, Col, Breadcrumb, Button } from "antd";
 import { NavLink } from "react-router-dom";
 
-function HeaderM( {pathname}:{pathname:string} ) {
+type IProps = React.PropsWithChildren<{pathname: string,setTheme:any }>;
+
+function HeaderM( { pathname,setTheme}: IProps ) {
   return (
     <>
       <Row gutter={[24, 0]}>
@@ -24,6 +26,7 @@ function HeaderM( {pathname}:{pathname:string} ) {
           </div>
         </Col>
       </Row>
+      <Button onClick={()=>setTheme()}></Button>
     </>
   );
 }
