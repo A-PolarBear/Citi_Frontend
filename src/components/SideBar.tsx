@@ -4,16 +4,16 @@ import CitiLogo from "../assets/images/citi_logo.svg";
 import CitiLogo_d from "../assets/images/citi_d.svg";
 
 
-type IProps = React.PropsWithChildren<{pathname: string,theme:boolean }>;
+type IProps = React.PropsWithChildren<{pathname: string,theme:boolean,fold:boolean }>;
 
 
-function SideBar({ pathname,theme }: IProps) {
+function SideBar({ pathname,theme,fold }: IProps) {
   const color = "#1890ff";
 
   return (
     <>
       <div className="logo">
-        <img src={theme?CitiLogo:CitiLogo_d} alt="" />
+        <img src={theme?CitiLogo:CitiLogo_d} alt="" style={fold?{marginLeft:"6px",height:"32px"}:{}}/>
       </div>
       <hr></hr>
       <Menu mode="inline" theme="light" style={{ background: "0 0" }}>

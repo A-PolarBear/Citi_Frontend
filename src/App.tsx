@@ -1,9 +1,9 @@
-import Main from "./components/Main";
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Stock from "./pages/Stock";
 import Create from "./pages/Create";
+import Main from "./components/Main";
 import Favourites from "./pages/Favourites";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
   const router = createBrowserRouter([

@@ -1,20 +1,21 @@
-.ant-layout {
-  /* background: #fafafa; */
-  overflow-x: hidden;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.ant-layout .right{
-  padding-left: 20px;
-  /* background: #fafafa; */
+body,
+html {
+  font-family: "Ubuntu", sans-serif;
+}
+.ant-layout {
+  font-family: "Ubuntu", sans-serif;
   overflow-x: hidden;
 }
 
 .ant-layout .ant-layout-content {
-  padding:0 16px;
-  margin:0 4px;
+  padding: 0 16px;
 }
 
-/*Sidebar css*/
+/********Sidebar css********/
 
 /* .ant-layout .ant-layout-sider {
   position: relative;
@@ -24,7 +25,11 @@
   color: white;
 } */
 
-.ant-layout .ant-layout-sider-dark span{
+.ant-layout .ant-layout-sider-dark {
+  box-shadow: 1px 0 10px 2px rgb(47, 47, 47);
+}
+
+.ant-layout .ant-layout-sider-dark span {
   color: white;
 }
 
@@ -36,7 +41,13 @@
   overflow: auto;
   background: transparent;
   position: fixed;
-  color:inherit;
+  color: inherit;
+  transition: all 0.2s;
+}
+
+.sider-primary .fold {
+  width: 100px;
+  overflow: hidden;
 }
 
 .ant-menu-light.ant-menu-root.ant-menu-inline {
@@ -49,11 +60,41 @@
     width: auto;
     padding: 13px 24px 0px 20px;
   }
+
+  .sider-primary {
+    box-shadow: 1px 0 10px 2px rgb(167, 169, 171);
+  }
+
+  .fold .ant-layout-sider-children {
+    padding: 13px 8px 0 8px;
+  }
+}
+
+@layer components {
+  .fold-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9;
+    position: absolute;
+    top: calc(100vh - 48px);
+    left: 260px;
+    height: 48px;
+    width: 48px;
+    background-color: #fafafa;
+    border-radius: 0 6px 6px 0;
+    border: none;
+    box-shadow: 6px 0px 6px rgba(0, 0, 0, 0.284);
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
 }
 
 .sider-primary .logo img {
   height: 48px;
   margin: 20px 0 0 20px;
+  transition: all 0.2s;
 }
 
 .sider-primary hr {
@@ -63,7 +104,7 @@
   background-color: #cdcdcd;
 }
 
-.sider-primary .ant-menu-inline .ant-menu-item {
+.sider-primary .ant-menu-item {
   margin: 0;
   overflow: visible;
   padding: 0 !important;
@@ -71,6 +112,12 @@
   width: auto;
   line-height: normal;
   display: block;
+  padding: 10px 16px;
+  background: transparent;
+  color: inherit;
+  margin: 8px 0;
+  font-family: "Ubuntu", sans-serif;
+  transition: all 0.2s;
 }
 
 .sider-primary .ant-menu-item .icon {
@@ -82,19 +129,19 @@
   border-radius: 6px;
   justify-content: center;
   align-items: center;
-  margin-right: 11px;
+  margin-right: 24px;
   vertical-align: middle;
 }
 
-.sider-primary .ant-menu-item {
-  background: transparent;
-  color:inherit;
+.sider-primary .icon svg {
+  width: 32px;
 }
 
 .sider-primary .ant-menu-item .active {
   background-color: #fff;
   box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
   font-weight: 600;
+  padding: 10px 16px;
 }
 
 .ant-layout-sider-dark .ant-menu-item .active {
@@ -109,19 +156,42 @@
   display: flex;
   align-items: center;
   white-space: nowrap;
+  font-size: 18px;
 }
 
+/*********Header*********/
+
 .ant-layout .ant-layout-header {
+  height: auto;
   background: 0 0;
   height: auto;
   padding: 16px;
-  margin:10px 4px;
+  margin: 10px 4px;
   line-height: inherit;
   border-radius: 12px;
   transition: 0.2s;
+  font-family: "Ubuntu", sans-serif;
 }
 
-.ant-page-header-heading-title {
-  font-weight:700;
-  font-size:16px;
+.header-primary {
+  /* font-family:"Ubuntu",sans-serif; */
+}
+
+.header-primary .ant-header-page {
+  font-weight: 700;
+  font-size: 18px;
+  color: inherit;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.header-primary .ant-breadcrumb {
+  color: inherit;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 18px;
+}
+
+/*********Footer*********/
+.ant-layout .ant-layout-footer {
+  font-size: 18px;
+  text-align: center;
 }
