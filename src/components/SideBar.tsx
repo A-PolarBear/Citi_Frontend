@@ -16,7 +16,7 @@ function SideBar({ pathname,theme,fold }: IProps) {
         <img src={theme?CitiLogo:CitiLogo_d} alt="" style={fold?{marginLeft:"6px",height:"32px"}:{}}/>
       </div>
       <hr></hr>
-      <Menu mode="inline" theme="light" style={{ background: "0 0" }}>
+      <Menu mode="inline" theme={theme?"light":"dark"} style={{ background: "0 0" }}>
         <Menu.Item key="1">
           <NavLink to="/stock">
             <span

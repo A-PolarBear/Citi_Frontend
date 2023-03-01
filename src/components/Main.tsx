@@ -1,6 +1,6 @@
 import { Layout } from "antd";
-import { useState } from "react";
-import { useLocation, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, Outlet} from "react-router-dom";
 import SideBar from "./SideBar";
 import HeaderM from "./HeaderM";
 
@@ -8,9 +8,27 @@ const { Header, Footer, Sider, Content } = Layout;
 
 function Main() {
   const { pathname } = useLocation();
-  const [isLighttheme, setIsLightTheme] = useState(true);
-  const [isFold, setIsFold] = useState(false);
+  const [isLightTheme, setIsLightTheme] = useState(() => {
+    const storage = localStorage.getItem("isLightTheme");
+    if (storage) return storage === "true" ? true : false;
+    else return false;
+  });
+  const [isFold, setIsFold] = useState(() => {
+    const storage = localStorage.getItem("isFold");
+    if (storage) return storage === "true" ? true : false;
+    else return false;
+  });
   const page: string = pathname.replace("/", "");
+
+  useEffect(() => {
+    localStorage.setItem("isLightTheme", JSON.stringify(isLightTheme));
+  }, [isLightTheme]);
+
+  useEffect(() => {
+    localStorage.setItem("isFold", JSON.stringify(isFold));
+  }, [isFold]);
+
+
 
   return (
     <>
@@ -21,16 +39,20 @@ function Main() {
         }}
       >
         <Sider
-          theme={isLighttheme ? "light" : "dark"}
+          theme={isLightTheme ? "light" : "dark"}
           breakpoint="lg"
-          width={isFold?"80px":"260px"}
+          width={isFold ? "80px" : "260px"}
           collapsedWidth="0"
           trigger={null}
-          className={isFold?"sider-primary fold":"sider-primary"}
+          className={isFold ? "sider-primary fold" : "sider-primary"}
         >
-          <SideBar pathname={page} theme={isLighttheme} fold={isFold}></SideBar>
+          <SideBar pathname={page} theme={isLightTheme} fold={isFold}></SideBar>
         </Sider>
-        <button className="hidden lg:fold-btn" onClick={() => setIsFold(!isFold)} style={isFold?{left:"80px"}:{}}>
+        <button
+          className={isLightTheme?"hidden lg:fold-btn":"hidden lg:fold-btn-dark"}
+          onClick={() => setIsFold(!isFold)}
+          style={isFold ? { left: "80px" } : {}}
+        >
           <svg
             viewBox="0 0 1024 1024"
             version="1.1"
@@ -48,16 +70,17 @@ function Main() {
         </button>
         <Layout
           style={
-            isLighttheme
-              ? { backgroundColor: "" }
-              : { backgroundColor: "#001529" }
+            isLightTheme
+              ? { backgroundColor: "",padding:"0 20px"}
+              : { backgroundColor: "#1a202c",padding:"0 20px" }
           }
         >
           <Header>
             <div className="header-primary">
               <HeaderM
                 pathname={page}
-                setTheme={() => setIsLightTheme(!isLighttheme)}
+                setTheme={() => setIsLightTheme(!isLightTheme)}
+                lighttheme = {isLightTheme}
               ></HeaderM>
             </div>
           </Header>
@@ -67,7 +90,7 @@ function Main() {
           <Footer
             className="footer"
             style={
-              isLighttheme
+              isLightTheme
                 ? { backgroundColor: "" }
                 : { backgroundColor: "#001529", color: "white" }
             }
