@@ -34,12 +34,12 @@ html {
 }
 
 .ant-layout .ant-layout-sider-light {
-  background: #fafafa;
+  background:#fafafa;
 }
 
 .sider-primary {
   overflow: auto;
-  background: transparent;
+  background: #fafafa;
   position: fixed;
   color: inherit;
   transition: all 0.2s;
@@ -135,6 +135,11 @@ html {
 
 .sider-primary .icon svg {
   width: 32px;
+}
+
+.ant-menu-item-selected .ant-menu-title-content {
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  font-weight: 600;
 }
 
 .sider-primary .ant-menu-item .active {
