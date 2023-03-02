@@ -1,6 +1,6 @@
-import { Layout } from "antd";
+import { ConfigProvider, Layout, theme } from "antd";
 import { useEffect, useState } from "react";
-import { useLocation, Outlet} from "react-router-dom";
+import { useLocation, Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
 import HeaderM from "./HeaderM";
 
@@ -18,7 +18,6 @@ function Main() {
     if (storage) return storage === "true" ? true : false;
     else return false;
   });
-  const page: string = pathname.replace("/", "");
 
   useEffect(() => {
     localStorage.setItem("isLightTheme", JSON.stringify(isLightTheme));
@@ -28,8 +27,6 @@ function Main() {
     localStorage.setItem("isFold", JSON.stringify(isFold));
   }, [isFold]);
 
-
-
   return (
     <>
       <Layout
@@ -37,6 +34,7 @@ function Main() {
           height: "100vh",
           background: "transparent",
         }}
+        className={isLightTheme ? "" : "dark"}
       >
         <Sider
           theme={isLightTheme ? "light" : "dark"}
@@ -46,10 +44,16 @@ function Main() {
           trigger={null}
           className={isFold ? "sider-primary fold" : "sider-primary"}
         >
-          <SideBar pathname={page} theme={isLightTheme} fold={isFold}></SideBar>
+          <SideBar
+            pathname={pathname}
+            theme={isLightTheme}
+            fold={isFold}
+          ></SideBar>
         </Sider>
         <button
-          className={isLightTheme?"hidden lg:fold-btn":"hidden lg:fold-btn-dark"}
+          className={
+            isLightTheme ? "hidden lg:fold-btn" : "hidden lg:fold-btn-dark"
+          }
           onClick={() => setIsFold(!isFold)}
           style={isFold ? { left: "80px" } : {}}
         >
@@ -71,24 +75,31 @@ function Main() {
         <Layout
           style={
             isLightTheme
-              ? { backgroundColor: "",padding:"0 20px"}
-              : { backgroundColor: "#1a202c",padding:"0 20px" }
+              ? { backgroundColor: "", padding: "0 20px" }
+              : { backgroundColor: "#1a202c", padding: "0 20px" }
           }
         >
           <Header>
             <div className="header-primary">
               <HeaderM
-                pathname={page}
+                pathname={pathname}
                 setTheme={() => setIsLightTheme(!isLightTheme)}
-                lighttheme = {isLightTheme}
+                lighttheme={isLightTheme}
               ></HeaderM>
             </div>
           </Header>
           <Content>
-            <Outlet />
+            <ConfigProvider
+              theme={isLightTheme?{}:{
+                algorithm: theme.darkAlgorithm,
+              }}
+            >
+              <div className={isLightTheme?"":"dark"}>
+              <Outlet />
+              </div>
+            </ConfigProvider>
           </Content>
           <Footer
-            className="footer"
             style={
               isLightTheme
                 ? { backgroundColor: "" }
