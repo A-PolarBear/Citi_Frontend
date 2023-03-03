@@ -1,21 +1,20 @@
-import axios from "axios";
+import instance from "./index"
 
-const instance = axios.create({
-  baseURL: "http://127.0.0.1:4523/m1/2376896-0-default",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-const getDelayConfig = () => ({
-  params: {},
-});
+// const instance = axios.create({
+//   // baseURL: "http://127.0.0.1:4523/m1/2376896-0-default",
+//   baseURL:"http://localhost:3000/",
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
 
 const StockAPI = {
-  getAll: (config: any) =>
-    instance.get("/stock", Object.assign(getDelayConfig(), config)),
-  getBySymbol:(config: any,symbol: string) => 
-  instance.get("/stock/"+symbol, Object.assign(getDelayConfig(), config)),
+  getAll: () =>
+    instance.get("/stock"),
+  getBySymbol:(symbol: string) => 
+    instance.get("/stock/"+symbol),
+  create:(config: any) =>
+    instance.post("/stock", Object.assign(config)),
 };
 
 export default StockAPI;

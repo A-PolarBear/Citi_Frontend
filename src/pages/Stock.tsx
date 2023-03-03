@@ -1,4 +1,4 @@
-import { Card, Space, Table } from "antd";
+import { Button, Card, Modal, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import type { ColumnsType } from "antd/es/table/interface";
 import Loading from "../components/Loading";
@@ -6,13 +6,16 @@ import { NavLink } from "react-router-dom";
 import StockAPI from "../api/Stock";
 import Star from "../components/Star";
 
-interface StockDataType {
+export interface StockDataType {
+  sid: number;
   symbol: string;
   company: string;
   date: string;
   value: number;
   volume: number;
   turnover: number;
+  open:number,
+  close:number,
   low: number;
   high: number;
   amplitude: number;
@@ -22,30 +25,32 @@ interface StockDataType {
 function Stock() {
   const [stockList, setStockList] = useState<StockDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     async function fetchStockData() {
       setIsLoading(true);
-      const res = await StockAPI.getAll({});
-      const { data }: { data: StockDataType[] } = res.data;
-      setStockList(data);
+      const res: any = await StockAPI.getAll();
+      setStockList(res.data);
       setIsLoading(false);
+      console.log(res);
     }
     fetchStockData();
   }, []);
 
   const columns: ColumnsType<StockDataType> = [
+    // {
+    //   title: "Sid",
+    //   dataIndex: "sid",
+    //   key: "sid",
+    // },
     {
       title: "Symbol",
       dataIndex: "symbol",
       key: "symbol",
       render: (_, record) => (
         <Space size="middle">
-          <NavLink
-            to={`/stock/${record.symbol}`}
-          >
-            {record.symbol}
-          </NavLink>
+          <NavLink to={`/stock/${record.symbol}`}>{record.symbol}</NavLink>
         </Space>
       ),
       // filters: [
@@ -105,6 +110,16 @@ function Stock() {
       key: "turnover",
     },
     {
+      title: "Open",
+      dataIndex: "open",
+      key: "open",
+    },
+    {
+      title: "Close",
+      dataIndex: "close",
+      key: "close",
+    },
+    {
       title: "Low",
       dataIndex: "low",
       key: "low",
@@ -128,11 +143,9 @@ function Stock() {
       title: "Watchlists",
       dataIndex: "",
       key: "x",
-      align:"center",
-      width:"16px",
-      render: (_, record) => (
-          <Star />
-      ),
+      align: "center",
+      width: "16px",
+      render: (_, record) => <Star />,
     },
   ];
 
@@ -140,15 +153,18 @@ function Stock() {
 
   return (
     <div>
-      <Card title="Stock" extra={<button>导出excel</button>} hoverable={true}>
+      <Card title="Stock" extra={<Button type="primary">导出excel</Button>} hoverable={true}>
         <div>
+          <Button type="primary" onClick={()=>setIsModalOpen(true) }>
+            Open Modal
+          </Button>
+          <Modal title="Basic Modal" open={isModalOpen} onCancel={()=>setIsModalOpen(false)}  footer={null}></Modal>
           <Table
             columns={columns}
             dataSource={stockList}
             pagination={{ hideOnSinglePage: true, defaultPageSize: 10 }}
             loading={isLoading ? { indicator: loading_hamster } : false}
-            // loading={isLoading}
-            rowKey={(record) => record.symbol}
+            rowKey={(record) => record.sid}
           ></Table>
         </div>
       </Card>

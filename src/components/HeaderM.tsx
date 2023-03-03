@@ -1,6 +1,6 @@
 import { Row, Col, Breadcrumb, Button } from "antd";
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { NavLink, useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 type IProps = React.PropsWithChildren<{
   pathname: string;
@@ -9,8 +9,26 @@ type IProps = React.PropsWithChildren<{
 }>;
 
 function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
-  // console.log(pathname);
-  const [breadCrumb, setBreadCrumb] = useState(null);
+  const [checked, setChecked] = useState(() => {
+    const storage = localStorage.getItem("checked");
+    if (storage) return storage === "true" ? true : false;
+    else return false;
+  });
+
+  let patharr = pathname.split("/");
+  const arr = patharr.map((value, index) => {
+    const url = `/${patharr.slice(1, index + 1).join("/")}`;
+    return (
+      <Breadcrumb.Item>
+        <NavLink to={url}>{value}</NavLink>
+      </Breadcrumb.Item>
+    );
+  });
+
+  useEffect(() => {
+    localStorage.setItem("checked", JSON.stringify(checked));
+  }, [checked]);
+
   return (
     <>
       <Row gutter={[24, 0]}>
@@ -20,7 +38,7 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
               <Breadcrumb.Item>
                 <NavLink to="/">Pages</NavLink>
               </Breadcrumb.Item>
-              <Breadcrumb.Item>{pathname.replace("/", "")}</Breadcrumb.Item>
+              {arr.slice(1)}
             </Breadcrumb>
           </div>
           <div className={lighttheme ? "" : "dark"}>
@@ -28,12 +46,15 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
               className="ant-header-page"
               style={{ textTransform: "capitalize" }}
             >
-              {pathname.replace("/", "")}
+              {pathname.split("/").slice(-1)}
             </span>
           </div>
         </Col>
         <Col span={24} md={18} className="header-control">
-          <Button onClick={() => setTheme()}>
+          <Button
+            onClick={() => setTheme()}
+            style={{ background: "transparent" }}
+          >
             <svg
               viewBox="0 0 1024 1024"
               version="1.1"
@@ -49,6 +70,15 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
               ></path>
             </svg>
           </Button>
+          <label className="rocker rocker-small">
+            <input
+              type="checkbox"
+              onClick={() => setChecked(!checked)}
+              defaultChecked={checked}
+            />
+            <span className="switch-left">Yes</span>
+            <span className="switch-right">No</span>
+          </label>
         </Col>
       </Row>
     </>

@@ -32,7 +32,6 @@ function Main() {
       <Layout
         style={{
           height: "100vh",
-          background: "transparent",
         }}
         className={isLightTheme ? "" : "dark"}
       >
@@ -90,12 +89,16 @@ function Main() {
           </Header>
           <Content>
             <ConfigProvider
-              theme={isLightTheme?{}:{
-                algorithm: theme.darkAlgorithm,
-              }}
+              theme={
+                isLightTheme
+                  ? {}
+                  : {
+                      algorithm: theme.darkAlgorithm,
+                    }
+              }
             >
-              <div className={isLightTheme?"":"dark"}>
-              <Outlet />
+              <div className={isLightTheme ? "" : "dark"}>
+                <Outlet />
               </div>
             </ConfigProvider>
           </Content>
