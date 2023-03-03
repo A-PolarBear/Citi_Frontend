@@ -3,7 +3,7 @@ import axios from "axios";
 import qs from "qs";
 
 const serverConfig = {
-  baseURL: "http://localhost:3000/", // 请求基础地址,可根据环境自定义
+  baseURL: "http://localhost:3000/mock", // 请求基础地址,可根据环境自定义
   useTokenAuthorization: false, // 是否开启 token 认证
 };
 
@@ -57,46 +57,46 @@ instance.interceptors.response.use(
     if (error && error.response) {
       switch (error.response.status) {
         case 302:
-          message = "接口重定向了！";
+          message = "URL redirection";
           break;
         case 400:
-          message = "参数不正确！";
+          message = "Bad Request";
           break;
         case 401:
-          message = "您未登录，或者登录已经超时，请先登录！";
+          message = "Unauthorized";
           break;
         case 403:
-          message = "您没有权限操作！";
+          message = "Forbidden";
           break;
         case 404:
-          message = `请求地址出错: ${error.response.config.url}`;
+          message = `Not Found: ${error.response.config.url}`;
           break;
         case 408:
-          message = "请求超时！";
+          message = "Request Timeout";
           break;
         case 409:
-          message = "系统已存在相同数据！";
+          message = "Conflict";
           break;
         case 500:
-          message = "服务器内部错误！";
+          message = "Internal Server Error";
           break;
         case 501:
-          message = "服务未实现！";
+          message = "Not Implemented";
           break;
         case 502:
-          message = "网关错误！";
+          message = "Bad Gateway";
           break;
         case 503:
-          message = "服务不可用！";
+          message = "Something went wrong, please try again later(503)";
           break;
         case 504:
-          message = "服务暂时无法访问，请稍后再试！";
+          message = "Something went wrong, please try again later(504)";
           break;
         case 505:
-          message = "HTTP 版本不受支持！";
+          message = "HTTP Version Not Supported";
           break;
         default:
-          message = "异常问题，请联系管理员！";
+          message = "Something went wrong, please try again later！";
           break;
       }
       notification.error({

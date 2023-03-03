@@ -1,4 +1,5 @@
 import "./App.css";
+import "./tests/mock/index"
 import Stock from "./pages/Stock";
 import Create from "./pages/Create";
 import Main from "./components/Main";

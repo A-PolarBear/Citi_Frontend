@@ -1,5 +1,5 @@
 import { Button, Card, Modal, Space, Table } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ColumnsType } from "antd/es/table/interface";
 import Loading from "../components/Loading";
 import { NavLink } from "react-router-dom";
@@ -14,8 +14,8 @@ export interface StockDataType {
   value: number;
   volume: number;
   turnover: number;
-  open:number,
-  close:number,
+  open: number;
+  close: number;
   low: number;
   high: number;
   amplitude: number;
@@ -26,15 +26,34 @@ function Stock() {
   const [stockList, setStockList] = useState<StockDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [total, setTotal] = useState(10);
+  const pageOption = useRef<any>({ page: 1, size: 10 });
+
+  async function fetchStockData() {
+    setIsLoading(true);
+    const res: any = await StockAPI.getAll(pageOption.current);
+    setStockList(res.data);
+    setIsLoading(false);
+    setTotal(res?.totalPage)
+    console.log(res);
+  }
+
+
+  async function paginationChange (page:any, size:any)  {
+    pageOption.current = ({ page, size });
+    console.log("🚀 ~ file: Stock.tsx:44 ~ paginationChange ~ pageOption.current:", pageOption.current)
+    
+    fetchStockData();
+  }
+
+  const paginationProps = {
+    total: total, 
+    current: pageOption.current.page,
+    pageSize: pageOption.current.size,
+    onChange: (current:any, size:any) => paginationChange(current, size) //分页切换的函数 在下面给到
+  }
 
   useEffect(() => {
-    async function fetchStockData() {
-      setIsLoading(true);
-      const res: any = await StockAPI.getAll();
-      setStockList(res.data);
-      setIsLoading(false);
-      console.log(res);
-    }
     fetchStockData();
   }, []);
 
@@ -50,7 +69,7 @@ function Stock() {
       key: "symbol",
       render: (_, record) => (
         <Space size="middle">
-          <NavLink to={`/stock/${record.symbol}`}>{record.symbol}</NavLink>
+          <NavLink to={`/stock/${record.sid}`}>{record.symbol}</NavLink>
         </Space>
       ),
       // filters: [
@@ -153,16 +172,25 @@ function Stock() {
 
   return (
     <div>
-      <Card title="Stock" extra={<Button type="primary">导出excel</Button>} hoverable={true}>
+      <Card
+        title="Stock"
+        extra={<Button type="primary">导出excel</Button>}
+        hoverable={true}
+      >
         <div>
-          <Button type="primary" onClick={()=>setIsModalOpen(true) }>
+          <Button type="primary" onClick={() => setIsModalOpen(true)}>
             Open Modal
           </Button>
-          <Modal title="Basic Modal" open={isModalOpen} onCancel={()=>setIsModalOpen(false)}  footer={null}></Modal>
+          <Modal
+            title="Basic Modal"
+            open={isModalOpen}
+            onCancel={() => setIsModalOpen(false)}
+            footer={null}
+          ></Modal>
           <Table
             columns={columns}
             dataSource={stockList}
-            pagination={{ hideOnSinglePage: true, defaultPageSize: 10 }}
+            pagination={paginationProps}
             loading={isLoading ? { indicator: loading_hamster } : false}
             rowKey={(record) => record.sid}
           ></Table>

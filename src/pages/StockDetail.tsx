@@ -4,7 +4,7 @@ import StockAPI from "../api/Stock";
 import type { StockDataType } from "./Stock";
 
 export async function loader({ params }: { params: any }) {
-  const res = await StockAPI.getBySymbol(params.symbol);
+  const res = await StockAPI.getBySid(params.symbol);
   const data : any  = res;
   const detailData : StockDataType[]= data;
   return detailData;
