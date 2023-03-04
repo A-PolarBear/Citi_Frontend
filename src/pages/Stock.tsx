@@ -5,6 +5,7 @@ import Loading from "../components/Loading";
 import { NavLink } from "react-router-dom";
 import StockAPI from "../api/Stock";
 import Star from "../components/Star";
+import { TickerTape } from "react-ts-tradingview-widgets";
 
 export interface StockDataType {
   sid: number;
@@ -27,6 +28,11 @@ function Stock() {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [total, setTotal] = useState(10);
+  const [islighttheme, setIslighttheme] = useState(() => {
+    const storage = localStorage.getItem("isLightTheme");
+    if (storage) return storage === "true" ? true : false;
+    else return false;
+  });
   const pageOption = useRef<any>({ page: 1, size: 10 });
 
   async function fetchStockData() {
@@ -34,28 +40,35 @@ function Stock() {
     const res: any = await StockAPI.getAll(pageOption.current);
     setStockList(res.data);
     setIsLoading(false);
-    setTotal(res?.totalPage)
+    setTotal(res?.totalPage);
     console.log(res);
   }
 
+  async function paginationChange(page: any, size: any) {
+    pageOption.current = { page, size };
+    console.log(
+      "🚀 ~ file: Stock.tsx:44 ~ paginationChange ~ pageOption.current:",
+      pageOption.current
+    );
 
-  async function paginationChange (page:any, size:any)  {
-    pageOption.current = ({ page, size });
-    console.log("🚀 ~ file: Stock.tsx:44 ~ paginationChange ~ pageOption.current:", pageOption.current)
-    
     fetchStockData();
   }
 
   const paginationProps = {
-    total: total, 
+    total: total,
     current: pageOption.current.page,
     pageSize: pageOption.current.size,
-    onChange: (current:any, size:any) => paginationChange(current, size) //分页切换的函数 在下面给到
-  }
+    onChange: (current: any, size: any) => paginationChange(current, size), //分页切换的函数 在下面给到
+  };
 
   useEffect(() => {
     fetchStockData();
   }, []);
+
+  useEffect(() => {
+    const item = localStorage.getItem("islighttheme")
+    console.log("🚀 ~ file: Stock.tsx:70 ~ useEffect ~ item:", item)
+}, [])
 
   const columns: ColumnsType<StockDataType> = [
     // {
@@ -172,6 +185,7 @@ function Stock() {
 
   return (
     <div>
+      <TickerTape colorTheme={islighttheme?"light":"dark"}></TickerTape>
       <Card
         title="Stock"
         extra={<Button type="primary">导出excel</Button>}

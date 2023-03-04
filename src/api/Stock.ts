@@ -9,6 +9,11 @@ import instance from "./index"
 // });
 
 const StockAPI = {
+  // {
+  //   page:
+  //   size:
+  // }
+  // return totalPage
   getAll: (config:any) =>
     instance.get("/stock",{data:config}),
   getBySid:(sid: number) => 

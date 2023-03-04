@@ -1,7 +1,7 @@
 var Mock = require("mockjs");
 
 const data = Mock.mock({
-  "stockList|20000": [
+  "stockList|200": [
     {
       sid: "@increment(1)",
       symbol: "@last",

@@ -6,6 +6,10 @@ body,
 html {
   font-family: "Ubuntu", sans-serif;
 }
+
+iframe {
+  border-radius: 8px;
+}
 .ant-layout {
   font-family: "Ubuntu", sans-serif;
   overflow-x: hidden;
