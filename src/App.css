@@ -265,6 +265,9 @@ iframe {
 }
 
 /*********Card**********/
+.ant-card {
+  font-family: "Ubuntu", sans-serif;
+}
 .ant-space-item a {
   color: #de453d;
   font-weight: 400;
@@ -677,8 +680,8 @@ iframe {
 }
 .star {
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 32px;
+  height: 32px;
   background-image: url(./assets/images/star_n1.svg);
   background-repeat: no-repeat;
   background-size: 100%;
@@ -867,3 +870,18 @@ input:focus + .switch-left + .switch-right {
 input:checked:focus + .switch-left + .switch-right {
   color: #333;
 }
+
+/*********Quote*********/
+.price-up ,.dark .price-down span{
+  color:#de453d;
+}
+
+.price-down,.dark .price-down span {
+  color:#37d14b;
+}
+
+.quoteCard .ant-card-body {
+  padding-top:0;
+}
+
+

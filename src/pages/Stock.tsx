@@ -7,33 +7,47 @@ import StockAPI from "../api/Stock";
 import Star from "../components/Star";
 import { TickerTape } from "react-ts-tradingview-widgets";
 
+// stock data type
 export interface StockDataType {
-  sid: number;
-  symbol: string;
-  company: string;
-  date: string;
+  stockCode: string;
+  stockName: string;
+  datetime: string;
   value: number;
   volume: number;
   turnover: number;
   open: number;
-  close: number;
+  lastclose: number;
   low: number;
   high: number;
-  amplitude: number;
   percent: number;
 }
 
+
 function Stock() {
-  const [stockList, setStockList] = useState<StockDataType[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [total, setTotal] = useState(10);
+  const [stockList, setStockList] = useState<StockDataType[]>([]); //table data storage
+  const [isLoading, setIsLoading] = useState(false); // table loading setup
+  const [isModalOpen, setIsModalOpen] = useState(false); // filter modal to open
+  // cotrol theme for ticker tape
   const [islighttheme, setIslighttheme] = useState(() => {
     const storage = localStorage.getItem("isLightTheme");
     if (storage) return storage === "true" ? true : false;
     else return false;
   });
+
+  //page query setup
+  const [total, setTotal] = useState(10);
   const pageOption = useRef<any>({ page: 1, size: 10 });
+  const paginationProps = {
+    total: total,
+    current: pageOption.current.page,
+    pageSize: pageOption.current.size,
+    onChange: (current: any, size: any) => paginationChange(current, size), //分页切换的函数 在下面给到
+  };
+
+  async function paginationChange(page: any, size: any) {
+    pageOption.current = { page, size };
+    fetchStockData();
+  }
 
   async function fetchStockData() {
     setIsLoading(true);
@@ -44,45 +58,23 @@ function Stock() {
     console.log(res);
   }
 
-  async function paginationChange(page: any, size: any) {
-    pageOption.current = { page, size };
-    console.log(
-      "🚀 ~ file: Stock.tsx:44 ~ paginationChange ~ pageOption.current:",
-      pageOption.current
-    );
-
-    fetchStockData();
-  }
-
-  const paginationProps = {
-    total: total,
-    current: pageOption.current.page,
-    pageSize: pageOption.current.size,
-    onChange: (current: any, size: any) => paginationChange(current, size), //分页切换的函数 在下面给到
-  };
-
   useEffect(() => {
     fetchStockData();
   }, []);
 
   useEffect(() => {
-    const item = localStorage.getItem("islighttheme")
-    console.log("🚀 ~ file: Stock.tsx:70 ~ useEffect ~ item:", item)
-}, [])
+    localStorage.getItem("islighttheme");
+  }, []);
 
+  // table column setup
   const columns: ColumnsType<StockDataType> = [
-    // {
-    //   title: "Sid",
-    //   dataIndex: "sid",
-    //   key: "sid",
-    // },
     {
       title: "Symbol",
-      dataIndex: "symbol",
-      key: "symbol",
+      dataIndex: "stockCode",
+      key: "stockCode",
       render: (_, record) => (
         <Space size="middle">
-          <NavLink to={`/stock/${record.sid}`}>{record.symbol}</NavLink>
+          <NavLink to={`/stock/${record.stockCode}`}>{record.stockCode}</NavLink>
         </Space>
       ),
       // filters: [
@@ -96,17 +88,17 @@ function Stock() {
       // ellipsis: true,
     },
     {
-      title: "Company",
-      dataIndex: "company",
-      key: "company",
+      title: "StockName",
+      dataIndex: "stockName",
+      key: "stockName",
       // sorter: (a, b) => a.age - b.age,
       // sortOrder: sortedInfo.columnKey === 'age' ? sortedInfo.order : null,
       // ellipsis: true,
     },
     {
       title: "Date",
-      dataIndex: "date",
-      key: "date",
+      dataIndex: "datetime",
+      key: "datetime",
       // filters: [
       //   { text: 'London', value: 'London' },
       //   { text: 'New York', value: 'New York' },
@@ -147,9 +139,9 @@ function Stock() {
       key: "open",
     },
     {
-      title: "Close",
-      dataIndex: "close",
-      key: "close",
+      title: "Prev Close",
+      dataIndex: "lastclose",
+      key: "lastclose",
     },
     {
       title: "Low",
@@ -161,11 +153,11 @@ function Stock() {
       dataIndex: "high",
       key: "high",
     },
-    {
-      title: "Amplitude",
-      dataIndex: "amplitude",
-      key: "amplitude",
-    },
+    // {
+    //   title: "Amplitude",
+    //   dataIndex: "amplitude",
+    //   key: "amplitude",
+    // },
     {
       title: "Percent",
       dataIndex: "percent",
@@ -177,15 +169,16 @@ function Stock() {
       key: "x",
       align: "center",
       width: "16px",
-      render: (_, record) => <Star />,
+      render: (_, record) => <Star height={"20px"} width={"20px"}/>,
     },
   ];
 
+  // loading style
   const loading_hamster = <Loading></Loading>;
 
   return (
     <div>
-      <TickerTape colorTheme={islighttheme?"light":"dark"}></TickerTape>
+      <TickerTape colorTheme={islighttheme ? "light" : "dark"}></TickerTape>
       <Card
         title="Stock"
         extra={<Button type="primary">导出excel</Button>}
@@ -206,7 +199,7 @@ function Stock() {
             dataSource={stockList}
             pagination={paginationProps}
             loading={isLoading ? { indicator: loading_hamster } : false}
-            rowKey={(record) => record.sid}
+            rowKey={(record) => record.stockCode}
           ></Table>
         </div>
       </Card>

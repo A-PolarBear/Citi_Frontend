@@ -4,7 +4,7 @@ import StockAPI from "../api/Stock";
 import type { StockDataType } from "./Stock";
 
 export async function loader({ params }: { params: any }) {
-  const res = await StockAPI.getBySid(params.symbol);
+  const res = await StockAPI.getBySid(params.stockCode);
   const data : any  = res;
   const detailData : StockDataType[]= data;
   return detailData;
@@ -14,7 +14,7 @@ function StockDetail() {
   const detaiData:any = useLoaderData();
   return (
     <>
-      <Card title={detaiData.symbol}>
+      <Card title={detaiData.stockCode}>
         <div>{detaiData.value}</div>
       </Card>
     </>
