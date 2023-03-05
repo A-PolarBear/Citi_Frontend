@@ -1,6 +1,5 @@
 import { notification } from "antd";
 import axios from "axios";
-import qs from "qs";
 
 const serverConfig = {
   baseURL: "http://localhost:3000/mock", // 请求基础地址,可根据环境自定义
@@ -11,7 +10,7 @@ const serverConfig = {
 const instance = axios.create({
   baseURL: serverConfig.baseURL, // 基础请求地址
   timeout: 10000, // 请求超时设置
-  withCredentials: false, // 跨域请求是否需要携带 cookie
+  withCredentials: true, // 跨域请求是否需要携带 cookie
 });
 
 // 创建请求拦截

@@ -19,7 +19,7 @@ function App() {
       children: [
         { index: true, element: <Navigate to="stock" /> },
         { path: "stock", element: <Stock /> },
-        { path: "stock/:symbol", element: <StockDetail />,loader:detailLoader },
+        { path: "stock/:stockCode", element: <StockDetail />,loader:detailLoader },
         {
           path: "create",
           element: <Create />,

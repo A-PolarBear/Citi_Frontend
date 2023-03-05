@@ -19,7 +19,7 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
   const arr = patharr.map((value, index) => {
     const url = `/${patharr.slice(1, index + 1).join("/")}`;
     return (
-      <Breadcrumb.Item>
+      <Breadcrumb.Item key={index}>
         <NavLink to={url}>{value}</NavLink>
       </Breadcrumb.Item>
     );

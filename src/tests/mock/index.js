@@ -1,20 +1,21 @@
 var Mock = require("mockjs");
 
+Mock.XHR.prototype.withCredentials = true
+
 const data = Mock.mock({
   "stockList|200": [
     {
       sid: "@increment(1)",
-      symbol: "@last",
-      company: "@title",
+      stockCode: "@last",
+      stockName: "@title",
       date: "@date",
       value: "@float(2,500,2,2)",
       volume: "@float(2,500,2,2)",
       turnover: "@float(2,500,2,2)",
       open: "@float(2,500,2,2)",
-      close: "@float(2,500,2,2)",
+      lastclose: "@float(2,500,2,2)",
       low: "@float(2,500,2,2)",
       high: "@float(2,500,2,2)",
-      amplitude: "@float(2,500,2,2)",
       percent: "@float(2,500,2,2)",
     },
   ],
