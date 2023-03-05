@@ -21,7 +21,6 @@ function QuoteChart(props:any) {
         <YAxis type="number" allowDecimals={true} allowDataOverflow={true} domain={[143,147]} hide={true}/>
         <Tooltip />
         <Line type="monotone" dataKey="open" stroke="#1890bf" dot={false} strokeWidth={2}/>
-        {/* <Line type="monotone" dataKey="close" stroke="red" dot={false} /> */}
       </LineChart>
       </ResponsiveContainer>
     </>

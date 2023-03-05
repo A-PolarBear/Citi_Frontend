@@ -1,5 +1,7 @@
 var Mock = require("mockjs");
 
+Mock.XHR.prototype.withCredentials = true
+
 const data = Mock.mock({
   "stockList|200": [
     {

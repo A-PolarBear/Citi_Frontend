@@ -872,7 +872,7 @@ input:checked:focus + .switch-left + .switch-right {
 }
 
 /*********Quote*********/
-.price-up ,.dark .price-down span{
+.price-up ,.dark .price-up span{
   color:#de453d;
 }
 

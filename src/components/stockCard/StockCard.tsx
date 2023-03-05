@@ -1,3 +1,4 @@
+//TODO: REAL-TIME QUERY 
 import { Card } from "antd";
 import { useReducer } from "react";
 import QuotePanel from "./QuotePanel";
@@ -68,7 +69,7 @@ function StockCard() {
               />
               <QuotePanel
                 quote={{
-                  latestPrice: 223,
+                  latestPrice: 122323,
                   change: 0.1,
                   changePercent: 12,
                   previousClose: 1231,
