@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocation, Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
 import HeaderM from "./HeaderM";
+import { TickerTape } from "react-ts-tradingview-widgets";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -27,6 +28,15 @@ function Main() {
     localStorage.setItem("isFold", JSON.stringify(isFold));
   }, [isFold]);
 
+  const tickerTape =
+    pathname.split("/").slice(-1).toString() === "stock" ? (
+      <div style={{ padding: "0 16px" }}>
+        <TickerTape colorTheme={isLightTheme ? "light" : "dark"}></TickerTape>
+      </div>
+    ) : (
+      <></>
+    );
+
   return (
     <>
       <Layout
@@ -43,10 +53,7 @@ function Main() {
           trigger={null}
           className={isFold ? "sider-primary fold" : "sider-primary"}
         >
-          <SideBar
-            theme={isLightTheme}
-            fold={isFold}
-          ></SideBar>
+          <SideBar theme={isLightTheme} fold={isFold}></SideBar>
         </Sider>
         <button
           className={
@@ -86,6 +93,7 @@ function Main() {
               ></HeaderM>
             </div>
           </Header>
+          {tickerTape}
           <Content>
             <ConfigProvider
               theme={

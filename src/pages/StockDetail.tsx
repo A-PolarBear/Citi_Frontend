@@ -12,31 +12,27 @@ import { faStar as faStarR } from "@fortawesome/free-regular-svg-icons";
 import CandleStickChart from "../components/stockDetail/CandleStickChart";
 
 function StockDetail() {
-  const { pathname } = useLocation();
+  const { pathname,state } = useLocation();
   const stockCode = pathname.split("/").slice(-1).toString();
   const [stockDetail, setStockDetail] = useState<StockDataType>();
   const [isFavourite, setIsFavourite] = useState(false);
 
   async function fetchStockDetailData(stockCode: any) {
     const res: any = await StockAPI.getByStockCode(stockCode);
-    console.log(
-      "🚀 ~ file: StockDetail.tsx:18 ~ fetchStockDetailData ~ res:",
-      res
-    );
-    setStockDetail(res.data);
+    setStockDetail(res);
   }
 
   useEffect(() => {
     fetchStockDetailData(stockCode);
   }, [stockCode]);
 
-  // if (stockDetail === null || typeof stockDetail === "undefined") {
-  //   return (
-  //     <Card>
-  //       <Skeleton></Skeleton>
-  //     </Card>
-  //   );
-  // } else {
+  if (stockDetail === null || typeof stockDetail === "undefined") {
+    return (
+      <Card>
+        <Skeleton></Skeleton>
+      </Card>
+    );
+  } else {
     return (
       <>
         <Card className="md:px-8 py-2">
@@ -44,19 +40,14 @@ function StockDetail() {
             <div>
               <ProfileD
                 profile={{
-                  svg: "https://s3-symbol-logo.tradingview.com/apple.svg",
+                  svg: state.svg,
                   stockCode: stockCode,
-                  stockName: "Apple Inc.",
+                  stockName: state.stockName,
                 }}
               />
               <div style={{ width: "50%", margin: "12px 0px" }}>
                 <QuotePanelD
-                  quote={{
-                    latestPrice: 1263,
-                    change: 0.1,
-                    changePercent: 12,
-                    previousClose: 1231,
-                  }}
+                  quote={stockDetail}
                 />
               </div>
             </div>
@@ -77,20 +68,14 @@ function StockDetail() {
           </div>
           <Divider />
           <Detail
-            quote={{
-              open: 12,
-              high: 15,
-              low: 11,
-              lastclose: 10.5,
-              volume: 12340000,
-            }}
+            quote={stockDetail}
           />
           <Divider />
           <CandleStickChart stockCode={stockCode}/>
         </Card>
       </>
     );
-  // }
+  }
 }
 
 export default StockDetail;

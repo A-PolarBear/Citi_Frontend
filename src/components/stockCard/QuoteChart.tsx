@@ -1,8 +1,6 @@
 import {
   Area,
   AreaChart,
-  Line,
-  LineChart,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,

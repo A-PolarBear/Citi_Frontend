@@ -7,7 +7,7 @@ function Detail(props:any){
             <li><p>Open</p><span>{quote.open}</span></li>
             <li><p>High</p><span>{quote.high}</span></li>
             <li><p>Low</p><span>{quote.low}</span></li>
-            <li><p>Prev close</p><span>{quote.lastclose}</span></li>
+            <li><p>Prev close</p><span>{quote.preClose}</span></li>
             <li><p>Volume</p><span>{numFormat(quote.volume,3)}</span></li>
         </ul>
         </div>

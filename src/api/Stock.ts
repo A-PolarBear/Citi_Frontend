@@ -1,4 +1,3 @@
-import qs from "qs";
 import instance from "./index"
 
 const StockAPI = {
@@ -10,9 +9,9 @@ const StockAPI = {
   getAll: (pageOption:any) =>
     instance.get("/stocks",{params:pageOption}),
   getByStockCode:(stockCode: string) => 
-    instance.get("/stock/"+stockCode),
+    instance.get("/stocks/"+stockCode),
   create:(config: any) =>
-    instance.post("/stock", {data:config}),
+    instance.post("/stocks", {data:config}),
   getHistoryByStockCode:(stockCode:string)=>
   instance.get("/stockhistories/"+stockCode),
 };

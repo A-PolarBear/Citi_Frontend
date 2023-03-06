@@ -1,7 +1,6 @@
-import { Col, Pagination, Row } from "antd";
+import { Col, Row } from "antd";
 import StockCard from "../components/stockCard/StockCard";
-import { useEffect, useRef, useState } from "react";
-import StockAPI from "../api/Stock";
+import {useState } from "react";
 
 function Favorites() {
   const [stockCodeList,setStockCodeList] = useState([]);
