@@ -8,7 +8,8 @@ import transformData from "../../tests/mock/data";
 import QuoteChart from "./QuoteChart";
 import { NavLink } from "react-router-dom";
 
-function StockCard() {
+function StockCard(props:any) {
+  const {symbol}=props;
   const initState = {
     profile: null,
     quote: null,
@@ -50,7 +51,7 @@ function StockCard() {
   return (
     <>
       <Card className={"quoteCard"} hoverable={true}>
-        <NavLink to={`/stock/AAPL`}>
+        <NavLink to={`/stock/${symbol}`}>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div
               style={{
@@ -69,20 +70,20 @@ function StockCard() {
               />
               <QuotePanel
                 quote={{
-                  latestPrice: 122323,
+                  latestPrice: 1263,
                   change: 0.1,
                   changePercent: 12,
                   previousClose: 1231,
                 }}
               ></QuotePanel>
             </div>
-            <div style={{width:"100%",height:"100px", padding:"0 30px",marginTop:"12px"}}>
+            <div style={{width:"100%",height:"100px", padding:"0 20px",marginTop:"12px"}}>
             <QuoteChart data={data} />
             </div>
           </div>
         </NavLink>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Star />
+          <Star status={true}/>
         </div>
       </Card>
     </>

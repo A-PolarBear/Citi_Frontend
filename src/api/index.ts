@@ -2,7 +2,8 @@ import { notification } from "antd";
 import axios from "axios";
 
 const serverConfig = {
-  baseURL: "http://localhost:3000/mock", // 请求基础地址,可根据环境自定义
+  // baseURL: "http://43.136.170.29/:8088", // 请求基础地址,可根据环境自定义
+  baseURL: "http://127.0.0.1:3000/api/",
   useTokenAuthorization: false, // 是否开启 token 认证
 };
 
@@ -10,7 +11,7 @@ const serverConfig = {
 const instance = axios.create({
   baseURL: serverConfig.baseURL, // 基础请求地址
   timeout: 10000, // 请求超时设置
-  withCredentials: true, // 跨域请求是否需要携带 cookie
+  withCredentials: false, // 跨域请求是否需要携带 cookie
 });
 
 // 创建请求拦截
@@ -28,7 +29,7 @@ instance.interceptors.request.use(
       }
       config.headers["content-type"] = "application/json"; // 默认类型
     }
-    console.log("请求配置", config);
+    console.log("request config:", config);
     return config;
   },
   (error) => {
@@ -42,16 +43,17 @@ instance.interceptors.response.use(
     let data = res.data;
     // 处理自己的业务逻辑，比如判断 token 是否过期等等
     // 代码块
-    if(res.config.method==="post" || res.config.method==="put" ){
-        notification.success({
-            message:"Success",
-            description:"",
-            placement:"topRight",
-        })
+    if (res.config.method === "post" || res.config.method === "put") {
+      notification.success({
+        message: "Success",
+        description: "",
+        placement: "topRight",
+      });
     }
     return data;
   },
   async (error) => {
+    console.log("🚀 ~ file: index.ts:55 ~ error:",error);
     let message = "";
     if (error && error.response) {
       switch (error.response.status) {
@@ -106,9 +108,7 @@ instance.interceptors.response.use(
     }
     try {
       return await Promise.reject(message);
-    } catch (message) {
-      return console.log("error:", message);
-    }
+    } catch (message) {}
   }
 );
 export default instance;

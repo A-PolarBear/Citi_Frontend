@@ -1,5 +1,5 @@
 import { Row, Col, Breadcrumb, Button } from "antd";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 type IProps = React.PropsWithChildren<{

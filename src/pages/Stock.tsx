@@ -20,8 +20,9 @@ export interface StockDataType {
   low: number;
   high: number;
   percent: number;
+  isFavourite: number;
+  svg: string;
 }
-
 
 function Stock() {
   const [stockList, setStockList] = useState<StockDataType[]>([]); //table data storage
@@ -52,10 +53,15 @@ function Stock() {
   async function fetchStockData() {
     setIsLoading(true);
     const res: any = await StockAPI.getAll(pageOption.current);
-    setStockList(res.data);
-    setIsLoading(false);
-    setTotal(res?.totalPage);
-    console.log(res);
+    console.log("🚀 ~ file: Stock.tsx:57 ~ fetchStockData ~ res:", res);
+    if (res === undefined) {
+      setIsLoading(false);
+      setStockList([]);
+    } else {
+      setStockList(res.stockVOList);
+      setTotal(res?.total);
+      setIsLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -64,7 +70,7 @@ function Stock() {
 
   useEffect(() => {
     localStorage.getItem("islighttheme");
-  }, []);
+  }, [islighttheme]);
 
   // table column setup
   const columns: ColumnsType<StockDataType> = [
@@ -74,54 +80,27 @@ function Stock() {
       key: "stockCode",
       render: (_, record) => (
         <Space size="middle">
-          <NavLink to={`/stock/${record.stockCode}`}>{record.stockCode}</NavLink>
+          <img src={record.svg} style={{width:"32px",height:"32px",borderRadius:"16px"}} alt="" />
+          <NavLink to={`/stock/${record.stockCode}`}>
+            {record.stockCode}
+          </NavLink>
         </Space>
       ),
-      // filters: [
-      //   { text: 'Joe', value: 'Joe' },
-      //   { text: 'Jim', value: 'Jim' },
-      // ],
-      // filteredValue: filteredInfo.name || null,
-      // onFilter: (value: string, record) => record.name.includes(value),
-      // sorter: (a, b) => a.name.length - b.name.length,
-      // sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
-      // ellipsis: true,
     },
     {
       title: "StockName",
       dataIndex: "stockName",
       key: "stockName",
-      // sorter: (a, b) => a.age - b.age,
-      // sortOrder: sortedInfo.columnKey === 'age' ? sortedInfo.order : null,
-      // ellipsis: true,
     },
     {
       title: "Date",
       dataIndex: "datetime",
       key: "datetime",
-      // filters: [
-      //   { text: 'London', value: 'London' },
-      //   { text: 'New York', value: 'New York' },
-      // ],
-      // filteredValue: filteredInfo.address || null,
-      // onFilter: (value: string, record) => record.address.includes(value),
-      // sorter: (a, b) => a.address.length - b.address.length,
-      // sortOrder: sortedInfo.columnKey === 'address' ? sortedInfo.order : null,
-      // ellipsis: true,
     },
     {
       title: "Value",
       dataIndex: "value",
       key: "value",
-      // filters: [
-      //   { text: 'London', value: 'London' },
-      //   { text: 'New York', value: 'New York' },
-      // ],
-      // filteredValue: filteredInfo.address || null,
-      // onFilter: (value: string, record) => record.address.includes(value),
-      // sorter: (a, b) => a.address.length - b.address.length,
-      // sortOrder: sortedInfo.columnKey === 'address' ? sortedInfo.order : null,
-      // ellipsis: true,
     },
     {
       title: "Volume",
@@ -169,12 +148,18 @@ function Stock() {
       key: "x",
       align: "center",
       width: "16px",
-      render: (_, record) => <Star height={"20px"} width={"20px"}/>,
+      render: (_, record) => (
+        <Star
+          height={"20px"}
+          width={"20px"}
+          status={record.isFavourite ? true : false}
+        />
+      ),
     },
   ];
 
   // loading style
-  const loading_hamster = <Loading></Loading>;
+  const loading_DIY = <Loading></Loading>;
 
   return (
     <div>
@@ -185,20 +170,11 @@ function Stock() {
         hoverable={true}
       >
         <div>
-          <Button type="primary" onClick={() => setIsModalOpen(true)}>
-            Open Modal
-          </Button>
-          <Modal
-            title="Basic Modal"
-            open={isModalOpen}
-            onCancel={() => setIsModalOpen(false)}
-            footer={null}
-          ></Modal>
           <Table
             columns={columns}
             dataSource={stockList}
             pagination={paginationProps}
-            loading={isLoading ? { indicator: loading_hamster } : false}
+            loading={isLoading ? { indicator: loading_DIY } : false}
             rowKey={(record) => record.stockCode}
           ></Table>
         </div>

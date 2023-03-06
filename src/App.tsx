@@ -4,7 +4,7 @@ import Stock from "./pages/Stock";
 import Create from "./pages/Create";
 import Main from "./components/Main";
 import Favourites from "./pages/Favourites";
-import StockDetail,{loader as detailLoader} from "./pages/StockDetail";
+import StockDetail from "./pages/StockDetail";
 import {
   createBrowserRouter,
   Navigate,
@@ -19,7 +19,7 @@ function App() {
       children: [
         { index: true, element: <Navigate to="stock" /> },
         { path: "stock", element: <Stock /> },
-        { path: "stock/:stockCode", element: <StockDetail />,loader:detailLoader },
+        { path: "stock/:stockCode", element: <StockDetail /> },
         {
           path: "create",
           element: <Create />,

@@ -44,7 +44,6 @@ function Main() {
           className={isFold ? "sider-primary fold" : "sider-primary"}
         >
           <SideBar
-            pathname={pathname}
             theme={isLightTheme}
             fold={isFold}
           ></SideBar>
