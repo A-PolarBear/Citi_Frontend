@@ -1,5 +1,6 @@
 import instance from "./index"
 
+<<<<<<< HEAD
 // const instance = axios.create({
 //   // baseURL: "http://127.0.0.1:4523/m1/2376896-0-default",
 //   baseURL:"http://localhost:3000/",
@@ -8,6 +9,8 @@ import instance from "./index"
 //   },
 // });
 
+=======
+>>>>>>> cff4adf59b816ba678c0334a4f09e91748803321
 const StockAPI = {
   // {
   //   page:
