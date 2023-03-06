@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-=======
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
->>>>>>> cff4adf59b816ba678c0334a4f09e91748803321
 
 body,
 html {
@@ -20,12 +17,6 @@ iframe {
   height:100vh;
 }
 
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> cff4adf59b816ba678c0334a4f09e91748803321
 [type='button'] {
   background-color: #1890ff;
 }
@@ -84,8 +75,6 @@ iframe {
   }
 }
 
-<<<<<<< HEAD
-=======
 @layer components {
   .fold-btn {
     display: flex;
@@ -134,7 +123,6 @@ iframe {
     fill: #fafafa;
   }
 }
->>>>>>> cff4adf59b816ba678c0334a4f09e91748803321
 
 .sider-primary .logo img {
   height: 48px;
@@ -231,12 +219,6 @@ iframe {
   font-family: "Ubuntu", sans-serif;
 }
 
-<<<<<<< HEAD
-=======
-.header-primary {
-  /* font-family:"Ubuntu",sans-serif; */
-}
->>>>>>> cff4adf59b816ba678c0334a4f09e91748803321
 
 .header-primary .ant-header-page {
   font-weight: 700;
@@ -280,12 +262,9 @@ iframe {
 }
 
 /*********Card**********/
-<<<<<<< HEAD
-=======
 .ant-card {
   font-family: "Ubuntu", sans-serif;
 }
->>>>>>> cff4adf59b816ba678c0334a4f09e91748803321
 .ant-space-item a {
   color: #de453d;
   font-weight: 400;
@@ -698,13 +677,8 @@ iframe {
 }
 .star {
   display: inline-block;
-<<<<<<< HEAD
-  width: 20px;
-  height: 20px;
-=======
   width: 32px;
   height: 32px;
->>>>>>> cff4adf59b816ba678c0334a4f09e91748803321
   background-image: url(./assets/images/star_n1.svg);
   background-repeat: no-repeat;
   background-size: 100%;
@@ -892,9 +866,6 @@ input:focus + .switch-left + .switch-right {
 
 input:checked:focus + .switch-left + .switch-right {
   color: #333;
-<<<<<<< HEAD
-}
-=======
 }
 
 /*********Quote*********/
@@ -911,4 +882,3 @@ input:checked:focus + .switch-left + .switch-right {
 }
 
 
->>>>>>> cff4adf59b816ba678c0334a4f09e91748803321

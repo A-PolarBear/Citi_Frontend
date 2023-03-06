@@ -86,14 +86,7 @@ function Main() {
                 lighttheme={isLightTheme}
               ></HeaderM>
             </div>
-<<<<<<< HEAD
-         
           </Header>
-
-
-=======
-          </Header>
->>>>>>> cff4adf59b816ba678c0334a4f09e91748803321
           <Content>
             <ConfigProvider
               theme={
@@ -104,10 +97,6 @@ function Main() {
                     }
               }
             >
-<<<<<<< HEAD
-
-=======
->>>>>>> cff4adf59b816ba678c0334a4f09e91748803321
               <div className={isLightTheme ? "" : "dark"}>
                 <Outlet />
               </div>

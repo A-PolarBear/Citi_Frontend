@@ -1,14 +1,7 @@
 import { Row, Col, Breadcrumb, Button } from "antd";
-<<<<<<< HEAD
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, useLoaderData,Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-
-=======
-import { NavLink, useLoaderData } from "react-router-dom";
-import { useEffect, useState } from "react";
-
->>>>>>> cff4adf59b816ba678c0334a4f09e91748803321
 type IProps = React.PropsWithChildren<{
   pathname: string;
   setTheme: any;
@@ -26,11 +19,7 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
   const arr = patharr.map((value, index) => {
     const url = `/${patharr.slice(1, index + 1).join("/")}`;
     return (
-<<<<<<< HEAD
-      <Breadcrumb.Item>
-=======
       <Breadcrumb.Item key={index}>
->>>>>>> cff4adf59b816ba678c0334a4f09e91748803321
         <NavLink to={url}>{value}</NavLink>
       </Breadcrumb.Item>
     );
@@ -62,12 +51,9 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
           </div>
         </Col>
         <Col span={24} md={18} className="header-control">
-<<<<<<< HEAD
           <Link to="/SignIn">
                 <Button type="primary" className="signInButton">Sign In</Button>
           </Link>
-=======
->>>>>>> cff4adf59b816ba678c0334a4f09e91748803321
           <Button
             onClick={() => setTheme()}
             style={{ background: "transparent" }}

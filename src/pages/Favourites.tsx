@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-function Favorites() {
-  return (
-    <>
-      <h1>Hello! favourites</h1>
-=======
 import { Col, Row } from "antd";
 import StockCard from "../components/stockCard/StockCard";
 
@@ -23,7 +17,6 @@ function Favorites() {
        <Row gutter={[24,24]}>
         {cols}
         </Row>
->>>>>>> cff4adf59b816ba678c0334a4f09e91748803321
     </>
   );
 }
