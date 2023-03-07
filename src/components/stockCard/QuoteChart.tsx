@@ -13,7 +13,7 @@ function QuoteChart(props: any) {
   const { data } = props;
 
   if (data === null) {
-    return <Skeleton />;
+    return <Skeleton active/>;
   } else {
     const firstClose = data[0].close;
     const currentClose = data[data.length - 1].close;

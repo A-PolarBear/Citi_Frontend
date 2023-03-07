@@ -11,7 +11,7 @@ function QuotePanel(props: { quote: any }) {
   const { quote } = props;
 
   if (quote === null || typeof quote === "undefined") {
-    return <Skeleton style={{height:"20%"}}></Skeleton>;
+    return <Skeleton style={{width:"40%"}} paragraph={false} active></Skeleton>;
   } else {
     let icon, className;
     if (quote.current >= quote.preClose) {

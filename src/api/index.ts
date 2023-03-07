@@ -43,6 +43,7 @@ instance.interceptors.response.use(
     let data = res.data;
     // 处理自己的业务逻辑，比如判断 token 是否过期等等
     // 代码块
+
     if (res.config.method === "post" || res.config.method === "put") {
       notification.success({
         message: "Success",

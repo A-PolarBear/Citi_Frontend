@@ -43,7 +43,7 @@ function QuotePanelD(props: { quote: any }) {
             ({quote.percent.toFixed(2)}%)
           </span>
         </div>
-        <div style={{width:"100%"}}>Last Updated at:{quote.date}</div>
+        <div style={{width:"100%"}}>Last Updated at: {quote.date}</div>
       </div>
     );
   }
