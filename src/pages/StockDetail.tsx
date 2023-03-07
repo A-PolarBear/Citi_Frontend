@@ -89,7 +89,7 @@ function StockDetail() {
               }
               onClick={() => setIsFavourite(!isFavourite)}
             >
-              <span style={{ paddingLeft: "12px" }}>Add to Favourites</span>
+              <span style={{ paddingLeft: "12px" }}>Favourites</span>
             </Button>
           </div>
           <Divider />

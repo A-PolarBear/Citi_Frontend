@@ -725,7 +725,9 @@ input:checked:focus + .switch-left + .switch-right {
 /*********Detail********/
 .detail ul li {
   display:block;
-  width:18%;
+  width:30%;
+  margin-right: 12px;
+  flex:1 1 auto;
 }
 
 .detail ul li span {
