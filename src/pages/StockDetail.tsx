@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { Button, Card, Divider, Skeleton } from "antd";
 import StockAPI from "../api/Stock";
-import type { StockDataType } from "./Stock";
 import { useEffect, useState } from "react";
 import ProfileD from "../components/stockDetail/ProfileD";
 import QuotePanelD from "../components/stockDetail/QuotePanelD";
@@ -14,12 +13,19 @@ import CandleStickChart from "../components/stockDetail/CandleStickChart";
 function StockDetail() {
   const { pathname,state } = useLocation();
   const stockCode = pathname.split("/").slice(-1).toString();
-  const [stockDetail, setStockDetail] = useState<StockDataType>();
+  const [stockDetail, setStockDetail] = useState(null);
   const [isFavourite, setIsFavourite] = useState(false);
 
   async function fetchStockDetailData(stockCode: any) {
-    const res: any = await StockAPI.getByStockCode(stockCode);
-    setStockDetail(res);
+    try{
+      const res: any = await StockAPI.getByStockCode(stockCode);
+      console.log("🚀 ~ file: StockDetail.tsx:22 ~ fetchStockDetailData ~ res:", res)
+      setStockDetail(res);
+    }
+    catch(error){
+      setStockDetail(null);
+    }
+    
   }
 
   useEffect(() => {

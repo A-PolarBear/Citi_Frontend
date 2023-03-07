@@ -42,12 +42,9 @@ function Stock() {
 
   async function fetchStockData() {
     setIsLoading(true);
-    const res: any = await StockAPI.getAll(pageOption.current);
-    console.log("🚀 ~ file: Stock.tsx:57 ~ fetchStockData ~ res:", res);
-    if (res === undefined) {
-      setIsLoading(false);
-      setStockList([]);
-    } else {
+    try{
+      const res: any = await StockAPI.getAll(pageOption.current);
+      console.log("🚀 ~ file: Stock.tsx:57 ~ fetchStockData ~ res:", res);
       const data = res.stockVOList.map((value: any, index: any) => {
         return { ...res.stockVOList[index], ...res.finnhubList[index] };
       });
@@ -55,6 +52,12 @@ function Stock() {
       setTotal(res?.total);
       setIsLoading(false);
     }
+    catch(error) {
+      setIsLoading(false);
+      setStockList([]);
+    }
+    // const res: any = await StockAPI.getAll(pageOption.current);
+    // console.log("🚀 ~ file: Stock.tsx:57 ~ fetchStockData ~ res:", res);
   }
 
   useEffect(() => {

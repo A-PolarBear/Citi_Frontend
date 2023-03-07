@@ -11,10 +11,10 @@ function QuotePanel(props: { quote: any }) {
   const { quote } = props;
 
   if (quote === null || typeof quote === "undefined") {
-    return <Skeleton></Skeleton>;
+    return <Skeleton style={{height:"20%"}}></Skeleton>;
   } else {
     let icon, className;
-    if (quote.latestPrice >= quote.previousClose) {
+    if (quote.current >= quote.preClose) {
       icon = faArrowTrendUp;
       className = "price-up";
     } else {
@@ -33,17 +33,17 @@ function QuotePanel(props: { quote: any }) {
         >
           <FontAwesomeIcon icon={icon} />
           <span style={{ fontWeight: 600, margin: "0 8px", fontSize: "28px" }}>
-            {quote.latestPrice.toFixed(2)}
+            {quote.current.toFixed(2)}
           </span>
           <span style={{ fontSize: "16px" }}>
             {quote.change > 0 ? "+" : ""}
             {quote.change.toFixed(2)}
           </span>
           <span style={{ fontSize: "16px" }}>
-            ({quote.changePercent.toFixed(2)}%)
+            ({quote.percent.toFixed(2)}%)
           </span>
         </div>
-        <div>Last Updated at:</div>
+        <div style={{width:"100%"}}>Last Updated at:{quote.date}</div>
       </div>
     );
   }

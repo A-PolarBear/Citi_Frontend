@@ -1,16 +1,23 @@
-import { Col, Row } from "antd";
+import { Col, ConfigProvider, Row } from "antd";
 import StockCard from "../components/stockCard/StockCard";
-import {useState } from "react";
+import { useState } from "react";
 
 function Favorites() {
-  const [stockCodeList,setStockCodeList] = useState([]);
+  const [stockCodeList, setStockCodeList] = useState([]);
   const colCount = 6;
   const cols = [];
   for (let i = 0; i < colCount; i++) {
     cols.push(
-      <Col key={i.toString()} sm={24} lg={12} xl={8} >
-        <StockCard symbol={"AAPL"}></StockCard>
-      </Col>,
+      <Col key={i.toString()} sm={24} lg={12} xl={8}>
+        <StockCard
+          stockData={{
+            stockCode: "AAPL",
+            stockName: "Apple Inc.",
+            svg: "https://s3-symbol-logo.tradingview.com/apple.svg",
+            isFavourite: 1,
+          }}
+        ></StockCard>
+      </Col>
     );
   }
 
@@ -41,9 +48,16 @@ function Favorites() {
 
   return (
     <>
-       <Row gutter={[24,24]}>
-        {cols}
-        </Row>
+    <ConfigProvider
+      theme={{
+        token: {
+          screenXLMin: 1480, // for grid (row/col)
+          screenXL:1480,
+        }
+      }}
+      >
+      <Row gutter={[24, 24]}>{cols}</Row>
+      </ConfigProvider>
     </>
   );
 }
