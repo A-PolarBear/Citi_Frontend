@@ -143,6 +143,7 @@ function Stock() {
         <Star
           height={"20px"}
           width={"20px"}
+          stockCode = {record.stockCode}
           status={record.isFavourite ? true : false}
         />
       ),

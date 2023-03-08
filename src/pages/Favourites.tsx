@@ -1,50 +1,45 @@
-import { Col, ConfigProvider, Row } from "antd";
+import { Card, Col, ConfigProvider, Row } from "antd";
 import StockCard from "../components/stockCard/StockCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import FavouritesAPI from "../api/Favourites"
 
 function Favorites() {
   const [stockCodeList, setStockCodeList] = useState([]);
-  const colCount = 6;
+
+
+  async function getFavouriteList(){
+    const res:any = await FavouritesAPI.getFavourites();
+    console.log("🚀 ~ file: Favourites.tsx:12 ~ getFavouriteList ~ res:", res);
+    const list = res.map((item: { userfavoritesStockCode: any; })=>item.userfavoritesStockCode);
+    setStockCodeList(list);
+  }
+
+  useEffect(()=>{
+    getFavouriteList();
+    console.log("🚀 ~ file: Favourites.tsx:16 ~ getFavouriteList ~ list:",stockCodeList)
+  },[stockCodeList])
+
+  const colCount = stockCodeList.length;
   const cols = [];
+  if (colCount === 0){
+    cols.push(<Col key={1} sm={24} lg={12} xl={8}>
+    <Card>
+        No Favourites.
+    </Card>
+  </Col>)
+  }
   for (let i = 0; i < colCount; i++) {
     cols.push(
       <Col key={i.toString()} sm={24} lg={12} xl={8}>
         <StockCard
           stockData={{
-            stockCode: "AAPL",
-            stockName: "Apple Inc.",
-            svg: "https://s3-symbol-logo.tradingview.com/apple.svg",
+            stockCode: stockCodeList[i],
             isFavourite: 1,
           }}
         ></StockCard>
       </Col>
     );
   }
-
-  // const [total, setTotal] = useState(10);
-  // const pageOption = useRef<any>({ page: 1, size: 10 });
-  // const paginationProps = {
-  //   total: total,
-  //   current: pageOption.current.page,
-  //   pageSize: pageOption.current.size,
-  //   onChange: (current: any, size: any) => paginationChange(current, size), //分页切换的函数 在下面给到
-  // };
-
-  // async function paginationChange(page: any, size: any) {
-  //   pageOption.current = { page, size };
-  //   fetchStockCodeFavourite();
-  // }
-
-  // async function fetchStockCodeFavourite() {
-  //   const res: any = await StockAPI.getAll(pageOption.current);
-  //   setStockCodeList(res.data);
-  //   setTotal(res?.totalPage);
-  //   console.log(res);
-  // }
-
-  // useEffect(() => {
-  //   fetchStockCodeFavourite();
-  // }, []);
 
   return (
     <>

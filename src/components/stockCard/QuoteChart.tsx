@@ -10,19 +10,20 @@ import {
 } from "recharts";
 
 function QuoteChart(props: any) {
-  const { data } = props;
-
+  const { data ,quote} = props;
   if (data === null) {
     return <Skeleton active/>;
   } else {
-    const firstClose = data[0].close;
-    const currentClose = data[data.length - 1].close;
+    // const firstClose = data[0].close;
+    // const currentClose = data[data.length - 1].close;
     let color = undefined;
-    if (firstClose < currentClose) {
+    if (quote.current >= quote.preClose) {
       color = "#de453d";
     } else {
       color = "#37d14b";
     }
+      // color = "#37d14b";
+    
     return (
       <>
         <ResponsiveContainer width="100%" height="100%">
@@ -55,7 +56,7 @@ function QuoteChart(props: any) {
               fill="url(#color)"
             />
             <ReferenceLine
-              y={firstClose}
+              y={quote.preClose}
               stroke={color}
               strokeDasharray="3 3"
             />
