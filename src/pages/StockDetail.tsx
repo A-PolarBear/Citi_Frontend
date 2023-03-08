@@ -14,39 +14,79 @@ import type { UploadProps } from "antd";
 function StockDetail() {
   const { pathname, state } = useLocation();
   const stockCode = pathname.split("/").slice(-1).toString();
-  const [stockDetail, setStockDetail] = useState(null);
+  const [stockQuote, setStockQuote] = useState(null);
   const [isFavourite, setIsFavourite] = useState(false);
+  const [stockHistories, setStockHistories] = useState([]);
 
-  async function fetchStockDetailData(stockCode: any) {
+  // fetch quote data 10s/per
+  async function fetchStockQuoteData(stockCode: any) {
     try {
       const res: any = await StockAPI.getByStockCode(stockCode);
-      console.log(
-        "🚀 ~ file: StockDetail.tsx:22 ~ fetchStockDetailData ~ res:",
-        res
-      );
-      setStockDetail(res);
+      setStockQuote(res);
     } catch (error) {
-      setStockDetail(null);
+      setStockQuote(null);
     }
   }
 
   useEffect(() => {
-    fetchStockDetailData(stockCode);
+    fetchStockQuoteData(stockCode);
     if (stockCode !== null) {
       const timerId = setInterval(() => {
-        fetchStockDetailData(stockCode);
-      }, 5 * 1000 + Math.floor(Math.random() * 5));
+        fetchStockQuoteData(stockCode);
+      }, 10 * 1000 + Math.floor(Math.random() * 5));
       return () => clearTimeout(timerId);
     }
   }, [stockCode]);
 
+  // acquire history data from children component(candlestick chart)
+  const getHistory = (e: any) => {
+    console.log("🚀 ~ file: StockDetail.tsx:45 ~ getHistory ~ e:", e);
+    setStockHistories(e);
+  };
+
+  // download history data csv file
+  function downloadCsv(data: any[], fileName: string) {
+    if (!data || !Array.isArray(data) || !data.length) {
+      return message.error(`Data is not found`);
+    }
+    const header = [
+      "stockCode",
+      "stockrecordDate",
+      "stockrecordOpenPrice",
+      "stockrecordEndPrice",
+      "stockrecordLow",
+      "stockrecordHigh",
+      "stockrecordVolume",
+    ];
+    var csvContent = "data:text/csv;charset=utf-8,\ufeff";
+    const _header = header.map((item) => item).join(",");
+    csvContent += _header + "\n";
+    data.forEach((item, index) => {
+      let dataString = "";
+      for (let i = 0; i < header.length; i++) {
+        dataString += item[header[i]] + ",";
+      }
+      csvContent +=
+        index < data.length
+          ? dataString.replace(/,$/, "\n")
+          : dataString.replace(/,$/, "");
+    });
+    const url = encodeURI(csvContent);
+    const link = document.createElement('a');
+		link.href = url;
+		link.setAttribute('download', fileName);
+		document.body.appendChild(link);
+		link.click();
+  }
+
+  // upload csv setup
   const props: UploadProps = {
     beforeUpload: (file) => {
-      const isPNG = file.type === "text/csv";
-      if (!isPNG) {
+      const isCSV = file.type === "text/csv";
+      if (!isCSV) {
         message.error(`${file.name} is not a csv file`);
       }
-      return isPNG || Upload.LIST_IGNORE;
+      return isCSV || Upload.LIST_IGNORE;
     },
     onChange: (info) => {
       console.log(info.fileList);
@@ -54,7 +94,7 @@ function StockDetail() {
     action: "http://localhost:3000/api/stockhistories/upload",
   };
 
-  if (stockDetail === null || typeof stockDetail === "undefined") {
+  if (stockQuote === null || typeof stockQuote === "undefined") {
     return (
       <Card>
         <Skeleton active></Skeleton>
@@ -74,7 +114,7 @@ function StockDetail() {
                 }}
               />
               <div style={{ width: "50%", margin: "12px 0px" }}>
-                <QuotePanelD quote={stockDetail} />
+                <QuotePanelD quote={stockQuote} />
               </div>
             </div>
             <Button
@@ -93,15 +133,8 @@ function StockDetail() {
             </Button>
           </div>
           <Divider />
-          <Detail quote={stockDetail} />
+          <Detail quote={stockQuote} />
           <Divider />
-          {/* <input
-            type="file"
-            id="upload"
-            accept=".csv"
-            onChange={FileHandler}
-          ></input>
-          <Button onClick={upload}></Button> */}
           <div
             style={{
               display: "flex",
@@ -109,11 +142,12 @@ function StockDetail() {
               justifyContent: "flex-end",
             }}
           >
+            <Button onClick={() => downloadCsv(stockHistories,`${stockCode}.csv`)} type="primary" style={{marginRight:"12px"}}>Download CSV</Button>
             <Upload {...props}>
-              <Button type="primary">Upload csv only</Button>
+              <Button type="primary">Upload CSV</Button>
             </Upload>
           </div>
-          <CandleStickChart stockCode={stockCode} />
+          <CandleStickChart stockCode={stockCode} getHistory={getHistory} />
         </Card>
       </>
     );
