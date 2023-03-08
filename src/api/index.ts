@@ -7,15 +7,15 @@ export const cookie = new Cookies();
 
 const serverConfig = {
   // baseURL: "http://43.136.170.29/:8088", // 请求基础地址,可根据环境自定义
-  baseURL: "http://127.0.0.1:3000/api/",
-  useTokenAuthorization: true, // 是否开启 token 认证
+  baseURL: "/api/",
+  useTokenAuthorization: false, // 是否开启 token 认证
 };
 
 // 创建 axios 请求实例
 const instance = axios.create({
   baseURL: serverConfig.baseURL, // 基础请求地址
   timeout: 10000, // 请求超时设置
-  withCredentials: true, // 跨域请求是否需要携带 cookie
+  withCredentials: false, // 跨域请求是否需要携带 cookie
 });
 
 // 创建请求拦截
