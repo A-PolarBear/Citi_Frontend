@@ -12,9 +12,9 @@ import CandleStickChart from "../components/stockDetail/CandleStickChart";
 import type { UploadProps } from "antd";
 
 function StockDetail() {
-  const { pathname, state } = useLocation();
+  const { pathname } = useLocation();
   const stockCode = pathname.split("/").slice(-1).toString();
-  const [stockQuote, setStockQuote] = useState(null);
+  const [stockQuote, setStockQuote] = useState<any>(null);
   const [isFavourite, setIsFavourite] = useState(false);
   const [stockHistories, setStockHistories] = useState([]);
 
@@ -22,7 +22,9 @@ function StockDetail() {
   async function fetchStockQuoteData(stockCode: any) {
     try {
       const res: any = await StockAPI.getByStockCode(stockCode);
-      setStockQuote(res);
+      console.log("🚀 ~ file: StockDetail.tsx:25 ~ fetchStockQuoteData ~ res:", res)
+      setStockQuote(res.data);
+      setIsFavourite(res.data.stockVO.isFavourite);
     } catch (error) {
       setStockQuote(null);
     }
@@ -37,6 +39,10 @@ function StockDetail() {
       return () => clearTimeout(timerId);
     }
   }, [stockCode]);
+
+  useEffect(()=>{
+    ;
+  },[isFavourite])
 
   // acquire history data from children component(candlestick chart)
   const getHistory = (e: any) => {
@@ -108,13 +114,13 @@ function StockDetail() {
             <div style={{ width: "50%" }}>
               <ProfileD
                 profile={{
-                  svg: state.svg,
+                  svg: stockQuote.stockVO.svg,
                   stockCode: stockCode,
-                  stockName: state.stockName,
+                  stockName: stockQuote.stockVO.stockName,
                 }}
               />
               <div style={{ width: "50%", margin: "12px 0px" }}>
-                <QuotePanelD quote={stockQuote} />
+                <QuotePanelD quote={stockQuote.finnhub} />
               </div>
             </div>
             <Button
@@ -133,7 +139,7 @@ function StockDetail() {
             </Button>
           </div>
           <Divider />
-          <Detail quote={stockQuote} />
+          <Detail quote={stockQuote.finnhub} />
           <Divider />
           <div
             style={{

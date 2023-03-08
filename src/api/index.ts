@@ -1,7 +1,7 @@
 import { notification } from "antd";
-import  {Cookies} from "react-cookie";
+import { Cookies } from "react-cookie";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 
 export const cookie = new Cookies();
 
@@ -15,16 +15,16 @@ const serverConfig = {
 const instance = axios.create({
   baseURL: serverConfig.baseURL, // 基础请求地址
   timeout: 10000, // 请求超时设置
-  withCredentials: false, // 跨域请求是否需要携带 cookie
 });
 
 // 创建请求拦截
 instance.interceptors.request.use(
   (config) => {
-    config.headers['Access-Control-Allow-Origin']='*';
+    config.headers["Access-Control-Allow-Methods"] = "*";
+    config.headers["Access-Control-Allow-Origin"] = "*";
     // 如果开启 token 认证
     if (serverConfig.useTokenAuthorization) {
-      config.headers["Authorization"] = cookie.get("token"); // 请求头携带 token
+      config.headers["token"] = cookie.get("token"); // 请求头携带 token
     }
     // 设置请求头
     if (!config.headers["content-type"]) {
@@ -48,6 +48,16 @@ instance.interceptors.response.use(
     let data = res.data;
     // 处理自己的业务逻辑，比如判断 token 是否过期等等
     // 代码块
+    if (data.state === 7000) {
+      notification.error({
+        message: "Request Error",
+        description: "Token is expired. Please sign in again.",
+        placement: "topRight",
+      });
+      setTimeout(() => {
+        location.href = "/login";
+      }, 2000);
+    }
 
     if (res.config.method === "post" || res.config.method === "put") {
       notification.success({
@@ -59,7 +69,7 @@ instance.interceptors.response.use(
     return data;
   },
   async (error) => {
-    console.log("🚀 ~ file: index.ts:55 ~ error:",error);
+    console.log("🚀 ~ file: index.ts:55 ~ error:", error);
     let message = "";
     if (error && error.response) {
       switch (error.response.status) {

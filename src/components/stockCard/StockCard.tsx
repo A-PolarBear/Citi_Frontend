@@ -44,7 +44,7 @@ function StockCard(props: any) {
   async function fetchStockDetailData(stockCode: any, dispatch: any) {
     try {
       const res: any = await StockAPI.getByStockCode(stockCode);
-      dispatch({ type: "fetch/quote", payload: res });
+      dispatch({ type: "fetch/quote", payload: res.data.finnhub });
     } catch (error) {
       dispatch({ type: "fetch/quote", payload: {} });
     }

@@ -9,8 +9,9 @@ import {
 // display quote, change & change percent 
 function QuotePanel(props: { quote: any }) {
   const { quote } = props;
+  console.log("🚀 ~ file: QuotePanel.tsx:12 ~ QuotePanel ~ quote:", quote)
 
-  if (quote === null || typeof quote === "undefined") {
+  if (quote === null || typeof quote === "undefined" || Object.keys(quote).length===0) {
     return <Skeleton style={{width:"40%"}} paragraph={false} active></Skeleton>;
   } else {
     let icon, className;

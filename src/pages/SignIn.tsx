@@ -6,7 +6,7 @@ import successIcon from "../assets/images/successIcon.png";
 import {Cookies} from "react-cookie";
 
 import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
-import { Input, Tooltip, Button, Switch, Modal, Form, Alert } from 'antd';
+import { Input, Tooltip, Button, Switch, Modal, Form, Alert, message, notification } from 'antd';
 import { Link ,useNavigate} from "react-router-dom";
 import LoginAPI from "../api/Sign"
 
@@ -99,9 +99,28 @@ function SignIn(props: any) {
 
             console.log("开始提交数据了！")
             LoginAPI.login({ email: emailValue, pwd: passwordValue }).then(
-                (response) => {
-                    cookie.set("token",response.data);
-                    navigate("/");
+                (response:any) => {
+                    console.log("🚀 ~ file: SignIn.tsx:103 ~ SubmitData ~ response:", response)
+                    if(response.state===5000){
+                        notification.error({
+                            message: "Error",
+                            description: "Wrong username or password",
+                            placement: "topRight",
+                          });
+                    }
+                    else{
+                        cookie.set("token",response.data);
+                        notification.success({
+                            message: "Success",
+                            description: "login success",
+                            placement: "topRight",
+                            duration: 1.5,
+                          });
+                        setTimeout(() => {
+                            navigate("/");
+                        }, 2000);
+                    }
+                    
                 }).catch(
                     (error)=>{
                         console.log(error);
