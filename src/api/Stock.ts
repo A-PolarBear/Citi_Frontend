@@ -15,11 +15,11 @@ const StockAPI = {
   // }
   // return totalPage
   getAll: (config:any) =>
-    instance.get("/stock",{data:config}),
+    instance.get("/stocks",{data:config}),
   getBySid:(sid: number) => 
-    instance.get("/stock/"+sid),
+    instance.get("/stocks/"+sid),
   create:(config: any) =>
-    instance.post("/stock", {data:config}),
+    instance.post("/stocks", {data:config}),
 };
 
 export default StockAPI;

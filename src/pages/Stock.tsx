@@ -169,7 +169,7 @@ function Stock() {
       key: "x",
       align: "center",
       width: "16px",
-      render: (_, record) => <Star height={"20px"} width={"20px"}/>,
+      render: (_, record) => <Star height={"20px"} width={"20px"} />,
     },
   ];
 

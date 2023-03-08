@@ -75,54 +75,7 @@ iframe {
   }
 }
 
-@layer components {
-  .fold-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9;
-    position: absolute;
-    top: calc(100vh - 48px);
-    left: 260px;
-    height: 48px;
-    width: 48px;
-    background-color: #fafafa;
-    border-radius: 0 6px 6px 0;
-    border: none;
-    box-shadow: 6px 0px 6px rgba(0, 0, 0, 0.284);
-    margin-right: 10px;
-    cursor: pointer;
-    transition: all 0.5s;
-    overflow: hidden;
-  }
-  .fold-btn:hover svg {
-    fill: black;
-    transition: all 0.5s;
-  }
-  .fold-btn-dark {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9;
-    position: absolute;
-    top: calc(100vh - 48px);
-    left: 260px;
-    height: 48px;
-    width: 48px;
-    background-color: #1a202c;
-    border-radius: 0 6px 6px 0;
-    border: none;
-    box-shadow: 6px 0px 6px rgba(0, 0, 0, 0.284);
-    margin-right: 10px;
-    cursor: pointer;
-    transition: all 0.5s;
-    overflow: hidden;
-  }
 
-  .fold-btn-dark:hover svg {
-    fill: #fafafa;
-  }
-}
 
 .sider-primary .logo img {
   height: 48px;
