@@ -1,5 +1,5 @@
 import { notification } from "antd";
-import  {Cookies} from "react-cookie";
+import { Cookies } from "react-cookie";
 import axios from "axios";
 
 
@@ -21,7 +21,7 @@ const instance = axios.create({
 // 创建请求拦截
 instance.interceptors.request.use(
   (config) => {
-    config.headers['Access-Control-Allow-Origin']='*';
+    config.headers['Access-Control-Allow-Origin'] = '*';
     // 如果开启 token 认证
     if (serverConfig.useTokenAuthorization) {
       config.headers["Authorization"] = cookie.get("token"); // 请求头携带 token
@@ -59,7 +59,7 @@ instance.interceptors.response.use(
     return data;
   },
   async (error) => {
-    console.log("🚀 ~ file: index.ts:55 ~ error:",error);
+    console.log("🚀 ~ file: index.ts:55 ~ error:", error);
     let message = "";
     if (error && error.response) {
       switch (error.response.status) {
@@ -114,7 +114,7 @@ instance.interceptors.response.use(
     }
     try {
       return await Promise.reject(message);
-    } catch (message) {}
+    } catch (message) { }
   }
 );
 export default instance;
