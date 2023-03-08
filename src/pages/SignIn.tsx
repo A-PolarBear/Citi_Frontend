@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import signUpCardImg from "../assets/images/signBg-3.png"
 import signUpLogo from "../assets/images/signLogo.png";
 import backToSignIn from "../assets/images/back.png";
 import successIcon from "../assets/images/successIcon.png";
+import {Cookies} from "react-cookie";
 
 import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { Input, Tooltip, Button, Switch, Modal, Form, Alert } from 'antd';
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import LoginAPI from "../api/Sign"
+
+const cookie = new Cookies();
 
 // 修改密码-气泡框中的表单布局：
 type LayoutType = Parameters<typeof Form>[0]['layout'];
@@ -16,6 +19,7 @@ function SignIn(props: any) {
     // 0.验证forget pwd时输入的email是否有效：
     const [emailValidState, setEmailValidState] = useState(true);
     const [twoNewPwdNotSame, setTwoNewPwdNotSame] = useState(false);
+    const navigate = useNavigate();
 
     // 1. input框数据的双向绑定:
     const [emailValue, setEmailValue] = useState(() => {
@@ -94,11 +98,14 @@ function SignIn(props: any) {
             }
 
             console.log("开始提交数据了！")
-            LoginAPI.login({ name: emailValue, pwd: passwordValue });
+            LoginAPI.login({ email: emailValue, pwd: passwordValue }).then(
+                (response) => cookie.set("token",response.data)).catch(
+                    (error)=>{
+                        console.log(error);
+                    }
+                )
         }
     };
-
-
 
 
     return (

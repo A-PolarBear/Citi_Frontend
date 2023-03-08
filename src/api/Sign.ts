@@ -3,11 +3,11 @@ import instance from "./index"
 
 const LoginAPI = {
     login: (userInfo: any) =>
-        instance.post("/users/login", { data: userInfo }),
+        instance.get("/users/login",{params:userInfo}),
     signUp: (userInfo: any) =>
-        instance.post("/users", { data: userInfo }),
+        instance.post("/users", userInfo ),
     forgetPwd: (userInfo: any) =>
-        instance.post("/users/forgetPwd", { data: userInfo }),
+        instance.post("/users/forgetPwd", userInfo),
 }
 
 export default LoginAPI;
