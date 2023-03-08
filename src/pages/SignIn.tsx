@@ -99,7 +99,10 @@ function SignIn(props: any) {
 
             console.log("开始提交数据了！")
             LoginAPI.login({ email: emailValue, pwd: passwordValue }).then(
-                (response) => cookie.set("token",response.data)).catch(
+                (response) => {
+                    cookie.set("token",response.data);
+                    navigate("/");
+                }).catch(
                     (error)=>{
                         console.log(error);
                     }
