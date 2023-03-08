@@ -21,6 +21,7 @@ const instance = axios.create({
 // 创建请求拦截
 instance.interceptors.request.use(
   (config) => {
+    config.headers['Access-Control-Allow-Origin']='*';
     // 如果开启 token 认证
     if (serverConfig.useTokenAuthorization) {
       config.headers["Authorization"] = cookie.get("token"); // 请求头携带 token
