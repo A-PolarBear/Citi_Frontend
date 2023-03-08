@@ -1,7 +1,5 @@
 var Mock = require("mockjs");
 
-Mock.XHR.prototype.withCredentials = true
-
 const data = Mock.mock({
   "stockList|200": [
     {
@@ -22,27 +20,25 @@ const data = Mock.mock({
 });
 
 Mock.mock(RegExp("mock/stock/.*"), "get", (options) => {
-    const urlId = options.url.split("/").slice(-1);
-    console.log(data.stockList[urlId]);
-    return {
-      code: 200,
-      success: true,
-      message: "获取用户列表成功",
-      data: data.stockList[urlId],
-      totalPage: data.stockList.length,
-    };
+    const stockCode = options.url.split("/").slice(-1).toString();
+    const res = data.stockList.find(item=>item.stockCode===stockCode);
+    if(res){
+      return {
+        code: 200,
+        success: true,
+        message: "获取用户列表成功",
+        data: res,
+        totalPage: data.stockList.length,
+      };
+    }
   });
 
 
 
 Mock.mock(RegExp("mock/stock"), "get", (options) => {
-  console.log(options.body)
   const body = JSON.parse(options.body);
   const pageSize = body.size;
-  	console.log("🚀 ~ file: index.js:40 ~ Mock.mock ~ pageSize:", pageSize);
-  	// 根据url解析出currentPage的值
   const currentPage = body.page;
-  console.log("🚀 ~ file: index.js:43 ~ Mock.mock ~ currentPage:", currentPage);
 
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = pageSize * currentPage;

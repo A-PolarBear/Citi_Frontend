@@ -1,18 +1,17 @@
 import { Menu } from "antd";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import CitiLogo from "../assets/images/citi_logo.svg";
 import CitiLogo_d from "../assets/images/citi_d.svg";
 
 type IProps = React.PropsWithChildren<{
-  pathname: string;
   theme: boolean;
   fold: boolean;
 }>;
 
-function SideBar({ pathname, theme, fold }: IProps) {
+function SideBar({ theme, fold }: IProps) {
   const color = "#1890ff";
+  const {pathname} = useLocation();
   const firstpathname = pathname.split("/").slice(1, 2).toString();
-
   return (
     <>
       <div className="logo">

@@ -14,12 +14,23 @@ const StockAPI = {
   //   size:
   // }
   // return totalPage
+<<<<<<< HEAD
   getAll: (config:any) =>
     instance.get("/stocks",{data:config}),
   getBySid:(sid: number) => 
     instance.get("/stocks/"+sid),
   create:(config: any) =>
     instance.post("/stocks", {data:config}),
+=======
+  getAll: (pageOption:any) =>
+    instance.get("/stocks",{params:pageOption}),
+  getByStockCode:(stockCode: string) => 
+    instance.get("/stocks/"+stockCode),
+  create:(config: any) =>
+    instance.post("/stocks", {data:config}),
+  getHistoryByStockCode:(stockCode:string)=>
+  instance.get("/stockhistories/"+stockCode),
+>>>>>>> fix
 };
 
 export default StockAPI;

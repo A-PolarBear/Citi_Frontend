@@ -7,11 +7,11 @@ import {
 
 
 // display quote, change & change percent 
-function QuotePanel(props: { quote: any }) {
+function QuotePanelD(props: { quote: any }) {
   const { quote } = props;
 
   if (quote === null || typeof quote === "undefined") {
-    return <Skeleton style={{width:"40%"}} paragraph={false} active></Skeleton>;
+    return <Skeleton></Skeleton>;
   } else {
     let icon, className;
     if (quote.current >= quote.preClose) {
@@ -22,31 +22,31 @@ function QuotePanel(props: { quote: any }) {
       className = "price-down";
     }
     return (
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ display: "flex", flexDirection: "column" ,width:"100%"}}>
         <div
           className={`quote ${className}`}
           style={{
             display: "flex",
-            justifyContent: "space-evenly",
+            justifyContent: "flex-start",
             alignItems: "center",
           }}
         >
-          <FontAwesomeIcon icon={icon} />
-          <span style={{ fontWeight: 600, margin: "0 8px", fontSize: "28px" }}>
+          <FontAwesomeIcon icon={icon} className="fa-xl"/>
+          <span style={{ fontWeight: 600, margin: "0 8px", fontSize: "36px" }}>
             {quote.current.toFixed(2)}
           </span>
-          <span style={{ fontSize: "16px" }}>
+          <span style={{ fontWeight:400,fontSize: "16px" }}>
             {quote.change > 0 ? "+" : ""}
             {quote.change.toFixed(2)}
           </span>
-          <span style={{ fontSize: "16px" }}>
+          <span style={{ fontWeight:400,fontSize: "16px" }}>
             ({quote.percent.toFixed(2)}%)
           </span>
         </div>
-        <div style={{width:"100%"}}>Last Updated at:{quote.date}</div>
+        <div style={{width:"100%"}}>Last Updated at: {quote.date}</div>
       </div>
     );
   }
 }
 
-export default QuotePanel;
+export default QuotePanelD;
