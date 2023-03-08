@@ -1,14 +1,11 @@
-//TODO: REAL-TIME QUERY
 import { Card } from "antd";
-import { useEffect, useReducer, useRef } from "react";
+import { useEffect, useReducer } from "react";
 import QuotePanel from "./QuotePanel";
 import Profile from "./Profile";
 import Star from "../Star";
-import transformData from "../../tests/mock/data";
 import QuoteChart from "./QuoteChart";
 import { NavLink } from "react-router-dom";
 import StockAPI from "../../api/Stock";
-import moment from "moment";
 import axios from "axios";
 
 function StockCard(props: any) {
@@ -95,7 +92,7 @@ function StockCard(props: any) {
 
   //
   useEffect(() => {
-    console.log("useEffect => fetchLatestQuote");
+    console.log("useEffect => fetchQuote");
     if (quote !== null) {
       const timerId = setInterval(() => {
         fetchStockDetailData(stockData.stockCode, dispatch);
@@ -112,6 +109,7 @@ function StockCard(props: any) {
   }, [stockData.stockCode]);
 
   useEffect(() => {
+    console.log("useEffect => fetchIntraday");
     if (previous !== null) {
       const date = new Date(previous.date * 1000);
       const date_to = date.setDate(date.getDate() + 1).valueOf() / 1000;
