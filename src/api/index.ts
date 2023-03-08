@@ -15,7 +15,7 @@ const serverConfig = {
 const instance = axios.create({
   baseURL: serverConfig.baseURL, // 基础请求地址
   timeout: 10000, // 请求超时设置
-  withCredentials: true, // 跨域请求是否需要携带 cookie
+  withCredentials: false, // 跨域请求是否需要携带 cookie
 });
 
 // 创建请求拦截
