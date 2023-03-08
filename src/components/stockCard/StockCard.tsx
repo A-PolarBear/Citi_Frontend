@@ -154,12 +154,12 @@ function StockCard(props: any) {
                 marginTop: "12px",
               }}
             >
-              <QuoteChart data={intraday} quote={quote}/>
+              <QuoteChart data={intraday} quote={quote} stock={stockData.stockCode}/>
             </div>
           </div>
         </NavLink>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Star status={true} />
+          <Star status={true} stockCode={stockData.stockCode}/>
         </div>
       </Card>
     </>

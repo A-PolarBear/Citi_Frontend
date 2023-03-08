@@ -6,7 +6,6 @@ import FavouritesAPI from "../api/Favourites"
 function Favorites() {
   const [stockCodeList, setStockCodeList] = useState([]);
 
-
   async function getFavouriteList(){
     const res:any = await FavouritesAPI.getFavourites();
     console.log("🚀 ~ file: Favourites.tsx:12 ~ getFavouriteList ~ res:", res);
@@ -17,7 +16,7 @@ function Favorites() {
   useEffect(()=>{
     getFavouriteList();
     console.log("🚀 ~ file: Favourites.tsx:16 ~ getFavouriteList ~ list:",stockCodeList)
-  },[stockCodeList])
+  },[])
 
   const colCount = stockCodeList.length;
   const cols = [];

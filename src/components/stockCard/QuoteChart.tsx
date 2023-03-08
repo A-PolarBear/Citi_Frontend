@@ -1,4 +1,5 @@
 import { Skeleton } from "antd";
+import { useEffect, useState } from "react";
 import {
   Area,
   AreaChart,
@@ -10,20 +11,21 @@ import {
 } from "recharts";
 
 function QuoteChart(props: any) {
-  const { data ,quote} = props;
-  if (data === null) {
-    return <Skeleton active/>;
-  } else {
-    // const firstClose = data[0].close;
-    // const currentClose = data[data.length - 1].close;
-    let color = undefined;
+  const { data, quote ,stock} = props;
+  const [color, setColor] = useState("");
+
+  useEffect(() => {
+    if(quote===null) return;
     if (quote.current >= quote.preClose) {
-      color = "#de453d";
+      setColor("#de453d");
     } else {
-      color = "#37d14b";
+      setColor("#37d14b");
     }
-      // color = "#37d14b";
-    
+  }, [quote]);
+
+  if (data === null || quote ===null) {
+    return <Skeleton active />;
+  } else {
     return (
       <>
         <ResponsiveContainer width="100%" height="100%">
@@ -34,7 +36,7 @@ function QuoteChart(props: any) {
             margin={{ top: 5, right: 10, left: 20, bottom: 5 }}
           >
             <defs>
-              <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id={stock} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor={color} stopOpacity={0.6} />
                 <stop offset="95%" stopColor={color} stopOpacity={0} />
               </linearGradient>
@@ -53,7 +55,7 @@ function QuoteChart(props: any) {
               dataKey="close"
               stroke={color}
               fillOpacity={1}
-              fill="url(#color)"
+              fill={`url(#${stock})`}
             />
             <ReferenceLine
               y={quote.preClose}
