@@ -45,11 +45,11 @@ function Stock() {
     try{
       const res: any = await StockAPI.getAll(pageOption.current);
       console.log("🚀 ~ file: Stock.tsx:57 ~ fetchStockData ~ res:", res);
-      const data = res.stockVOList.map((value: any, index: any) => {
-        return { ...res.stockVOList[index], ...res.finnhubList[index] };
+      const data = res.data.stockVOList.map((value: any, index: any) => {
+        return { ...res.data.stockVOList[index], ...res.data.finnhubList[index] };
       });
       setStockList(data);
-      setTotal(res?.total);
+      setTotal(res.data.total);
       setIsLoading(false);
     }
     catch(error) {
@@ -77,7 +77,7 @@ function Stock() {
             style={{ width: "32px", height: "32px", borderRadius: "16px" }}
             alt=""
           />
-          <Link to={`/stock/${record.stockCode}`} state={record}>
+          <Link to={`/stock/${record.stockCode}`}>
             {record.stockCode}
           </Link>
         </Space>

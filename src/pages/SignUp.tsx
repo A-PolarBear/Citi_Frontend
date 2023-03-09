@@ -10,7 +10,6 @@ import { Input, Tooltip, Button, Checkbox, Divider, Modal, notification, Space }
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { Link } from "react-router-dom";
 import LoginAPI from "../api/Sign"
-import StockAPI from "../api/Stock";
 
 
 
