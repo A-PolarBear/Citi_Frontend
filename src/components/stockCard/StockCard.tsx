@@ -1,5 +1,5 @@
 import { Card } from "antd";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import QuotePanel from "./QuotePanel";
 import Profile from "./Profile";
 import Star from "../Star";
@@ -10,12 +10,9 @@ import axios from "axios";
 
 function StockCard(props: any) {
   const { stockData } = props;
+  const firstUpload = useRef(true);
   const initState = {
-    profile: {
-      svg: stockData.svg,
-      stockCode: stockData.stockCode,
-      stockName: stockData.stockName,
-    },
+    profile: null,
     quote: null,
     previous: null,
     intraday: null,
@@ -23,7 +20,9 @@ function StockCard(props: any) {
 
   const reducer = (state: any, action: any) => {
     let newState = { ...state };
-    if (action.type === "fetch/quote") {
+    if (action.type === "fetch/profile") {
+      newState = { ...state, profile: action.payload };
+    } else if (action.type === "fetch/quote") {
       newState = { ...state, quote: action.payload };
     } else if (action.type === "fetch/previous") {
       newState = {
@@ -44,7 +43,13 @@ function StockCard(props: any) {
   async function fetchStockDetailData(stockCode: any, dispatch: any) {
     try {
       const res: any = await StockAPI.getByStockCode(stockCode);
-      dispatch({ type: "fetch/quote", payload: res.data.finnhub });
+      if (firstUpload.current) {
+        firstUpload.current = false;
+        dispatch({ type: "fetch/profile", payload: res.data.stockVO });
+        dispatch({ type: "fetch/quote", payload: res.data.finnhub });
+      } else {
+        dispatch({ type: "fetch/quote", payload: res.data.finnhub });
+      }
     } catch (error) {
       dispatch({ type: "fetch/quote", payload: {} });
     }
@@ -149,12 +154,16 @@ function StockCard(props: any) {
                 marginTop: "12px",
               }}
             >
-              <QuoteChart data={intraday} />
+              <QuoteChart
+                data={intraday}
+                quote={quote}
+                stock={stockData.stockCode}
+              />
             </div>
           </div>
         </NavLink>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Star status={true} />
+          <Star status={true} stockCode={stockData.stockCode} />
         </div>
       </Card>
     </>

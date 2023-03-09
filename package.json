@@ -44,7 +44,6 @@
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "mini-css-extract-plugin": "^2.4.5",
-    "moment": "^2.29.4",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
@@ -108,13 +107,7 @@
     "@types/react-fontawesome": "^1.6.5",
     "tailwindcss": "^3.2.7"
   },
-  "options": {
-    "allowedHosts": [
-      "43.136.170.29",
-      "localhost"
-    ],
-    "proxy": "http://43.136.170.29:8088"
-  },
+  "proxy": "http://43.136.170.29:8088",
   "jest": {
     "roots": [
       "<rootDir>/src"

@@ -6,7 +6,7 @@ import Main from "./components/Main";
 import Favourites from "./pages/Favourites";
 import StockDetail from "./pages/StockDetail";
 import {
-  createBrowserRouter,
+  createHashRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
@@ -17,7 +17,7 @@ import "./sign.css"
 
 function App() {
 
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     {
       path: "/",
       element: <Main />,

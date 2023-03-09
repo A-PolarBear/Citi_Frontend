@@ -104,7 +104,7 @@ function SignIn(props: any) {
                     if (response.state === 5000) {
                         notification.error({
                             message: "Error",
-                            description: "Wrong username or password",
+                            description: response.message,
                             placement: "topRight",
                         });
                     }

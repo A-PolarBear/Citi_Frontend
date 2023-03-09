@@ -55,7 +55,7 @@ instance.interceptors.response.use(
         placement: "topRight",
       });
       setTimeout(() => {
-        location.href = "/login";
+        location.href = "/SignIn";
       }, 2000);
     }
 

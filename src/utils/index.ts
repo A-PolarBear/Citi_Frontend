@@ -14,3 +14,9 @@ export function numFormat(num:any, digits:any) {
     }
     return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
 }
+
+
+export function formatNumber(number: string){
+  const re=/(\d{1,3})(?=(\d{3})+(?:$|\.))/g;
+  return number.replace(re,"$1,");
+}

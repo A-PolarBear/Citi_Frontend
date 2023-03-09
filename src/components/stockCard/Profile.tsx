@@ -3,7 +3,7 @@ import { Skeleton } from "antd";
 // display icon, symbol & name
 function Profile(props: { profile: any }) {
   if (props.profile == null || props.profile === undefined) {
-    return <Skeleton></Skeleton>;
+    return <Skeleton style={{width:"30%"}}></Skeleton>;
   } else {
     return (
       <>

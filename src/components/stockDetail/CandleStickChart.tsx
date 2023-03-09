@@ -23,7 +23,7 @@ function CandleStickChart(props: any) {
   if (stockData === null || stockData === undefined) {
     return <Skeleton active />;
   } else {
-    const dates = stockData.map((item: any) => (item.stockrecordDate)).reverse();
+    const dates = stockData.map((item: any) => new Date(item.stockrecordDate).toUTCString()).reverse();
     const ohlc = stockData
       .map((item: any) => [
         +item.stockrecordOpenPrice,
