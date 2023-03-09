@@ -28,6 +28,7 @@ function Stock() {
   const [isLoading, setIsLoading] = useState(false); // table loading setup
   //page query setup
   const [total, setTotal] = useState(10);
+  const findRef = useRef<any>({ stockCode: "", stockName: "" });
   const pageOption = useRef<any>({ page: 1, size: 5 });
   const paginationProps = {
     total: total,
@@ -44,8 +45,12 @@ function Stock() {
   async function fetchStockData() {
     setIsLoading(true);
     try {
-      const res: any = await StockAPI.getAll(pageOption.current);
-      console.log("🚀 ~ file: Stock.tsx:57 ~ fetchStockData ~ res:", res);
+      console.log(findRef);
+      if (findRef.current.stockCode === undefined)
+        findRef.current.stockCode = "";
+      if (findRef.current.stockName === undefined)
+        findRef.current.stockName = "";
+      const res: any = await StockAPI.find(pageOption.current, findRef.current);
       const data = res.data.stockVOList.map((value: any, index: any) => {
         return {
           ...res.data.stockVOList[index],
@@ -61,14 +66,14 @@ function Stock() {
     }
   }
 
-  useEffect(() => {
-    fetchStockData();
-  }, []);
-
-  const findHandler = async (e:any,all:any)=>{
-    setIsLoading(true);
+  async function fetchRealTimeStockData() {
     try {
-      const res: any = await StockAPI.find(pageOption.current,all);
+      console.log(findRef);
+      if (findRef.current.stockCode === undefined)
+        findRef.current.stockCode = "";
+      if (findRef.current.stockName === undefined)
+        findRef.current.stockName = "";
+      const res: any = await StockAPI.find(pageOption.current, findRef.current);
       const data = res.data.stockVOList.map((value: any, index: any) => {
         return {
           ...res.data.stockVOList[index],
@@ -76,13 +81,19 @@ function Stock() {
         };
       });
       setStockList(data);
-      // setTotal(res.data.total);
-      setIsLoading(false);
+      setTotal(res.data.total);
     } catch (error) {
-      setIsLoading(false);
       setStockList([]);
     }
   }
+
+  useEffect(() => {
+    fetchStockData();
+    const timerId = setInterval(() => {
+      fetchRealTimeStockData();
+    }, 6 * 1000 + Math.floor(Math.random() * 5));
+    return () => clearTimeout(timerId);
+  }, []);
 
   // table column setup
   const columns: ColumnsType<StockDataType> = [
@@ -183,35 +194,43 @@ function Stock() {
     <div>
       <Card title="Stock" hoverable={true}>
         <div>
-          <Form style={{display:"flex",justifyContent:"space-between"}} onValuesChange={findHandler}>
-          <div style={{flex:"1 auto"}}>
-            <Form.Item
-              label="Symbol"
-              name="stockCode"
-              rules={[
-                { required: false, message: "Please input Symbol" },
-              ]}
-              style={{
-                display: "inline-block",
-                width: "calc(25% - 24px)",
-                marginRight: "12px",
-              }}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="StockName"
-              name="stockName"
-              rules={[
-                { required: false, message: "Please input stock name!" },
-              ]}
-              style={{ display: "inline-block", width: "calc(25% - 8px)" }}
-            >
-              <Input />
-            </Form.Item>
+          <Form
+            style={{ display: "flex", justifyContent: "space-between" }}
+            onValuesChange={(e, all) => {
+              findRef.current = all;
+            }}
+          >
+            <div style={{ flex: "1 auto" }}>
+              <Form.Item
+                label="Symbol"
+                name="stockCode"
+                rules={[{ required: false, message: "Please input Symbol" }]}
+                style={{
+                  display: "inline-block",
+                  width: "calc(25% - 24px)",
+                  marginRight: "12px",
+                }}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="StockName"
+                name="stockName"
+                rules={[
+                  { required: false, message: "Please input stock name!" },
+                ]}
+                style={{ display: "inline-block", width: "calc(25% - 8px)" }}
+              >
+                <Input />
+              </Form.Item>
             </div>
             <Form.Item style={{ display: "inline-block", textAlign: "right" }}>
-              <Button htmlType="submit" type="primary" style={{backgroundColor: "#1677ff"}}>
+              <Button
+                htmlType="submit"
+                type="primary"
+                style={{ backgroundColor: "#1677ff" }}
+                onClick={fetchStockData}
+              >
                 Submit
               </Button>
             </Form.Item>
