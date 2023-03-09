@@ -7,8 +7,8 @@ export const cookie = new Cookies();
 
 const serverConfig = {
   // baseURL: "http://43.136.170.29/:8088", // 请求基础地址,可根据环境自定义
-  baseURL: "http://127.0.0.1:3000/api/",
-  useTokenAuthorization: true, // 是否开启 token 认证
+  baseURL: "/api/",
+  useTokenAuthorization: false, // 是否开启 token 认证
 };
 
 // 创建 axios 请求实例
@@ -124,7 +124,7 @@ instance.interceptors.response.use(
     }
     try {
       return await Promise.reject(message);
-    } catch (message) {}
+    } catch (message) { }
   }
 );
 export default instance;
