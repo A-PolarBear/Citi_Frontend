@@ -8,10 +8,10 @@ const StockAPI = {
   // return totalPage
   getAll: (pageOption: any) => instance.get("/stocks", { params: pageOption }),
   getByStockCode: (stockCode: string) => instance.get("/stocks/" + stockCode),
-  create: (config: any) => instance.post("/stockhistories", { data: config }),
+  create: (stockInfo: any) => instance.post("/stockhistories", stockInfo),
   getHistoryByStockCode: (stockCode: string) =>
     instance.get("/stockhistories/" + stockCode),
-
+  find: (pageOption:any,value:any) => instance.get("/stocks/q",{ params: {...pageOption,...value}})
 };
 
 export default StockAPI;

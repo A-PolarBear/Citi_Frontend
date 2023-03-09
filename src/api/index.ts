@@ -1,20 +1,18 @@
 import { notification } from "antd";
 import { Cookies } from "react-cookie";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export const cookie = new Cookies();
 
 const serverConfig = {
-  // baseURL: "http://43.136.170.29/:8088", // 请求基础地址,可根据环境自定义
-  baseURL: "/api",
-  useTokenAuthorization: true, // 是否开启 token 认证
+  baseURL: "/api/",
+  useTokenAuthorization: true, // token authorization
 };
 
-// 创建 axios 请求实例
+// axios instance
 const instance = axios.create({
-  baseURL: serverConfig.baseURL, // 基础请求地址
-  timeout: 10000, // 请求超时设置
+  baseURL: serverConfig.baseURL, 
+  timeout: 10000,
 });
 
 // 创建请求拦截
@@ -24,7 +22,7 @@ instance.interceptors.request.use(
     config.headers["Access-Control-Allow-Origin"] = "*";
     // 如果开启 token 认证
     if (serverConfig.useTokenAuthorization) {
-      config.headers["token"] = cookie.get("token"); // 请求头携带 token
+      config.headers["token"] = cookie.get("token");
     }
     // 设置请求头
     if (!config.headers["content-type"]) {
@@ -46,8 +44,6 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (res) => {
     let data = res.data;
-    // 处理自己的业务逻辑，比如判断 token 是否过期等等
-    // 代码块
     if (data.state === 7000) {
       notification.error({
         message: "Request Error",
@@ -55,16 +51,8 @@ instance.interceptors.response.use(
         placement: "topRight",
       });
       setTimeout(() => {
-        location.href = "/login";
-      }, 2000);
-    }
-
-    if (res.config.method === "post" || res.config.method === "put") {
-      notification.success({
-        message: "Success",
-        description: "",
-        placement: "topRight",
-      });
+        location.href = "/SignIn";
+      }, 3000);
     }
     return data;
   },

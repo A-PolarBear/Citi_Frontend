@@ -1,5 +1,4 @@
 import "./App.css";
-import "./tests/mock/index"
 import Stock from "./pages/Stock";
 import Create from "./pages/Create";
 import Main from "./components/Main";
@@ -7,6 +6,7 @@ import Favourites from "./pages/Favourites";
 import StockDetail from "./pages/StockDetail";
 import {
   createBrowserRouter,
+  createHashRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";

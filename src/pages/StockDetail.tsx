@@ -10,6 +10,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarR } from "@fortawesome/free-regular-svg-icons";
 import CandleStickChart from "../components/stockDetail/CandleStickChart";
 import type { UploadProps } from "antd";
+import FavouritesAPI from "../api/Favourites";
 
 function StockDetail() {
   const { pathname } = useLocation();
@@ -22,7 +23,10 @@ function StockDetail() {
   async function fetchStockQuoteData(stockCode: any) {
     try {
       const res: any = await StockAPI.getByStockCode(stockCode);
-      console.log("🚀 ~ file: StockDetail.tsx:25 ~ fetchStockQuoteData ~ res:", res)
+      console.log(
+        "🚀 ~ file: StockDetail.tsx:25 ~ fetchStockQuoteData ~ res:",
+        res
+      );
       setStockQuote(res.data);
       setIsFavourite(res.data.stockVO.isFavourite);
     } catch (error) {
@@ -40,9 +44,9 @@ function StockDetail() {
     }
   }, [stockCode]);
 
-  useEffect(()=>{
-    ;
-  },[isFavourite])
+  useEffect(() => {
+    
+  }, [isFavourite]);
 
   // acquire history data from children component(candlestick chart)
   const getHistory = (e: any) => {
@@ -78,11 +82,11 @@ function StockDetail() {
           : dataString.replace(/,$/, "");
     });
     const url = encodeURI(csvContent);
-    const link = document.createElement('a');
-		link.href = url;
-		link.setAttribute('download', fileName);
-		document.body.appendChild(link);
-		link.click();
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", fileName);
+    document.body.appendChild(link);
+    link.click();
   }
 
   // upload csv setup
@@ -99,6 +103,16 @@ function StockDetail() {
     },
     action: "http://localhost:3000/api/stockhistories/upload",
   };
+
+  function FavouriteHandler(){
+    if(isFavourite){
+      FavouritesAPI.deleteFavourites(stockCode);
+    }
+    else{
+      FavouritesAPI.addFavourites(stockCode);
+    }
+    setIsFavourite(!isFavourite);
+  }
 
   if (stockQuote === null || typeof stockQuote === "undefined") {
     return (
@@ -133,7 +147,7 @@ function StockDetail() {
                   <FontAwesomeIcon icon={faStarR} />
                 )
               }
-              onClick={() => setIsFavourite(!isFavourite)}
+              onClick={FavouriteHandler}
             >
               <span style={{ paddingLeft: "12px" }}>Favourites</span>
             </Button>
@@ -148,7 +162,13 @@ function StockDetail() {
               justifyContent: "flex-end",
             }}
           >
-            <Button onClick={() => downloadCsv(stockHistories,`${stockCode}.csv`)} type="primary" style={{marginRight:"12px"}}>Download CSV</Button>
+            <Button
+              onClick={() => downloadCsv(stockHistories, `${stockCode}.csv`)}
+              type="primary"
+              style={{ marginRight: "12px" }}
+            >
+              Download CSV
+            </Button>
             <Upload {...props}>
               <Button type="primary">Upload CSV</Button>
             </Upload>
