@@ -1,10 +1,11 @@
-import { Button, Card, Space, Table } from "antd";
+import { Button, Card, Form, Input, Space, Table } from "antd";
 import { useEffect, useRef, useState } from "react";
 import type { ColumnsType } from "antd/es/table/interface";
 import Loading from "../components/Loading";
 import { Link } from "react-router-dom";
 import StockAPI from "../api/Stock";
 import Star from "../components/Star";
+import { formatNumber } from "../utils";
 
 // stock data type
 export interface StockDataType {
@@ -42,27 +43,46 @@ function Stock() {
 
   async function fetchStockData() {
     setIsLoading(true);
-    try{
+    try {
       const res: any = await StockAPI.getAll(pageOption.current);
       console.log("🚀 ~ file: Stock.tsx:57 ~ fetchStockData ~ res:", res);
       const data = res.data.stockVOList.map((value: any, index: any) => {
-        return { ...res.data.stockVOList[index], ...res.data.finnhubList[index] };
+        return {
+          ...res.data.stockVOList[index],
+          ...res.data.finnhubList[index],
+        };
       });
       setStockList(data);
       setTotal(res.data.total);
       setIsLoading(false);
-    }
-    catch(error) {
+    } catch (error) {
       setIsLoading(false);
       setStockList([]);
     }
-    // const res: any = await StockAPI.getAll(pageOption.current);
-    // console.log("🚀 ~ file: Stock.tsx:57 ~ fetchStockData ~ res:", res);
   }
 
   useEffect(() => {
     fetchStockData();
   }, []);
+
+  const findHandler = async (e:any,all:any)=>{
+    setIsLoading(true);
+    try {
+      const res: any = await StockAPI.find(pageOption.current,all);
+      const data = res.data.stockVOList.map((value: any, index: any) => {
+        return {
+          ...res.data.stockVOList[index],
+          ...res.data.finnhubList[index],
+        };
+      });
+      setStockList(data);
+      // setTotal(res.data.total);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setStockList([]);
+    }
+  }
 
   // table column setup
   const columns: ColumnsType<StockDataType> = [
@@ -77,9 +97,7 @@ function Stock() {
             style={{ width: "32px", height: "32px", borderRadius: "16px" }}
             alt=""
           />
-          <Link to={`/stock/${record.stockCode}`}>
-            {record.stockCode}
-          </Link>
+          <Link to={`/stock/${record.stockCode}`}>{record.stockCode}</Link>
         </Space>
       ),
     },
@@ -97,31 +115,37 @@ function Stock() {
       title: "Value",
       dataIndex: "current",
       key: "current",
+      render: (_, record) => formatNumber(record.current.toFixed(2)),
     },
     {
       title: "Volume",
       dataIndex: "volume",
       key: "volume",
+      // render:(_,record)=>formatNumber(record.volume)
     },
     {
       title: "Open",
       dataIndex: "open",
       key: "open",
+      render: (_, record) => formatNumber(record.open.toFixed(2)),
     },
     {
       title: "Prev Close",
       dataIndex: "preClose",
       key: "preClose",
+      render: (_, record) => formatNumber(record.preClose.toFixed(2)),
     },
     {
       title: "Low",
       dataIndex: "low",
       key: "low",
+      render: (_, record) => formatNumber(record.low.toFixed(2)),
     },
     {
       title: "High",
       dataIndex: "high",
       key: "high",
+      render: (_, record) => formatNumber(record.high.toFixed(2)),
     },
     {
       title: "Percent",
@@ -129,7 +153,9 @@ function Stock() {
       key: "percent",
       render: (_, record) => (
         <div className={record.percent >= 0 ? "price-up" : "price-down"}>
-          {record.percent.toFixed(2).toString() + "%"}
+          {record.percent >= 0
+            ? "+" + record.percent.toFixed(2).toString() + "%"
+            : record.percent.toFixed(2).toString() + "%"}
         </div>
       ),
     },
@@ -143,7 +169,7 @@ function Stock() {
         <Star
           height={"20px"}
           width={"20px"}
-          stockCode = {record.stockCode}
+          stockCode={record.stockCode}
           status={record.isFavourite ? true : false}
         />
       ),
@@ -155,12 +181,41 @@ function Stock() {
 
   return (
     <div>
-      <Card
-        title="Stock"
-        extra={<Button type="primary">导出excel</Button>}
-        hoverable={true}
-      >
+      <Card title="Stock" hoverable={true}>
         <div>
+          <Form style={{display:"flex",justifyContent:"space-between"}} onValuesChange={findHandler}>
+          <div style={{flex:"1 auto"}}>
+            <Form.Item
+              label="Symbol"
+              name="stockCode"
+              rules={[
+                { required: false, message: "Please input Symbol" },
+              ]}
+              style={{
+                display: "inline-block",
+                width: "calc(25% - 24px)",
+                marginRight: "12px",
+              }}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="StockName"
+              name="stockName"
+              rules={[
+                { required: false, message: "Please input stock name!" },
+              ]}
+              style={{ display: "inline-block", width: "calc(25% - 8px)" }}
+            >
+              <Input />
+            </Form.Item>
+            </div>
+            <Form.Item style={{ display: "inline-block", textAlign: "right" }}>
+              <Button htmlType="submit" type="primary" style={{backgroundColor: "#1677ff"}}>
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
           <Table
             columns={columns}
             dataSource={stockList}

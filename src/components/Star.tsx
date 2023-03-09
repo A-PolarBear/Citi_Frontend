@@ -21,7 +21,7 @@ function Star(props:any){
 
     return (
         <span style={{display:"flex",justifyContent: "center",alignItems: "center",marginTop:"8px"}}>
-        <button onClick={()=>setClick(!click)}>
+        <button onClick={()=>setClick(!click)} style={{border:"none",background:"transparent",cursor:"pointer"}}>
         <div id="star" className={click?"fill star":"star"} style={{height:height,width:width}}></div>
         </button>
         </span>
