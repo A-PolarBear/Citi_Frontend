@@ -120,7 +120,6 @@ function SignIn(props: any) {
                             navigate("/");
                         }, 2000);
                     }
-
                 }).catch(
                     (error) => {
                         console.log(error);
