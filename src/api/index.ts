@@ -7,7 +7,7 @@ export const cookie = new Cookies();
 
 const serverConfig = {
   // baseURL: "http://43.136.170.29/:8088", // 请求基础地址,可根据环境自定义
-  baseURL: "/api/",
+  baseURL: "/api",
   useTokenAuthorization: true, // 是否开启 token 认证
 };
 
