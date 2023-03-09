@@ -1,14 +1,12 @@
 import { notification } from "antd";
 import { Cookies } from "react-cookie";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export const cookie = new Cookies();
 
 const serverConfig = {
-  // baseURL: "http://43.136.170.29/:8088", // 请求基础地址,可根据环境自定义
   baseURL: "/api/",
-  useTokenAuthorization: false, // 是否开启 token 认证
+  useTokenAuthorization: true, // 是否开启 token 认证
 };
 
 // 创建 axios 请求实例
@@ -46,8 +44,6 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (res) => {
     let data = res.data;
-    // 处理自己的业务逻辑，比如判断 token 是否过期等等
-    // 代码块
     if (data.state === 7000) {
       notification.error({
         message: "Request Error",
@@ -56,15 +52,7 @@ instance.interceptors.response.use(
       });
       setTimeout(() => {
         location.href = "/SignIn";
-      }, 2000);
-    }
-
-    if (res.config.method === "post" || res.config.method === "put") {
-      notification.success({
-        message: "Success",
-        description: "",
-        placement: "topRight",
-      });
+      }, 3000);
     }
     return data;
   },

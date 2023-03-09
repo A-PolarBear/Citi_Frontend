@@ -1,11 +1,11 @@
 import "./App.css";
-import "./tests/mock/index"
 import Stock from "./pages/Stock";
 import Create from "./pages/Create";
 import Main from "./components/Main";
 import Favourites from "./pages/Favourites";
 import StockDetail from "./pages/StockDetail";
 import {
+  createBrowserRouter,
   createHashRouter,
   Navigate,
   RouterProvider,
@@ -17,7 +17,7 @@ import "./sign.css"
 
 function App() {
 
-  const router = createHashRouter([
+  const router = createBrowserRouter([
     {
       path: "/",
       element: <Main />,
