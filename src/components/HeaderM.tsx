@@ -1,11 +1,9 @@
-import { Row, Col, Breadcrumb, Button, Popover, notification } from "antd";
+import { Row, Col, Breadcrumb, Button, Popover } from "antd";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import avatar from "../assets/images/avatar.png"
 import loginExit from "../assets/images/loginExit.png"
-import loginOffImg from "../assets/images/loginOff.png"
 import { Cookies } from "react-cookie";
 import { useEffect, useState } from "react";
-import LoginAPI from "../api/Sign"
 
 const cookie = new Cookies();
 
