@@ -25,17 +25,19 @@ function QuotePanel(props: { quote: any }) {
     return (
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div
-          className={`quote ${className}`}
+          className={`quote ${className} flex-col md:flex-row text-right md:items-center pt-2`}
           style={{
             display: "flex",
             justifyContent: "space-evenly",
-            alignItems: "center",
           }}
         >
+          <span className="flex justify-end items-center">
           <FontAwesomeIcon icon={icon} />
-          <span style={{ fontWeight: 600, margin: "0 6px", fontSize: "24px" }}>
+          <span style={{ fontWeight: 600, margin: "0 6px" }} className="text-base md:text-2xl">
             {quote.current.toFixed(2)}
           </span>
+          </span>
+          <span>
           <span style={{ fontSize: "16px" }}>
             {quote.change > 0 ? "+" : ""}
             {quote.change.toFixed(2)}
@@ -43,9 +45,10 @@ function QuotePanel(props: { quote: any }) {
           <span style={{ fontSize: "16px" }}>
             ({quote.percent.toFixed(2)}%)
           </span>
+          </span>
         </div>
-        <div style={{width:"100%",textAlign: "right"}}>Last Updated at:</div>
-        <div style={{width:"100%",textAlign: "right"}}>{quote.date}</div>
+        <div style={{width:"100%",textAlign: "right"}} className="text-[10px] md:text-xs">Last Updated at:</div>
+        <div style={{width:"100%",textAlign: "right"}} className="text-[10px] md:text-xs">{quote.date}</div>
       </div>
     );
   }

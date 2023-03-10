@@ -7,17 +7,17 @@ function Profile(props: { profile: any }) {
   } else {
     return (
       <>
-        <div style={{ display: "flex", alignItems: "center" ,whiteSpace:"nowrap"}}>
+        <div style={{ display: "flex", alignItems: "center" }} className="w-2/4">
           <img
             src={props.profile.svg}
-            style={{ borderRadius: "24px", height: "48px" }}
+            className="h-6 rounded-xl md:h-8 md:rounded-2xl"
             alt=""
           />
-          <span style={{ margin: "8px" }}>
-            <h2 style={{ fontWeight: 600, fontSize: "24px" }}>
+          <span style={{ margin: "8px" ,width:"100%"}}>
+            <h2 style={{ fontWeight: 600 }} className="text-sm md:text-2xl">
               {props.profile.stockCode}
             </h2>
-            <h2>{props.profile.stockName}</h2>
+            <h2 className="w-4/5 text-xs text-ellipsis overflow-hidden whitespace-nowrap">{props.profile.stockName}</h2>
           </span>
         </div>
       </>
