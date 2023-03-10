@@ -1,13 +1,12 @@
 {
   "files": {
     "main.css": "/static/css/main.4aea5212.css",
-    "main.js": "/static/js/main.77dc1d1e.js",
+    "main.js": "/static/js/main.6900be4d.js",
     "static/media/signBg-1.png": "/static/media/signBg-1.515014256ec19d918dbd.png",
     "static/media/signBg-3.png": "/static/media/signBg-3.e9599787fe6396e4ba2e.png",
     "static/media/createPageImg.jpg": "/static/media/createPageImg.3f2f394d048f8a555a57.jpg",
     "static/media/signBigBg-1.png": "/static/media/signBigBg-1.b55fd73af25bb99c8bf8.png",
     "static/media/signUpProtocalImg.png": "/static/media/signUpProtocalImg.49c46a54c428eae80bf2.png",
-    "static/media/successIcon.png": "/static/media/successIcon.7fce1164b0196c85a261.png",
     "static/media/back.png": "/static/media/back.1e8c1fdf32e51f261cf2.png",
     "static/media/signLogo.png": "/static/media/signLogo.04d90fbe4140cc5622ea.png",
     "static/media/citi_logo.svg": "/static/media/citi_logo.064d2f70d44f51a131fdc44dc09bf6a8.svg",
@@ -18,6 +17,6 @@
   },
   "entrypoints": [
     "static/css/main.4aea5212.css",
-    "static/js/main.77dc1d1e.js"
+    "static/js/main.6900be4d.js"
   ]
 }
