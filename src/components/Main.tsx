@@ -1,4 +1,4 @@
-import { ConfigProvider, Layout, theme } from "antd";
+import { ConfigProvider, Drawer, Layout, theme } from "antd";
 import { useEffect, useState } from "react";
 import { useLocation, Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
@@ -19,6 +19,9 @@ function Main() {
     if (storage) return storage === "true" ? true : false;
     else return false;
   });
+
+  const [visible, setVisible] = useState(false);
+  const openDrawer = () => setVisible(!visible);
 
   useEffect(() => {
     localStorage.setItem("isLightTheme", JSON.stringify(isLightTheme));
@@ -45,6 +48,27 @@ function Main() {
         }}
         className={isLightTheme ? "" : "dark"}
       >
+        <Drawer
+          title={false}
+          placement="left"
+          closable={false}
+          onClose={() => setVisible(false)}
+          key="left"
+          width={250}
+          open={visible}
+          style={{padding:"0"}}
+        >
+          <Layout className="justify-center bg-zinc-50 pt-4">
+            <Sider
+              theme={isLightTheme ? "light" : "dark"}
+              trigger={null}
+              className={"sider-primary"}
+              style={{flex:"1 auto"}}
+            >
+              <SideBar theme={isLightTheme} fold={false} />
+            </Sider>
+          </Layout>
+        </Drawer>
         <Sider
           theme={isLightTheme ? "light" : "dark"}
           breakpoint="lg"
@@ -90,11 +114,12 @@ function Main() {
                 pathname={pathname}
                 setTheme={() => setIsLightTheme(!isLightTheme)}
                 lighttheme={isLightTheme}
+                opendrawer={openDrawer}
               ></HeaderM>
             </div>
           </Header>
           {tickerTape}
-          <Content className="px-2 md:px-4">
+          <Content className="md:px-4">
             <ConfigProvider
               theme={
                 isLightTheme

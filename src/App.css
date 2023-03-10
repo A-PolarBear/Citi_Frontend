@@ -14,10 +14,10 @@ iframe {
   font-family: "Ubuntu", sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
-  height:100vh;
+  height: 100vh;
 }
 
-[type='button'] {
+[type="button"] {
   background-color: #1890ff;
 }
 
@@ -46,7 +46,7 @@ iframe {
   background: #fafafa;
   position: fixed;
   color: inherit;
-  height:100vh;
+  height: 100vh;
 }
 
 .sider-primary .fold {
@@ -74,7 +74,6 @@ iframe {
     padding: 13px 8px 0 8px;
   }
 }
-
 
 @layer components {
   .fold-btn {
@@ -124,7 +123,6 @@ iframe {
     fill: #fafafa;
   }
 }
-
 
 .sider-primary .logo img {
   height: 48px;
@@ -257,7 +255,7 @@ iframe {
 /*********Content*********/
 .ant-layout .ant-layout-content {
   position: relative;
-  min-height:auto;
+  min-height: auto;
   font-family: "Ubuntu", sans-serif;
 }
 
@@ -275,10 +273,14 @@ iframe {
   font-weight: 700;
 }
 
-.dark .ant-space-item  a{
-  color:#1890ff;
+.dark .ant-space-item a {
+  color: #1890ff;
 }
 
+/*********Drawer*********/
+.ant-drawer .ant-drawer-body {
+  padding: 0;
+}
 
 /********Loading********/
 .pl {
@@ -311,7 +313,8 @@ iframe {
 
 /* Animations */
 @keyframes ringA {
-  from, 4% {
+  from,
+  4% {
     stroke-dasharray: 0 660;
     stroke-width: 20;
     stroke-dashoffset: -330;
@@ -329,7 +332,8 @@ iframe {
     stroke-dashoffset: -595;
   }
 
-  40%, 54% {
+  40%,
+  54% {
     stroke-dasharray: 0 660;
     stroke-width: 20;
     stroke-dashoffset: -660;
@@ -347,7 +351,8 @@ iframe {
     stroke-dashoffset: -925;
   }
 
-  90%, to {
+  90%,
+  to {
     stroke-dasharray: 0 660;
     stroke-width: 20;
     stroke-dashoffset: -990;
@@ -355,7 +360,8 @@ iframe {
 }
 
 @keyframes ringB {
-  from, 12% {
+  from,
+  12% {
     stroke-dasharray: 0 220;
     stroke-width: 20;
     stroke-dashoffset: -110;
@@ -373,7 +379,8 @@ iframe {
     stroke-dashoffset: -195;
   }
 
-  48%, 62% {
+  48%,
+  62% {
     stroke-dasharray: 0 220;
     stroke-width: 20;
     stroke-dashoffset: -220;
@@ -391,7 +398,8 @@ iframe {
     stroke-dashoffset: -305;
   }
 
-  98%, to {
+  98%,
+  to {
     stroke-dasharray: 0 220;
     stroke-width: 20;
     stroke-dashoffset: -330;
@@ -417,7 +425,8 @@ iframe {
     stroke-dashoffset: -175;
   }
 
-  36%, 58% {
+  36%,
+  58% {
     stroke-dasharray: 0 440;
     stroke-width: 20;
     stroke-dashoffset: -220;
@@ -435,7 +444,8 @@ iframe {
     stroke-dashoffset: -395;
   }
 
-  94%, to {
+  94%,
+  to {
     stroke-dasharray: 0 440;
     stroke-width: 20;
     stroke-dashoffset: -440;
@@ -443,7 +453,8 @@ iframe {
 }
 
 @keyframes ringD {
-  from, 8% {
+  from,
+  8% {
     stroke-dasharray: 0 440;
     stroke-width: 20;
     stroke-dashoffset: 0;
@@ -461,7 +472,8 @@ iframe {
     stroke-dashoffset: -175;
   }
 
-  44%, 50% {
+  44%,
+  50% {
     stroke-dasharray: 0 440;
     stroke-width: 20;
     stroke-dashoffset: -220;
@@ -479,7 +491,8 @@ iframe {
     stroke-dashoffset: -395;
   }
 
-  86%, to {
+  86%,
+  to {
     stroke-dasharray: 0 440;
     stroke-width: 20;
     stroke-dashoffset: -440;
@@ -538,7 +551,7 @@ iframe {
 }
 .fill::before {
   opacity: 0;
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: 50%;
@@ -547,13 +560,13 @@ iframe {
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: transparent;
-  box-shadow: 15px -15px 0 #fed001, 15px 15px 0 #fed001,
-    -15px -15px 0 #fed001, -15px 15px 0 #fed001;
+  box-shadow: 15px -15px 0 #fed001, 15px 15px 0 #fed001, -15px -15px 0 #fed001,
+    -15px 15px 0 #fed001;
   animation: show 0.2s steps(1, end) 0s 1;
 }
 .fill::after {
   opacity: 0;
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   right: 0;
@@ -590,7 +603,7 @@ iframe {
 
 .rocker-small {
   font-size: 0.75em;
- /* Sizes the switch */
+  /* Sizes the switch */
   margin: 1em;
 }
 
@@ -709,29 +722,29 @@ input:checked:focus + .switch-left + .switch-right {
 }
 
 /*********Quote*********/
-.price-up ,.dark .price-up span{
-  color:#de453d;
+.price-up,
+.dark .price-up span {
+  color: #de453d;
 }
 
-.price-down,.dark .price-down span {
-  color:#37d14b;
+.price-down,
+.dark .price-down span {
+  color: #37d14b;
 }
 
 .quoteCard .ant-card-body {
-  padding-top:0;
+  padding-top: 0;
 }
 
 /*********Detail********/
 .detail ul li {
-  display:block;
-  width:30%;
+  display: block;
+  width: 30%;
   margin-right: 12px;
-  flex:1 1 auto;
+  flex: 1 1 auto;
 }
 
 .detail ul li span {
-  font-size:24px;
+  font-size: 24px;
   font-weight: 700;
 }
-
-

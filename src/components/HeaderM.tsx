@@ -1,11 +1,11 @@
-import { Row, Col, Breadcrumb, Button, Popover, notification } from "antd";
+import { Row, Col, Breadcrumb, Button, Popover } from "antd";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import avatar from "../assets/images/avatar.png"
-import loginExit from "../assets/images/loginExit.png"
-import loginOffImg from "../assets/images/loginOff.png"
+import avatar from "../assets/images/avatar.png";
+import loginExit from "../assets/images/loginExit.png";
 import { Cookies } from "react-cookie";
 import { useEffect, useState } from "react";
-import LoginAPI from "../api/Sign"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList } from "@fortawesome/free-solid-svg-icons";
 
 const cookie = new Cookies();
 
@@ -13,34 +13,34 @@ type IProps = React.PropsWithChildren<{
   pathname: string;
   setTheme: any;
   lighttheme: boolean;
+  opendrawer: any;
 }>;
 
-
-function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
-
+function HeaderM({ pathname, setTheme, lighttheme, opendrawer }: IProps) {
   const navigate = useNavigate();
   // 判断用户是否登录：
-  const [userLoginState, setUserLoginState] = useState(false)
+  const [userLoginState, setUserLoginState] = useState(false);
   useEffect(() => {
     // 如果本地的cookie中的token不为空，则说明用户已经登录：
     if (cookie.get("token") != null) {
-      const current_user_emailValue = localStorage.getItem('current_user_emailValue');
-      console.log("current_user_emailValue", current_user_emailValue)
-      setUserLoginState(true)
+      const current_user_emailValue = localStorage.getItem(
+        "current_user_emailValue"
+      );
+      console.log("current_user_emailValue", current_user_emailValue);
+      setUserLoginState(true);
+    } else {
+      setUserLoginState(false);
     }
-    else {
-      setUserLoginState(false)
-    }
-  },[])
+  }, []);
 
   // 用户登出：
   const loginOut = () => {
     // 把cookie清空：
-    cookie.set("token", '');
-    console.log("loginOut方法开始调用")
+    cookie.set("token", "");
+    console.log("loginOut方法开始调用");
     setUserLoginState(false);
-    setTimeout(()=>navigate("/signin"),1500);
-  }
+    setTimeout(() => navigate("/signin"), 1500);
+  };
   // 用户注销：
   // const loginOff = () => {
   //   // 把cookie清空：
@@ -68,7 +68,9 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
   const UserInfoPopoverContent = (
     <div>
       <p className="firstTXT text-sm">Hello,dear user</p>
-      <p className="secondTXT text-sm">{localStorage.getItem('current_user_emailValue')}</p>
+      <p className="secondTXT text-sm">
+        {localStorage.getItem("current_user_emailValue")}
+      </p>
       <div className="popoverImgBox1" onClick={loginOut}>
         <span>Sign out</span>
         <img src={loginExit} alt="" className="loginExit" />
@@ -80,7 +82,6 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
     </div>
   );
 
-
   let patharr = pathname.split("/");
   const arr = patharr.map((value, index) => {
     const url = `/${patharr.slice(1, index + 1).join("/")}`;
@@ -90,8 +91,6 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
       </Breadcrumb.Item>
     );
   });
-
-
 
   return (
     <>
@@ -115,12 +114,28 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
           </div>
         </Col>
         <Col span={24} md={18} className="header-control">
-          <Popover content={UserInfoPopoverContent} placement="bottom" title="User Info" style={userLoginState ? { display: '' } : { display: "none" }} className="w-auto">
-            <img className="indexAvatar" src={avatar} alt="图片不见了" style={userLoginState ? { display: '' } : { display: "none" }}/>
+          <Popover
+            content={UserInfoPopoverContent}
+            placement="bottom"
+            title="User Info"
+            style={userLoginState ? { display: "" } : { display: "none" }}
+            className="w-auto"
+          >
+            <img
+              className="indexAvatar"
+              src={avatar}
+              alt="图片不见了"
+              style={userLoginState ? { display: "" } : { display: "none" }}
+            />
           </Popover>
 
-          <Link to="/SignIn" style={userLoginState ? { display: "none" } : { display: '' }}>
-            <Button type="primary" className="signInButton">Sign In</Button>
+          <Link
+            to="/SignIn"
+            style={userLoginState ? { display: "none" } : { display: "" }}
+          >
+            <Button type="primary" className="signInButton">
+              Sign In
+            </Button>
           </Link>
           <Button
             onClick={() => setTheme()}
@@ -141,8 +156,13 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
               ></path>
             </svg>
           </Button>
-
-
+          <Button
+            onClick={opendrawer}
+            style={{ background: "transparent" }}
+            className="ml-2 lg:hidden"
+          >
+            <FontAwesomeIcon icon={faList} />
+          </Button>
         </Col>
       </Row>
     </>
