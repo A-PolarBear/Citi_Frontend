@@ -150,9 +150,9 @@ function StockCard(props: any) {
               style={{
                 width: "100%",
                 height: "100px",
-                padding: "0 20px",
                 marginTop: "12px",
               }}
+              className="md:px-5"
             >
               <QuoteChart
                 data={intraday}

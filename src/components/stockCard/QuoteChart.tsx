@@ -33,7 +33,7 @@ function QuoteChart(props: any) {
             width={600}
             height={100}
             data={data}
-            margin={{ top: 5, right: 10, left: 20, bottom: 5 }}
+            margin={{ top: 5, right: 10, left: 10, bottom: 5 }}
           >
             <defs>
               <linearGradient id={stock} x1="0" y1="0" x2="0" y2="1">

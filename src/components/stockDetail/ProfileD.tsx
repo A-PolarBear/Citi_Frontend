@@ -4,11 +4,11 @@ function ProfileD(props: { profile: any }) {
       <div style={{ display: "flex", alignItems: "center"}}>
         <img
           src={props.profile.svg}
-          style={{ borderRadius: "24px", height: "48px" }}
           alt=""
+          className="h-6 rounded-xl md:h-8 md:rounded-2xl"
         />
-        <span style={{ margin: "8px" ,marginLeft:"24px"}}>
-          <h2 style={{ fontWeight: 600, fontSize: "32px",textTransform:"uppercase"}}>
+        <span style={{ margin: "8px" }} className="ml-2 md:ml-6">
+          <h2 style={{ fontWeight: 600,textTransform:"uppercase"}} className="text-lg md:text-3xl">
             {props.profile.stockName}
           </h2>
           <h2>{props.profile.stockCode}</h2>
