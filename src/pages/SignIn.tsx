@@ -2,11 +2,10 @@ import { useState } from "react";
 import signUpCardImg from "../assets/images/signBg-3.png"
 import signUpLogo from "../assets/images/signLogo.png";
 import backToSignIn from "../assets/images/back.png";
-import successIcon from "../assets/images/successIcon.png";
 import { Cookies } from "react-cookie";
 
 import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
-import { Input, Tooltip, Button, Switch, Modal, Form, Alert, message, notification } from 'antd';
+import { Input, Tooltip, Button, Switch, Modal, Form, Alert, notification } from 'antd';
 import { Link, useNavigate } from "react-router-dom";
 import LoginAPI from "../api/Sign"
 
@@ -17,7 +16,6 @@ type LayoutType = Parameters<typeof Form>[0]['layout'];
 
 function SignIn(props: any) {
     // 0.验证forget pwd时输入的email是否有效：
-    const [emailValidState, setEmailValidState] = useState(true);
     const [twoNewPwdNotSame, setTwoNewPwdNotSame] = useState(false);
     const navigate = useNavigate();
 
@@ -30,6 +28,9 @@ function SignIn(props: any) {
         const item = localStorage.getItem('passwordValue');
         return item !== null ? item : "";
     });
+    const [changePwdEmail, setChangePwdEmail] = useState('');
+    const [oldPwdValue, setOldPwdValue] = useState('');
+
     const [emailNullTxtState, setEmailNullTxtState] = useState(false);
     const [pwdNullTxtState, setPwdNullTxtState] = useState(false);
 
@@ -47,14 +48,6 @@ function SignIn(props: any) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
-        // console.log("showModal", showModal)
-        // 先上传email给后端，验证是否有效：
-        // setEmailValidState来接收这个bool值。 
-
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
     };
 
     // 3.1 气泡框中的-表单布局：
@@ -68,18 +61,32 @@ function SignIn(props: any) {
     const [newPwdValue2, setNewPwdValue2] = useState('');
     // 3.3 输入完毕，点击气泡框的OK按钮：
     const handleModalOk = () => {
-        if (newPwdValue1 === newPwdValue2) {
-            console.log("要发送新密码了！")
-            // ______________________________________-把新密码newPwdValue1发给后端；
-            setTwoNewPwdNotSame(false);
-            setIsModalOpen(false);
+        form.submit();
+        if (changePwdEmail != "" && oldPwdValue != "" && newPwdValue1 != '' && newPwdValue2 != "") {
+            if (newPwdValue1 === newPwdValue2) {
+                console.log("所有数据已填，且两次密码一致，要发送新密码了！")
+                LoginAPI.changePwd({ email: changePwdEmail, oldPwd: oldPwdValue, newPwd: newPwdValue2 })
+                setTwoNewPwdNotSame(false);
+                form.resetFields();
+                // console.log("newPwdValue1", newPwdValue1)
+                setIsModalOpen(false);
+            }
+            else {
+                console.log("两次密码不一致")
+                setTwoNewPwdNotSame(true)
+            }
         }
         else {
-            console.log("两次密码不一致")
-            setTwoNewPwdNotSame(true);
+            console.log("存在数据未填写")
+            setTwoNewPwdNotSame(false)
         }
-
     }
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+        setTwoNewPwdNotSame(false)
+    };
+
 
     // 4. sign up按钮 - 提交【邮箱（用户名）】+【密码】数据：
     const SubmitData = () => {
@@ -159,6 +166,7 @@ function SignIn(props: any) {
                                 onChange={e => {
                                     setEmailValue(e.target.value);
                                     console.log("emailValue", emailValue)
+                                    setEmailNullTxtState(false)
                                 }}
                                 status={emailNullTxtState ? "error" : ""}
                             />
@@ -173,6 +181,7 @@ function SignIn(props: any) {
                                 onChange={e => {
                                     console.log("e.target.value", e.target.value)
                                     setPasswordValue(e.target.value);
+                                    setPwdNullTxtState(false)
                                 }} />
                             <div className="emailNullTxt" style={pwdNullTxtState ? { display: "" } : { display: "none" }}>Please input your password!</div>
                         </div>
@@ -182,15 +191,10 @@ function SignIn(props: any) {
                                 <Switch defaultChecked onChange={switchChange} />
                                 <span className="rememberPasswordTXT">Remember me</span>
                             </div>
-                            <div className="ForgetPwd" onClick={showModal}>Forget password?</div>
+                            <div className="ForgetPwd" onClick={showModal}>Change password?</div>
                         </div>
-                        <Modal title="Forgot password? " open={isModalOpen} onOk={handleModalOk} onCancel={handleCancel}>
-                            {/* 如果email有效，则显示允许用户填写新密码的表单： */}
-                            <div className="modalValidBox" style={emailValidState ? { display: '' } : { display: "none" }}>
-                                <div className="emailValidReminder">
-                                    <img src={successIcon} className="validIcon" alt="" />
-                                    <span className="validTXT"> Your email is valid !</span>
-                                </div>
+                        <Modal title="Change password? " open={isModalOpen} onOk={handleModalOk} onCancel={handleCancel}>
+                            <div className="modalValidBox" >
                                 <Form
                                     layout={"vertical"}
                                     form={form}
@@ -199,7 +203,36 @@ function SignIn(props: any) {
                                     style={{ maxWidth: 600 }}
                                     className="NewPwdForm"
                                 >
-                                    <Form.Item label="New Password *">
+
+                                    <Form.Item label="Email" name="Email" rules={[{ required: true, message: 'Please input your email address!' }]}>
+                                        <Input
+                                            placeholder="Enter your mail address"
+                                            prefix={<UserOutlined className="site-form-item-icon" />}
+                                            suffix={
+                                                <Tooltip title="请输入邮箱地址">
+                                                    <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                                                </Tooltip>
+                                            }
+                                            value={changePwdEmail}
+                                            onChange={e => {
+                                                console.log("changePwdEmail", e.target.value);
+                                                setChangePwdEmail(e.target.value);
+                                            }}
+                                        />
+                                    </Form.Item>
+
+                                    <Form.Item label="Old Password" name="Old Password" rules={[{ required: true, message: 'Please input your old password!' }]}>
+                                        <Input.Password placeholder="input old password" value={oldPwdValue}
+                                            onChange={e => {
+                                                console.log("oldPwdValue", e.target.value);
+                                                setOldPwdValue(e.target.value);
+                                            }} />
+                                    </Form.Item>
+
+
+
+                                    <Form.Item label="New Password" name="New Password" rules={[{ required: true, message: 'Please input your new password!' }]}>
+
                                         <Input.Password placeholder="input new password" value={newPwdValue1}
                                             onChange={e => {
                                                 console.log("newPwdValue1", e.target.value);
@@ -207,13 +240,14 @@ function SignIn(props: any) {
                                             }} />
                                     </Form.Item>
 
-                                    <Form.Item label="New Password *">
+                                    <Form.Item label="New Password" name="Enter New Password again" rules={[{ required: true, message: 'Please input your new password again!' }]}>
                                         <Input.Password placeholder="please input again" value={newPwdValue2}
                                             onChange={e => {
                                                 console.log("newPwdValue2", e.target.value);
                                                 setNewPwdValue2(e.target.value);
                                             }} />
                                     </Form.Item>
+
                                     <Alert
                                         message="Two passwords do not match. Please check again."
                                         type="warning"

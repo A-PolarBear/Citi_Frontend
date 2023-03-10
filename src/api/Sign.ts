@@ -5,8 +5,8 @@ const LoginAPI = {
     instance.get("/users/login", { params: userInfo }),
   signUp: (userInfo: any) =>
     instance.post("/users/reg", userInfo),
-  forgetPwd: (userInfo: any) =>
-    instance.post("/users/forgetPwd", userInfo),
+  changePwd: (userInfo: any) =>
+    instance.post("/users/change-pwd", userInfo),
 };
 
 export default LoginAPI;

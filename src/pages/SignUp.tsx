@@ -107,6 +107,7 @@ function SignUp(props: any) {
                 onChange={e => {
                   setEmailValue(e.target.value);
                   console.log("emailValue", emailValue)
+                  setEmailNullTxtState(false)
                 }}
                 status={emailNullTxtState ? "error" : ""}
               />
@@ -121,6 +122,8 @@ function SignUp(props: any) {
                 onChange={e => {
                   console.log("e.target.value", e.target.value)
                   setPasswordValue(e.target.value);
+                  setPwdNullTxtState(false)
+
                 }} />
               <div className="emailNullTxt" style={pwdNullTxtState ? { display: "" } : { display: "none" }}>Please input your password!</div>
             </div>
