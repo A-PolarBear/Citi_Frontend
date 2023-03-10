@@ -20,8 +20,8 @@ function Favorites() {
 
   const colCount = stockCodeList.length;
   const cols = [];
-  if (colCount === 0){
-    cols.push(<Col key={1} sm={24} lg={12} xl={8}>
+  if (colCount === 0 || stockCodeList == null){
+    cols.push(<Col key={1}>
     <Card>
         No Favourites.
     </Card>
@@ -29,7 +29,7 @@ function Favorites() {
   }
   for (let i = 0; i < colCount; i++) {
     cols.push(
-      <Col key={i.toString()} sm={24} lg={12} xl={8}>
+      <Col key={i.toString()} sm={24} lg={12} xl={8} className="flex-auto px-0">
         <StockCard
           stockData={{
             stockCode: stockCodeList[i],
@@ -50,7 +50,7 @@ function Favorites() {
         }
       }}
       >
-      <Row gutter={[24, 24]}>{cols}</Row>
+      <Row gutter={[24, 24]} className="w-full" style={{margin:"0 0"}}>{cols}</Row>
       </ConfigProvider>
     </>
   );
