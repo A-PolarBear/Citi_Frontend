@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.4aea5212.css",
-    "main.js": "/static/js/main.6900be4d.js",
+    "main.js": "/static/js/main.f3dc440b.js",
     "static/media/signBg-1.png": "/static/media/signBg-1.515014256ec19d918dbd.png",
     "static/media/signBg-3.png": "/static/media/signBg-3.e9599787fe6396e4ba2e.png",
     "static/media/createPageImg.jpg": "/static/media/createPageImg.3f2f394d048f8a555a57.jpg",
@@ -17,6 +17,6 @@
   },
   "entrypoints": [
     "static/css/main.4aea5212.css",
-    "static/js/main.6900be4d.js"
+    "static/js/main.f3dc440b.js"
   ]
 }
