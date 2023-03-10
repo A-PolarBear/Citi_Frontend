@@ -28,7 +28,7 @@ function StockDetail() {
         res
       );
       setStockQuote(res.data);
-      setIsFavourite(res.data.stockVO.isFavourite);
+      setIsFavourite(res.data.stockVO.isFavourite===1?true:false);
     } catch (error) {
       setStockQuote(null);
     }
@@ -43,10 +43,6 @@ function StockDetail() {
       return () => clearTimeout(timerId);
     }
   }, [stockCode]);
-
-  useEffect(() => {
-    
-  }, [isFavourite]);
 
   // acquire history data from children component(candlestick chart)
   const getHistory = (e: any) => {

@@ -70,7 +70,7 @@ function Main() {
               theme={isLightTheme ? "light" : "dark"}
               trigger={null}
               className={"sider-primary"}
-              style={{ flex: "1 auto", boxShadow: "" }}
+              style={{ flex: "1 auto", boxShadow: "none" }}
             >
               <SideBar theme={isLightTheme} fold={false} />
             </Sider>
