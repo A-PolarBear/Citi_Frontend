@@ -29,7 +29,7 @@ function Favorites() {
   }
   for (let i = 0; i < colCount; i++) {
     cols.push(
-      <Col key={i.toString()} sm={24} lg={12} xl={8} className="flex-auto px-0">
+      <Col key={i.toString()} sm={24} lg={12} xl={8} className="flex-auto px-0" style={{width:'100%'}}>
         <StockCard
           stockData={{
             stockCode: stockCodeList[i],
