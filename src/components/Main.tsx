@@ -94,7 +94,7 @@ function Main() {
             </div>
           </Header>
           {tickerTape}
-          <Content>
+          <Content className="px-2 md:px-4">
             <ConfigProvider
               theme={
                 isLightTheme

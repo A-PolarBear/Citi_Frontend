@@ -256,7 +256,6 @@ iframe {
 
 /*********Content*********/
 .ant-layout .ant-layout-content {
-  padding: 0 16px;
   position: relative;
   min-height:auto;
   font-family: "Ubuntu", sans-serif;
@@ -279,9 +278,7 @@ iframe {
 .dark .ant-space-item  a{
   color:#1890ff;
 }
-/* .dark .ant-card{
-  background-color: #1f2733; 
-} */
+
 
 /********Loading********/
 .pl {
