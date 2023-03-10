@@ -152,7 +152,7 @@ function Create() {
     <>
       <div className="createPage">
         {/* 1. 卡片左侧： */}
-        <div className="createLeftBox">
+        <div className="createLeftBox flex-auto">
           <div className="createLittleLeftBox">
             {/* 1.1 左侧竖栏： */}
             <div className="LeftColumn">
@@ -277,8 +277,8 @@ function Create() {
                   />
                   <div className="emailNullTxt" style={highValueNullState ? { display: "" } : { display: "none" }}>Please input the high price!</div>
                 </div>
-                <div style={{ marginTop: "20%" }}>
-                  <Button type="primary" className="createSubmitButton" onClick={submitData}>
+                <div style={{ marginTop: "20%" }} className="flex flex-col justify-start sm:items-center sm:flex-row">
+                  <Button type="primary" className="createSubmitButton mb-2 w-16 sm:mb-0 sm:mr-3" onClick={submitData}>
                     submit
                   </Button>
                   <Button
@@ -295,7 +295,7 @@ function Create() {
         </div>
 
         {/* 2. 卡片右侧 */}
-        <div className="createRIghtBox">
+        <div className="createRIghtBox hidden  md:block">
           <img src={createPageImg} className="createPageImg" alt="" />
         </div>
       </div>

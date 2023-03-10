@@ -195,8 +195,8 @@ function Stock() {
   const loading_DIY = <Loading></Loading>;
 
   return (
-    <div>
-      <Card title="Stock" hoverable={true}>
+    <div className="mt-2">
+      <Card hoverable={true}>
         <div>
           <Form
             style={{ display: "flex", justifyContent: "space-between" }}

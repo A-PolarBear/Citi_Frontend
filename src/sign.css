@@ -249,7 +249,7 @@
   width: 88%;
   height: 90%;
   display: flex;
-  margin-left: 10%;
+  margin-left: 12px;
 }
 
 .createLittleLeftBox .LeftColumn{
@@ -283,10 +283,8 @@
 }
 
 .createSubmitButton{
-  margin-left: 20%;
 }
 .creatResetButton{
-  margin-left: 15px;
   width: 80px;
 }
 
