@@ -31,6 +31,7 @@ function Stock() {
   const findRef = useRef<any>({ stockCode: "", stockName: "" });
   const pageOption = useRef<any>({ page: 1, size: 5 });
   const paginationProps = {
+    responsive: true,
     total: total,
     current: pageOption.current.page,
     pageSize: pageOption.current.size,
@@ -101,16 +102,18 @@ function Stock() {
       title: "Symbol",
       dataIndex: "stockCode",
       key: "stockCode",
-      responsive: ["sm"],
+      width: "120px",
       render: (_, record) => (
-        <Space size="middle">
-          <img
-            src={record.svg}
-            style={{ width: "32px", height: "32px", borderRadius: "16px" }}
-            alt=""
-          />
-          <Link to={`/stock/${record.stockCode}`}>{record.stockCode}</Link>
-        </Space>
+        <div style={{ wordWrap: "break-word", wordBreak: "break-word" }}>
+          <Space size="small">
+            <img
+              src={record.svg}
+              style={{ width: "32px", height: "32px", borderRadius: "16px" }}
+              alt=""
+            />
+            <Link to={`/stock/${record.stockCode}`}>{record.stockCode}</Link>
+          </Space>
+        </div>
       ),
     },
     {
@@ -133,7 +136,7 @@ function Stock() {
       title: "Volume",
       dataIndex: "volume",
       key: "volume",
-      render:(_,record)=>numFormat(record.volume,3),
+      render: (_, record) => numFormat(record.volume, 3),
     },
     {
       title: "Open",
@@ -202,7 +205,7 @@ function Stock() {
               findRef.current = all;
             }}
           >
-            <div className="flex mr-1">
+            <div className="flex mr-2">
               <Form.Item
                 label="Symbol"
                 name="stockCode"
@@ -227,7 +230,10 @@ function Stock() {
                 <Input />
               </Form.Item>
             </div>
-            <Form.Item style={{ display: "inline-block", textAlign: "right" }} className="pt-2">
+            <Form.Item
+              style={{ display: "inline-block", textAlign: "right" }}
+              className="pt-8 sm:pt-0"
+            >
               <Button
                 htmlType="submit"
                 type="primary"
@@ -239,6 +245,7 @@ function Stock() {
             </Form.Item>
           </Form>
           <Table
+            scroll={{ x: "max-content" }}
             columns={columns}
             dataSource={stockList}
             pagination={paginationProps}

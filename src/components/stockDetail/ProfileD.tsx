@@ -1,7 +1,7 @@
 function ProfileD(props: { profile: any }) {
   return (
     <>
-      <div style={{ display: "flex", alignItems: "center",whiteSpace:"nowrap"}}>
+      <div style={{ display: "flex", alignItems: "center"}}>
         <img
           src={props.profile.svg}
           style={{ borderRadius: "24px", height: "48px" }}

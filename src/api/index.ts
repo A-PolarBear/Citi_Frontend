@@ -47,7 +47,7 @@ instance.interceptors.response.use(
     if (data.state === 7000) {
       notification.error({
         message: "Request Error",
-        description: "Token is expired. Please sign in again.",
+        description: data.message,
         placement: "topRight",
       });
       setTimeout(() => {
