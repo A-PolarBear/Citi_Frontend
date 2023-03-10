@@ -6,13 +6,13 @@ import Favourites from "./pages/Favourites";
 import StockDetail from "./pages/StockDetail";
 import {
   createBrowserRouter,
-  createHashRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
 import "./sign.css"
+
 
 
 function App() {

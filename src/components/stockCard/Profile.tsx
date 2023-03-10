@@ -7,7 +7,7 @@ function Profile(props: { profile: any }) {
   } else {
     return (
       <>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center" ,whiteSpace:"nowrap"}}>
           <img
             src={props.profile.svg}
             style={{ borderRadius: "24px", height: "48px" }}

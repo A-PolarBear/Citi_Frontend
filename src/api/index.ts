@@ -5,7 +5,7 @@ import axios from "axios";
 export const cookie = new Cookies();
 
 const serverConfig = {
-  baseURL: "/api/",
+  baseURL: "/api",
   useTokenAuthorization: true, // 是否开启 token 认证
 };
 

@@ -4,6 +4,7 @@ import {
   faArrowTrendUp,
   faArrowTrendDown,
 } from "@fortawesome/free-solid-svg-icons";
+import { formatNumber } from "../../utils";
 
 
 // display quote, change & change percent 
@@ -22,7 +23,7 @@ function QuotePanelD(props: { quote: any }) {
       className = "price-down";
     }
     return (
-      <div style={{ display: "flex", flexDirection: "column" ,width:"100%"}}>
+      <div style={{ display: "flex", flexDirection: "column" ,width:"100%",whiteSpace:"nowrap"}}>
         <div
           className={`quote ${className}`}
           style={{
@@ -33,11 +34,11 @@ function QuotePanelD(props: { quote: any }) {
         >
           <FontAwesomeIcon icon={icon} className="fa-xl"/>
           <span style={{ fontWeight: 600, margin: "0 8px", fontSize: "36px" }}>
-            {quote.current.toFixed(2)}
+            {formatNumber(quote.current.toFixed(2))}
           </span>
           <span style={{ fontWeight:400,fontSize: "16px" }}>
             {quote.change > 0 ? "+" : ""}
-            {quote.change.toFixed(2)}
+            {formatNumber(quote.change.toFixed(2))}
           </span>
           <span style={{ fontWeight:400,fontSize: "16px" }}>
             ({quote.percent.toFixed(2)}%)

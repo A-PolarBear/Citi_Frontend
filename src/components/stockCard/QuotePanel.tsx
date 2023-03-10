@@ -33,7 +33,7 @@ function QuotePanel(props: { quote: any }) {
           }}
         >
           <FontAwesomeIcon icon={icon} />
-          <span style={{ fontWeight: 600, margin: "0 8px", fontSize: "28px" }}>
+          <span style={{ fontWeight: 600, margin: "0 6px", fontSize: "24px" }}>
             {quote.current.toFixed(2)}
           </span>
           <span style={{ fontSize: "16px" }}>
