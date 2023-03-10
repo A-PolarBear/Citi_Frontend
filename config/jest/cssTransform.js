@@ -1,14 +1,3 @@
-'use strict';
-
-// This is a custom Jest transformer turning style imports into empty objects.
-// http://facebook.github.io/jest/docs/en/webpack.html
-
-module.exports = {
-  process() {
-    return 'module.exports = {};';
-  },
-  getCacheKey() {
-    // The output is always the same.
-    return 'cssTransform';
-  },
-};
+version https://git-lfs.github.com/spec/v1
+oid sha256:624250eed6c14724fcef4448f48087c4ae96fed1d6f3b973dc0f8fda1b4da55e
+size 328
