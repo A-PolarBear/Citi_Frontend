@@ -1,14 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.39ebab2a.css",
-    "main.js": "/static/js/main.71118a26.js",
+    "main.css": "/static/css/main.d5c09fa9.css",
+    "main.js": "/static/js/main.8f8ec1c4.js",
     "static/media/signBg-1.png": "/static/media/signBg-1.515014256ec19d918dbd.png",
     "static/media/signBg-3.png": "/static/media/signBg-3.e9599787fe6396e4ba2e.png",
     "static/media/createPageImg.jpg": "/static/media/createPageImg.3f2f394d048f8a555a57.jpg",
     "static/media/signBigBg-1.png": "/static/media/signBigBg-1.b55fd73af25bb99c8bf8.png",
     "static/media/signUpProtocalImg.png": "/static/media/signUpProtocalImg.49c46a54c428eae80bf2.png",
+    "static/media/avatar.png": "/static/media/avatar.0eba3913ac8f4d715a6b.png",
     "static/media/back.png": "/static/media/back.1e8c1fdf32e51f261cf2.png",
+    "static/media/loginExit.png": "/static/media/loginExit.29ee96494cece4a6182a.png",
     "static/media/signLogo.png": "/static/media/signLogo.04d90fbe4140cc5622ea.png",
+    "static/media/null.svg": "/static/media/null.f62a0d798e4f875e040bd6b90218eda8.svg",
     "static/media/citi_logo.svg": "/static/media/citi_logo.064d2f70d44f51a131fdc44dc09bf6a8.svg",
     "static/media/citi_d.svg": "/static/media/citi_d.85ba6e3e36b9d72f5ae6abcfc210ab0d.svg",
     "static/media/star_n1.svg": "/static/media/star_n1.7cfc6b64c4b6d3e3e104.svg",
@@ -16,7 +19,7 @@
     "static/media/star.svg": "/static/media/star.17ed8087ec783e78f2f1.svg"
   },
   "entrypoints": [
-    "static/css/main.39ebab2a.css",
-    "static/js/main.71118a26.js"
+    "static/css/main.d5c09fa9.css",
+    "static/js/main.8f8ec1c4.js"
   ]
 }
