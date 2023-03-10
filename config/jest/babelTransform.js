@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:cda83a4d6b5f5378202802442af8856d62163403dd7642aeecad4c7e4ca25569
-size 563
+'use strict';
+
+const babelJest = require('babel-jest').default;
+
+const hasJsxRuntime = (() => {
+  if (process.env.DISABLE_NEW_JSX_TRANSFORM === 'true') {
+    return false;
+  }
+
+  try {
+    require.resolve('react/jsx-runtime');
+    return true;
+  } catch (e) {
+    return false;
+  }
+})();
+
+module.exports = babelJest.createTransformer({
+  presets: [
+    [
+      require.resolve('babel-preset-react-app'),
+      {
+        runtime: hasJsxRuntime ? 'automatic' : 'classic',
+      },
+    ],
+  ],
+  babelrc: false,
+  configFile: false,
+});
