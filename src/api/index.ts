@@ -5,7 +5,7 @@ import axios from "axios";
 export const cookie = new Cookies();
 
 const serverConfig = {
-  baseURL: "/api/",
+  baseURL: "/api",
   useTokenAuthorization: true, // 是否开启 token 认证
 };
 
@@ -47,7 +47,7 @@ instance.interceptors.response.use(
     if (data.state === 7000) {
       notification.error({
         message: "Request Error",
-        description: "Token is expired. Please sign in again.",
+        description: data.message,
         placement: "topRight",
       });
       setTimeout(() => {

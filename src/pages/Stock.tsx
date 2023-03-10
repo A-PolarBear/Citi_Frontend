@@ -5,7 +5,7 @@ import Loading from "../components/Loading";
 import { Link } from "react-router-dom";
 import StockAPI from "../api/Stock";
 import Star from "../components/Star";
-import { formatNumber } from "../utils";
+import { formatNumber, numFormat } from "../utils";
 
 // stock data type
 export interface StockDataType {
@@ -31,6 +31,7 @@ function Stock() {
   const findRef = useRef<any>({ stockCode: "", stockName: "" });
   const pageOption = useRef<any>({ page: 1, size: 5 });
   const paginationProps = {
+    responsive: true,
     total: total,
     current: pageOption.current.page,
     pageSize: pageOption.current.size,
@@ -91,7 +92,7 @@ function Stock() {
     fetchStockData();
     const timerId = setInterval(() => {
       fetchRealTimeStockData();
-    }, 6 * 1000 + Math.floor(Math.random() * 5));
+    }, 15 * 1000 + Math.floor(Math.random() * 5));
     return () => clearTimeout(timerId);
   }, []);
 
@@ -101,15 +102,18 @@ function Stock() {
       title: "Symbol",
       dataIndex: "stockCode",
       key: "stockCode",
+      width: "120px",
       render: (_, record) => (
-        <Space size="middle">
-          <img
-            src={record.svg}
-            style={{ width: "32px", height: "32px", borderRadius: "16px" }}
-            alt=""
-          />
-          <Link to={`/stock/${record.stockCode}`}>{record.stockCode}</Link>
-        </Space>
+        <div style={{ wordWrap: "break-word", wordBreak: "break-word" }}>
+          <Space size="small">
+            <img
+              src={record.svg}
+              style={{ width: "32px", height: "32px", borderRadius: "16px" }}
+              alt=""
+            />
+            <Link to={`/stock/${record.stockCode}`}>{record.stockCode}</Link>
+          </Space>
+        </div>
       ),
     },
     {
@@ -132,7 +136,7 @@ function Stock() {
       title: "Volume",
       dataIndex: "volume",
       key: "volume",
-      // render:(_,record)=>formatNumber(record.volume)
+      render: (_, record) => numFormat(record.volume, 3),
     },
     {
       title: "Open",
@@ -196,20 +200,21 @@ function Stock() {
         <div>
           <Form
             style={{ display: "flex", justifyContent: "space-between" }}
+            className="items-center"
             onValuesChange={(e, all) => {
               findRef.current = all;
             }}
           >
-            <div style={{ flex: "1 auto" }}>
+            <div className="flex mr-2">
               <Form.Item
                 label="Symbol"
                 name="stockCode"
                 rules={[{ required: false, message: "Please input Symbol" }]}
                 style={{
                   display: "inline-block",
-                  width: "calc(25% - 24px)",
                   marginRight: "12px",
                 }}
+                className="w-1/2 md:w-1/2"
               >
                 <Input />
               </Form.Item>
@@ -219,12 +224,16 @@ function Stock() {
                 rules={[
                   { required: false, message: "Please input stock name!" },
                 ]}
-                style={{ display: "inline-block", width: "calc(25% - 8px)" }}
+                style={{ display: "inline-block" }}
+                className="w-1/2 md:w-1/2"
               >
                 <Input />
               </Form.Item>
             </div>
-            <Form.Item style={{ display: "inline-block", textAlign: "right" }}>
+            <Form.Item
+              style={{ display: "inline-block", textAlign: "right" }}
+              className="pt-8 sm:pt-0"
+            >
               <Button
                 htmlType="submit"
                 type="primary"
@@ -236,11 +245,13 @@ function Stock() {
             </Form.Item>
           </Form>
           <Table
+            scroll={{ x: "max-content" }}
             columns={columns}
             dataSource={stockList}
             pagination={paginationProps}
             loading={isLoading ? { indicator: loading_DIY } : false}
             rowKey={(record) => record.stockCode}
+            className="overflow-auto"
           ></Table>
         </div>
       </Card>

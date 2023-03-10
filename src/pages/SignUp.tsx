@@ -1,28 +1,33 @@
 import React, { useEffect, useState } from "react";
 // import signUpCardImg from "../assets/images/signUp.png";
-import signUpCardImg from "../assets/images/signBg-1.png"
+import signUpCardImg from "../assets/images/signBg-1.png";
 // import signUpCardImg from "../assets/images/signBg-2.jpg"
 import signUpLogo from "../assets/images/signLogo.png";
 import backToSignIn from "../assets/images/back.png";
-import signUpProtocalImg from "../assets/images/signUpProtocalImg.png"
-import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
-import { Input, Tooltip, Button, Checkbox, Divider, Modal, notification, Space } from 'antd';
-import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import signUpProtocalImg from "../assets/images/signUpProtocalImg.png";
+import { InfoCircleOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  Input,
+  Tooltip,
+  Button,
+  Checkbox,
+  Divider,
+  Modal,
+  notification,
+  Space,
+} from "antd";
+import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import { Link } from "react-router-dom";
-import LoginAPI from "../api/Sign"
-
-
-
+import LoginAPI from "../api/Sign";
 
 function SignUp(props: any) {
   // 没有勾选协议时的提示框：
   const openNotification = () => {
     notification.open({
-      message: 'Notification',
-      description:
-        'You don\'t agree the Terms and Conditions  ',
+      message: "Notification",
+      description: "You don't agree the Terms and Conditions  ",
       onClick: () => {
-        console.log('Notification Clicked!');
+        console.log("Notification Clicked!");
       },
     });
   };
@@ -38,7 +43,7 @@ function SignUp(props: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
-    console.log("isModalOpen", isModalOpen)
+    console.log("isModalOpen", isModalOpen);
   };
 
   const handleOk = () => {
@@ -52,33 +57,50 @@ function SignUp(props: any) {
   // 勾选协议的复选框状态：
   const agreeChange = (e: CheckboxChangeEvent) => {
     console.log(`checked_box = ${e.target.checked}`);
-    setAgreeState(e.target.checked)
+    setAgreeState(e.target.checked);
   };
-
 
   // sign up按钮 - 提交【邮箱（用户名）】+【密码】数据：
   const SubmitData = () => {
-    if (emailValue == '') {
-      setEmailNullTxtState(true)
+    if (emailValue == "") {
+      setEmailNullTxtState(true);
     }
-    if (passwordValue == '') {
-      setPwdNullTxtState(true)
-    }
-    else {
+    if (passwordValue == "") {
+      setPwdNullTxtState(true);
+    } else {
       if (!agreeState) {
-        console.log("没勾协议！")
-        openNotification()
-      }
-      else {
-        console.log("开始提交数据了！")
-        LoginAPI.signUp({ stocksystemuserName: emailValue, stocksystemuserPassword: passwordValue });
+        console.log("没勾协议！");
+        openNotification();
+      } else {
+        console.log("开始提交数据了！");
+        LoginAPI.signUp({
+          stocksystemuserName: emailValue,
+          stocksystemuserPassword: passwordValue,
+        })
+          .then((response: any) => {
+            if (response.state === 5000) {
+              notification.error({
+                message: "Error",
+                description: response.message,
+                placement: "topRight",
+              });
+            } else {
+              notification.success({
+                message: "Success",
+                description: "Sign up success",
+                placement: "topRight",
+                duration: 1.5,
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     }
   };
 
-
   return (
-
     <div className="signUpPage">
       <div className="signUpCard">
         <div className="signUpCardLeft">
@@ -90,7 +112,9 @@ function SignUp(props: any) {
               </Link>
             </div>
             <div className="LeftTXT1">Sign Up</div>
-            <div className="LeftTXT2">Enter to get access to data & information.</div>
+            <div className="LeftTXT2">
+              Enter to get access to data & information.
+            </div>
 
             <div className="inputUnit">
               <div className="infoTXT">Email *</div>
@@ -99,28 +123,37 @@ function SignUp(props: any) {
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 suffix={
                   <Tooltip title="请输入邮箱地址">
-                    <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                    <InfoCircleOutlined style={{ color: "rgba(0,0,0,.45)" }} />
                   </Tooltip>
                 }
                 className="Input"
                 value={emailValue}
-                onChange={e => {
+                onChange={(e) => {
                   setEmailValue(e.target.value);
                   console.log("emailValue", emailValue)
                   setEmailNullTxtState(false)
                 }}
                 status={emailNullTxtState ? "error" : ""}
               />
-              <div className="emailNullTxt"
-                style={emailNullTxtState ? { display: "" } : { display: "none" }}>Please input your email!</div>
+              <div
+                className="emailNullTxt"
+                style={
+                  emailNullTxtState ? { display: "" } : { display: "none" }
+                }
+              >
+                Please input your email!
+              </div>
             </div>
 
             <div className="inputUnit">
               <div className="infoTXT">Password *</div>
-              <Input.Password placeholder="input password" className="Input" value={passwordValue}
+              <Input.Password
+                placeholder="input password"
+                className="Input"
+                value={passwordValue}
                 status={pwdNullTxtState ? "error" : ""}
-                onChange={e => {
-                  console.log("e.target.value", e.target.value)
+                onChange={(e) => {
+                  console.log("e.target.value", e.target.value);
                   setPasswordValue(e.target.value);
                   setPwdNullTxtState(false)
 
@@ -129,7 +162,6 @@ function SignUp(props: any) {
             </div>
 
             <div className="remember">
-
               <Checkbox onChange={agreeChange} checked={agreeState}>
                 I agree the{" "}
               </Checkbox>
@@ -137,36 +169,51 @@ function SignUp(props: any) {
                 Terms and Conditions
               </span>
               {/* 协议内容： */}
-              <Modal title="Terms and Conditions" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} className="protocalModal">
+              <Modal
+                title="Terms and Conditions"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                className="protocalModal"
+              >
                 <p>Hello !</p>
                 <p>Welcome to visit our project!</p>
                 <p>Here is group D- CJB, JGQ, XX, LJX! </p>
                 <p>Made by SCU SE with Citi bank</p>
-                <img src={signUpProtocalImg} alt="" className="signUpProtocalImg" />
+                <img
+                  src={signUpProtocalImg}
+                  alt=""
+                  className="signUpProtocalImg"
+                />
               </Modal>
-
             </div>
 
-            <Button type="primary" className="signUpButton" onClick={SubmitData}>Sign Up</Button>
+            <Button
+              type="primary"
+              className="signUpButton"
+              onClick={SubmitData}
+            >
+              Sign Up
+            </Button>
 
             <div className="DividerLine">
-              <Divider plain style={{ color: '#c2c2c2' }}>Or</Divider>
+              <Divider plain style={{ color: "#c2c2c2" }}>
+                Or
+              </Divider>
             </div>
 
             <Link to="/stock">
-              <Button className="signUpThroughGoogle" >
+              <Button className="signUpThroughGoogle">
                 <div className="googleTXT">Back to frontPage</div>
               </Button>
             </Link>
-
           </div>
         </div>
         <div className="signUpCardRight">
           <img src={signUpCardImg} alt="" className="signUpCardImg" />
         </div>
       </div>
-    </div >
-
+    </div>
   );
 }
 
