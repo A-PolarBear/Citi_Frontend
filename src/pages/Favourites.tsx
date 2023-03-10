@@ -6,26 +6,26 @@ import FavouritesAPI from "../api/Favourites"
 function Favorites() {
   const [stockCodeList, setStockCodeList] = useState([]);
 
-  async function getFavouriteList(){
-    const res:any = await FavouritesAPI.getFavourites();
+  async function getFavouriteList() {
+    const res: any = await FavouritesAPI.getFavourites();
     console.log("🚀 ~ file: Favourites.tsx:12 ~ getFavouriteList ~ res:", res);
-    const list = res.map((item: { userfavoritesStockCode: any; })=>item.userfavoritesStockCode);
+    const list = res.map((item: { userfavoritesStockCode: any; }) => item.userfavoritesStockCode);
     setStockCodeList(list);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getFavouriteList();
-    console.log("🚀 ~ file: Favourites.tsx:16 ~ getFavouriteList ~ list:",stockCodeList)
-  },[])
+    console.log("🚀 ~ file: Favourites.tsx:16 ~ getFavouriteList ~ list:", stockCodeList)
+  }, [])
 
   const colCount = stockCodeList.length;
   const cols = [];
-  if (colCount === 0){
+  if (colCount === 0) {
     cols.push(<Col key={1} sm={24} lg={12} xl={8}>
-    <Card>
+      <Card>
         No Favourites.
-    </Card>
-  </Col>)
+      </Card>
+    </Col>)
   }
   for (let i = 0; i < colCount; i++) {
     cols.push(
@@ -42,15 +42,15 @@ function Favorites() {
 
   return (
     <>
-    <ConfigProvider
-      theme={{
-        token: {
-          screenXLMin: 1480, // for grid (row/col)
-          screenXL:1480,
-        }
-      }}
+      <ConfigProvider
+        theme={{
+          token: {
+            screenXLMin: 1480, // for grid (row/col)
+            screenXL: 1480,
+          }
+        }}
       >
-      <Row gutter={[24, 24]}>{cols}</Row>
+        <Row gutter={[24, 24]}>{cols}</Row>
       </ConfigProvider>
     </>
   );
