@@ -282,9 +282,8 @@ function Create() {
                     submit
                   </Button>
                   <Button
-                    type="default"
-                    className="creatResetButton"
                     onClick={reset}
+                    style={{width:"80px"}}
                   >
                     reset
                   </Button>

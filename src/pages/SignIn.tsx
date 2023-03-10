@@ -62,7 +62,7 @@ function SignIn(props: any) {
     // 3.3 输入完毕，点击气泡框的OK按钮：
     const handleModalOk = () => {
         form.submit();
-        if (changePwdEmail != "" && oldPwdValue != "" && newPwdValue1 != '' && newPwdValue2 != "") {
+        if (changePwdEmail !== "" && oldPwdValue !== "" && newPwdValue1 !== '' && newPwdValue2 !== "") {
             if (newPwdValue1 === newPwdValue2) {
                 console.log("所有数据已填，且两次密码一致，要发送新密码了！")
                 LoginAPI.changePwd({ email: changePwdEmail, oldPwd: oldPwdValue, newPwd: newPwdValue2 })
@@ -121,7 +121,7 @@ function SignIn(props: any) {
                         cookie.set("token", response.data);
                         notification.success({
                             message: "Success",
-                            description: "login success",
+                            description: "Login success",
                             placement: "topRight",
                             duration: 1.5,
                         });

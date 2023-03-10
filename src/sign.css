@@ -299,6 +299,13 @@
   display: flex;
 }
 
+.dark .createPage{
+  background-color: #000000;
+  border-radius: 20px;
+  height: 550px;
+  display: flex;
+}
+
 /* 3.1 卡片左侧： */
 .createPage .createLeftBox{
   width: 55%;
@@ -336,6 +343,13 @@
   margin-bottom: 10px;
   color: #2c1e86;
 }
+
+.dark .createPage .inputUnit .infoTXT{
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #1890ff;
+}
+
 .createPage .inputUnit .emailNullTxt{
   color: rgb(238, 49, 49);
   font-size: 0.75rem;
@@ -344,11 +358,14 @@
   transition: all 0.5s;
 }
 
-.createSubmitButton{
-}
+
 .creatResetButton{
   width: 80px;
 }
+
+.dark [type="button"].ant-btn-default{
+  background: transparent;
+} 
 
 /* 3.2 卡片右侧 */
 .createPage .createRIghtBox{

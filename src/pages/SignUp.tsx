@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-// import signUpCardImg from "../assets/images/signUp.png";
+import  { useState } from "react";
 import signUpCardImg from "../assets/images/signBg-1.png";
-// import signUpCardImg from "../assets/images/signBg-2.jpg"
 import signUpLogo from "../assets/images/signLogo.png";
 import backToSignIn from "../assets/images/back.png";
 import signUpProtocalImg from "../assets/images/signUpProtocalImg.png";
@@ -14,13 +12,14 @@ import {
   Divider,
   Modal,
   notification,
-  Space,
 } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginAPI from "../api/Sign";
 
 function SignUp(props: any) {
+  const navigate = useNavigate();
+  
   // 没有勾选协议时的提示框：
   const openNotification = () => {
     notification.open({
@@ -62,10 +61,10 @@ function SignUp(props: any) {
 
   // sign up按钮 - 提交【邮箱（用户名）】+【密码】数据：
   const SubmitData = () => {
-    if (emailValue == "") {
+    if (emailValue === "") {
       setEmailNullTxtState(true);
     }
-    if (passwordValue == "") {
+    if (passwordValue === "") {
       setPwdNullTxtState(true);
     } else {
       if (!agreeState) {
@@ -78,18 +77,19 @@ function SignUp(props: any) {
           stocksystemuserPassword: passwordValue,
         })
           .then((response: any) => {
-            if (response.state === 5000) {
-              notification.error({
-                message: "Error",
-                description: response.message,
-                placement: "topRight",
-              });
-            } else {
+            if (response.state === 200) {
               notification.success({
                 message: "Success",
                 description: "Sign up success",
                 placement: "topRight",
                 duration: 1.5,
+              });
+              setTimeout(()=>navigate("/signin"),1500);
+            } else {
+              notification.error({
+                message: "Error",
+                description: response.message,
+                placement: "topRight",
               });
             }
           })
