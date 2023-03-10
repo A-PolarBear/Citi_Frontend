@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import StockAPI from "../api/Stock";
 import Star from "../components/Star";
 import { formatNumber, numFormat } from "../utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 
 // stock data type
 export interface StockDataType {
@@ -209,25 +211,21 @@ function Stock() {
               <Form.Item
                 label="Symbol"
                 name="stockCode"
-                rules={[{ required: false, message: "Please input Symbol" }]}
                 style={{
                   display: "inline-block",
                   marginRight: "12px",
                 }}
                 className="w-1/2 md:w-1/2"
               >
-                <Input />
+                <Input prefix={<FontAwesomeIcon icon={faMagnifyingGlass}/>}/>
               </Form.Item>
               <Form.Item
                 label="StockName"
                 name="stockName"
-                rules={[
-                  { required: false, message: "Please input stock name!" },
-                ]}
                 style={{ display: "inline-block" }}
                 className="w-1/2 md:w-1/2"
               >
-                <Input />
+                <Input prefix={<FontAwesomeIcon icon={faMagnifyingGlass}/>} />
               </Form.Item>
             </div>
             <Form.Item
@@ -240,7 +238,7 @@ function Stock() {
                 style={{ backgroundColor: "#1677ff" }}
                 onClick={fetchStockData}
               >
-                Submit
+                <span style={{ paddingLeft: "4px" }}>Filter</span>
               </Button>
             </Form.Item>
           </Form>
