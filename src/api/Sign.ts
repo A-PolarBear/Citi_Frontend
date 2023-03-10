@@ -6,7 +6,7 @@ const LoginAPI = {
   signUp: (userInfo: any) =>
     instance.post("/users/reg", userInfo),
   changePwd: (userInfo: any) =>
-    instance.post("/users/change-pwd", userInfo),
+    instance.put("/users/change-pwd", userInfo),
 };
 
 export default LoginAPI;
