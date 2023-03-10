@@ -7,6 +7,8 @@ const LoginAPI = {
     instance.post("/users/reg", userInfo),
   changePwd: (userInfo: any) =>
     instance.put("/users/change-pwd", userInfo),
+  deleteUser: ( username: any) =>
+    instance.delete("/users/" + username),
 };
 
 export default LoginAPI;

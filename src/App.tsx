@@ -36,11 +36,11 @@ function App() {
       ],
     },
     {
-      path: "/signIn",
+      path: "/signin",
       element: <SignIn />
     },
     {
-      path: "/signUp",
+      path: "/signup",
       element: <SignUp />
     }
   ]);

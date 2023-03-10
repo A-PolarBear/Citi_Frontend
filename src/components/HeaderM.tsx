@@ -1,6 +1,13 @@
-import { Row, Col, Breadcrumb, Button } from "antd";
-import { NavLink, useLoaderData,Link } from "react-router-dom";
+import { Row, Col, Breadcrumb, Button, Popover, notification } from "antd";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import avatar from "../assets/images/avatar.png"
+import loginExit from "../assets/images/loginExit.png"
+import loginOffImg from "../assets/images/loginOff.png"
+import { Cookies } from "react-cookie";
 import { useEffect, useState } from "react";
+import LoginAPI from "../api/Sign"
+
+const cookie = new Cookies();
 
 type IProps = React.PropsWithChildren<{
   pathname: string;
@@ -8,12 +15,71 @@ type IProps = React.PropsWithChildren<{
   lighttheme: boolean;
 }>;
 
+
 function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
-  const [checked, setChecked] = useState(() => {
-    const storage = localStorage.getItem("checked");
-    if (storage) return storage === "true" ? true : false;
-    else return false;
-  });
+
+  const navigate = useNavigate();
+  // 判断用户是否登录：
+  const [userLoginState, setUserLoginState] = useState(false)
+  useEffect(() => {
+    // 如果本地的cookie中的token不为空，则说明用户已经登录：
+    if (cookie.get("token") != null) {
+      const current_user_emailValue = localStorage.getItem('current_user_emailValue');
+      console.log("current_user_emailValue", current_user_emailValue)
+      setUserLoginState(true)
+    }
+    else {
+      setUserLoginState(false)
+    }
+  },[])
+
+  // 用户登出：
+  const loginOut = () => {
+    // 把cookie清空：
+    cookie.set("token", '');
+    console.log("loginOut方法开始调用")
+    setUserLoginState(false);
+    setTimeout(()=>navigate("/signin"),1500);
+  }
+  // 用户注销：
+  // const loginOff = () => {
+  //   // 把cookie清空：
+  //   console.log("loginOff方法开始调用")
+  //   setUserLoginState(false)
+  //   LoginAPI.deleteUser(localStorage.getItem('current_user_emailValue')).then((response:any)=>{
+  //     if(response.state!==4000){
+  //       notification.success({
+  //         message: "Success",
+  //         description: "Log out success",
+  //         placement: "topRight",
+  //         duration: 1.5,
+  //       });
+  //       cookie.set('token','');
+  //     }else{
+  //       notification.error({
+  //         message: "Error",
+  //         description: response.message,
+  //         placement: "topRight",
+  //       });
+  //     }
+  //   })
+  // }
+
+  const UserInfoPopoverContent = (
+    <div>
+      <p className="firstTXT text-sm">Hello,dear user</p>
+      <p className="secondTXT text-sm">{localStorage.getItem('current_user_emailValue')}</p>
+      <div className="popoverImgBox1" onClick={loginOut}>
+        <span>Sign out</span>
+        <img src={loginExit} alt="" className="loginExit" />
+      </div>
+      {/* <div className="popoverImgBox2" onClick={loginOff}>
+        <span>Log out</span>
+        <img src={loginOffImg} alt="" className="loginExit" />
+      </div> */}
+    </div>
+  );
+
 
   let patharr = pathname.split("/");
   const arr = patharr.map((value, index) => {
@@ -25,9 +91,7 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
     );
   });
 
-  useEffect(() => {
-    localStorage.setItem("checked", JSON.stringify(checked));
-  }, [checked]);
+
 
   return (
     <>
@@ -51,8 +115,12 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
           </div>
         </Col>
         <Col span={24} md={18} className="header-control">
-          <Link to="/SignIn">
-                <Button type="primary" className="signInButton">Sign In</Button>
+          <Popover content={UserInfoPopoverContent} placement="bottom" title="User Info" style={userLoginState ? { display: '' } : { display: "none" }} className="w-auto">
+            <img className="indexAvatar" src={avatar} alt="图片不见了" style={userLoginState ? { display: '' } : { display: "none" }}/>
+          </Popover>
+
+          <Link to="/SignIn" style={userLoginState ? { display: "none" } : { display: '' }}>
+            <Button type="primary" className="signInButton">Sign In</Button>
           </Link>
           <Button
             onClick={() => setTheme()}
@@ -73,15 +141,8 @@ function HeaderM({ pathname, setTheme, lighttheme }: IProps) {
               ></path>
             </svg>
           </Button>
-          <label className="rocker rocker-small">
-            <input
-              type="checkbox"
-              onClick={() => setChecked(!checked)}
-              defaultChecked={checked}
-            />
-            <span className="switch-left">Yes</span>
-            <span className="switch-right">No</span>
-          </label>
+
+
         </Col>
       </Row>
     </>

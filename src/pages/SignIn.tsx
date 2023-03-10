@@ -70,6 +70,8 @@ function SignIn(props: any) {
                 form.resetFields();
                 // console.log("newPwdValue1", newPwdValue1)
                 setIsModalOpen(false);
+                setEmailValue(changePwdEmail)
+                setPasswordValue(newPwdValue1)
             }
             else {
                 console.log("两次密码不一致")
@@ -123,9 +125,11 @@ function SignIn(props: any) {
                             placement: "topRight",
                             duration: 1.5,
                         });
+
+                        localStorage.setItem("current_user_emailValue", emailValue.toString())
                         setTimeout(() => {
                             navigate("/");
-                        }, 2000);
+                        }, 1500);
                     }
                 }).catch(
                     (error) => {
