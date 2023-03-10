@@ -56,14 +56,21 @@ function Main() {
           key="left"
           width={250}
           open={visible}
-          style={{padding:"0"}}
+          style={{ padding: "0" }}
         >
-          <Layout className="justify-center bg-zinc-50 pt-4">
+          <Layout
+            style={
+              isLightTheme
+                ? { backgroundColor: "", padding: "0 20px" }
+                : { backgroundColor: "#1a202c", padding: "0 20px" }
+            }
+            className="justify-center"
+          >
             <Sider
               theme={isLightTheme ? "light" : "dark"}
               trigger={null}
               className={"sider-primary"}
-              style={{flex:"1 auto"}}
+              style={{ flex: "1 auto", boxShadow: "" }}
             >
               <SideBar theme={isLightTheme} fold={false} />
             </Sider>

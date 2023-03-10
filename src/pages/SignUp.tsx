@@ -102,9 +102,9 @@ function SignUp(props: any) {
 
   return (
     <div className="signUpPage">
-      <div className="signUpCard">
-        <div className="signUpCardLeft">
-          <div className="LeftLittle">
+      <div className="signUpCard p-2 pl-4">
+        <div className="signUpCardLeft flex-auto lg:flex-none">
+          <div className="LeftLittle flex-auto lg:flex-none">
             <div className="headerImgBox">
               <img src={signUpLogo} alt="" className="signUpLogoImg" />
               <Link to="/signIn">
@@ -165,7 +165,7 @@ function SignUp(props: any) {
               <Checkbox onChange={agreeChange} checked={agreeState}>
                 I agree the{" "}
               </Checkbox>
-              <span onClick={showModal} className="signUpProtocal">
+              <span onClick={showModal} className="signUpProtocal text-[12px] lg:text-base">
                 Terms and Conditions
               </span>
               {/* 协议内容： */}
@@ -209,7 +209,7 @@ function SignUp(props: any) {
             </Link>
           </div>
         </div>
-        <div className="signUpCardRight">
+        <div className="signUpCardRight hidden md:block">
           <img src={signUpCardImg} alt="" className="signUpCardImg" />
         </div>
       </div>

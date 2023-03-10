@@ -143,9 +143,9 @@ function SignIn(props: any) {
     return (
 
         <div className="signUpPage">
-            <div className="signUpCard">
-                <div className="signUpCardLeft">
-                    <div className="LeftLittle">
+            <div className="signUpCard p-2 pl-4">
+                <div className="signUpCardLeft flex-auto lg:flex-none ">
+                    <div className="LeftLittle flex-auto lg:flex-none">
                         <div className="headerImgBox">
                             <img src={signUpLogo} alt="" className="signUpLogoImg" />
                             <Link to="/stock">
@@ -190,12 +190,12 @@ function SignIn(props: any) {
                             <div className="emailNullTxt" style={pwdNullTxtState ? { display: "" } : { display: "none" }}>Please input your password!</div>
                         </div>
 
-                        <div className="toolbox">
+                        <div className="toolbox flex items-center">
                             <div className="rememberPasswordBox">
                                 <Switch defaultChecked onChange={switchChange} />
-                                <span className="rememberPasswordTXT">Remember me</span>
+                                <span className="rememberPasswordTXT text-[10px] lg:text-base">Remember me</span>
                             </div>
-                            <div className="ForgetPwd" onClick={showModal}>Change password?</div>
+                            <div className="ForgetPwd  text-[10px] lg:text-base" onClick={showModal}>Change password?</div>
                         </div>
                         <Modal title="Change password? " open={isModalOpen} onOk={handleModalOk} onCancel={handleCancel}>
                             <div className="modalValidBox" >
@@ -266,14 +266,14 @@ function SignIn(props: any) {
 
                         <Button type="primary" className="signUpButton" onClick={SubmitData}>Sign In</Button>
 
-                        <div className="SignUpReminderBox">
+                        <div className="SignUpReminderBox text-[12px] lg:text-base">
                             Don't have an account?
                             <Link to="/signUp" className="SignUpReminder">Sign Up</Link>
                         </div>
 
                     </div>
                 </div>
-                <div className="signUpCardRight">
+                <div className="signUpCardRight hidden md:block">
                     <img src={signUpCardImg} alt="" className="signUpCardImg" />
                 </div>
             </div>
