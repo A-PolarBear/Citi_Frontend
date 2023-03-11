@@ -22,7 +22,7 @@ function App() {
       path: "/",
       element: <Main />,
       children: [
-        { index: true, element: <Navigate to="stock" /> },
+        { index: true, element: <Navigate to="/signin" /> },
         { path: "stock", element: <Stock /> },
         { path: "stock/:stockCode", element: <StockDetail /> },
         {
