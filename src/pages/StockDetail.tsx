@@ -97,7 +97,7 @@ function StockDetail() {
     onChange: (info) => {
       console.log(info.fileList);
     },
-    action: "http://localhost:3000/api/stockhistories/upload",
+    action: "http://47.108.149.73/api/stockhistories/upload",
   };
 
   function FavouriteHandler(){
