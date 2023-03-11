@@ -143,9 +143,9 @@ function SignIn(props: any) {
     return (
 
         <div className="signUpPage">
-            <div className="signUpCard p-2 pl-4">
+            <div className="signUpCard p-2 pl-4 md:p-0">
                 <div className="signUpCardLeft flex-auto lg:flex-none ">
-                    <div className="LeftLittle flex-auto lg:flex-none">
+                    <div className="LeftLittle flex-auto md:flex-none">
                         <div className="headerImgBox">
                             <img src={signUpLogo} alt="" className="signUpLogoImg" />
                             <Link to="/stock">
@@ -193,9 +193,9 @@ function SignIn(props: any) {
                         <div className="toolbox flex items-center">
                             <div className="rememberPasswordBox">
                                 <Switch defaultChecked onChange={switchChange} />
-                                <span className="rememberPasswordTXT text-[10px] lg:text-base">Remember me</span>
+                                <span className="rememberPasswordTXT text-[10px] lg:text-sm">Remember me</span>
                             </div>
-                            <div className="ForgetPwd  text-[10px] lg:text-base" onClick={showModal}>Change password?</div>
+                            <div className="ForgetPwd  text-[10px] lg:text-sm" onClick={showModal}>Change password?</div>
                         </div>
                         <Modal title="Change password? " open={isModalOpen} onOk={handleModalOk} onCancel={handleCancel}>
                             <div className="modalValidBox" >
@@ -273,7 +273,7 @@ function SignIn(props: any) {
 
                     </div>
                 </div>
-                <div className="signUpCardRight hidden md:block">
+                <div className="signUpCardRight hidden lg:block">
                     <img src={signUpCardImg} alt="" className="signUpCardImg" />
                 </div>
             </div>
