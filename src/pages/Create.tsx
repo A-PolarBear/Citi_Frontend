@@ -278,7 +278,7 @@ function Create() {
                   <div className="emailNullTxt" style={highValueNullState ? { display: "" } : { display: "none" }}>Please input the high price!</div>
                 </div>
                 <div style={{ marginTop: "20%" }} className="flex flex-col justify-start sm:items-center sm:flex-row">
-                  <Button type="primary" className="createSubmitButton mb-2 w-16 sm:mb-0 sm:mr-3" onClick={submitData}>
+                  <Button type="primary" className="createSubmitButton mb-2 w-16 sm:mb-0 sm:mr-3" onClick={submitData} style={{width:"80px"}}>
                     submit
                   </Button>
                   <Button
