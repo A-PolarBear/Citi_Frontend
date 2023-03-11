@@ -61,7 +61,7 @@ function Main() {
           <Layout
             style={
               isLightTheme
-                ? { backgroundColor: "", padding: "0 20px" }
+                ? { backgroundColor: "#fafafa", padding: "0 20px" }
                 : { backgroundColor: "#1a202c", padding: "0 20px" }
             }
             className="justify-center"
