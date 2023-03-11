@@ -1,3 +1,4 @@
+import qs from "qs";
 import instance from "./index";
 
 const LoginAPI = {
@@ -6,7 +7,7 @@ const LoginAPI = {
   signUp: (userInfo: any) =>
     instance.post("/users/reg", userInfo),
   changePwd: (userInfo: any) =>
-    instance.put("/users/change-pwd", {params:userInfo}),
+    instance.put("/users/change-pwd?"+qs.stringify(userInfo)),
 };
 
 export default LoginAPI;
