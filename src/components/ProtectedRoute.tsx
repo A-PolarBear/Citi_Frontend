@@ -7,7 +7,7 @@ const ProtectedRoute=()=>{
   console.log("🚀 ~ file: ProtectedRoute.tsx:7 ~ ProtectedRoute ~  token:",  token)
 
   return (
-    token!==""?<Outlet/>:<Navigate to="/signin" />
+    (token===""||token===null || token===undefined)?<Navigate to="/signin" />:<Outlet/>
   )
 }
 
