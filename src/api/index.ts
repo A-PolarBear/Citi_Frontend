@@ -15,22 +15,21 @@ const instance = axios.create({
   timeout: 10000,
 });
 
-// 创建请求拦截
+// request interceptor
 instance.interceptors.request.use(
   (config) => {
     config.headers["Access-Control-Allow-Methods"] = "*";
     config.headers["Access-Control-Allow-Origin"] = "*";
-    // 如果开启 token 认证
+    // if authorization is true
     if (serverConfig.useTokenAuthorization) {
       config.headers["token"] = cookie.get("token");
     }
-    // 设置请求头
+    // header setup
     if (!config.headers["content-type"]) {
-      // 如果没有设置请求头
       if (config.method === "post") {
-        config.data = JSON.stringify(config.data); // 序列化,比如表单数据
+        config.data = JSON.stringify(config.data); // JSON stringify
       }
-      config.headers["content-type"] = "application/json"; // 默认类型
+      config.headers["content-type"] = "application/json"; //default
     }
     console.log("request config:", config);
     return config;
@@ -40,7 +39,7 @@ instance.interceptors.request.use(
   }
 );
 
-// 创建响应拦截
+// response interceptor
 instance.interceptors.response.use(
   (res) => {
     let data = res.data;
