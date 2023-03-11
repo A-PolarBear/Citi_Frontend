@@ -9,40 +9,43 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import SignIn from "./pages/SignIn"
-import SignUp from "./pages/SignUp"
-import "./sign.css"
-
-
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import "./sign.css";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-
   const router = createBrowserRouter([
     {
-      path: "/",
-      element: <Main />,
+      element: <ProtectedRoute />,
       children: [
-        { index: true, element: <Navigate to="/signin" /> },
-        { path: "stock", element: <Stock /> },
-        { path: "stock/:stockCode", element: <StockDetail /> },
         {
-          path: "create",
-          element: <Create />,
-        },
-        {
-          path: "favourites",
-          element: <Favourites />,
+          path: "/",
+          element: <Main />,
+          children: [
+            { index: true, element: <Navigate to="/stock" /> },
+            { path: "stock", element: <Stock /> },
+            { path: "stock/:stockCode", element: <StockDetail /> },
+            {
+              path: "create",
+              element: <Create />,
+            },
+            {
+              path: "favourites",
+              element: <Favourites />,
+            },
+          ],
         },
       ],
     },
     {
       path: "/signin",
-      element: <SignIn />
+      element: <SignIn />,
     },
     {
       path: "/signup",
-      element: <SignUp />
-    }
+      element: <SignUp />,
+    },
   ]);
 
   return <RouterProvider router={router} />;
